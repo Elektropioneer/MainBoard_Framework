@@ -11,9 +11,6 @@
 #define ATTACHED	1
 #define DATTACHED	0
 
-//macros for arduino replys
-#define ERROR		'E'
-#define SUCCESS		'S'
 
 //macros for setup status
 #define SEND		1

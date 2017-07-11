@@ -19,9 +19,8 @@
 #define FORWARD						1
 #define BACKWARD					-1
 
-#define ROBOT_STATE_COLLISION		0
-#define ROBOT_STATE_TACTIC_SIDE		1
-#define ROBOT_STATE_TACTIC_CENTER   2
+#define COLLISION		0
+#define TACTIC_ONE		1
 
 struct odometry_position
 {
@@ -55,6 +54,7 @@ uint8_t     odometry_get_status(void);
 void        odometry_stop(int8_t type);
 void        odometry_query_position(void);
 //uint8_t 	odometry_kurva(uint16_t x_pos, uint16_t y_pos, int8_t angle, uint8_t direction, uint8_t speed, uint8_t (*callback)(uint32_t start_time))
+void 		odometry_match_end(void)
 
 int16_t     odometry_get_x(void);
 int16_t     odometry_get_y(void);

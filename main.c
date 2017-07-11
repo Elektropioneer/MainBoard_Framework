@@ -28,16 +28,17 @@
 #include <stdlib.h>
 #include "usart.h"
 #include "actuator.h"
-#include "debug.h"
-#include "sensors.h"
 #include "gpio.h"
-#include "i2c.h"
 #include "ax.h"
+#include "system.h"
+#include "sides.h"
 
 int main()
 {
 
+	system_init();
 
+	darkside();
 
 	return 0;
 

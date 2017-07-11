@@ -4,12 +4,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../darkside.c \
 ../main.c 
 
 OBJS += \
+./darkside.o \
 ./main.o 
 
 C_DEPS += \
+./darkside.d \
 ./main.d 
 
 

@@ -11,11 +11,20 @@
 #include <avr/io.h>
 #include <stdint.h>
 
+typedef struct config_pins {
+	uint8_t pin;
+	uint8_t direction;
+	uint8_t pullup;
+	uint8_t current_state;
+} PINS;
+
 void system_init(void);
 
 uint8_t system_get_match_started(void);
 uint32_t system_get_system_time(void);
 void system_set_match_started(void);
 void system_reset_system_time(void);
+
+
 
 #endif /* INC_SYSTEM_H_ */

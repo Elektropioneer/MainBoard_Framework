@@ -7,9 +7,10 @@
 #include <math.h>
 #include <avr/io.h>
 
-
+// current speed
 static uint8_t current_speed = 0;
 
+// struct used for odometry_position (reference from this)
 volatile struct odometry_position position=
 {
 	.x     = 0,
@@ -18,6 +19,11 @@ volatile struct odometry_position position=
 	.state = IDLE
 };
 
+/*
+ * 	void odometry_set_speed(uint8_t speed)
+ *
+ * 	Send odometry board the max speed
+ */
 void odometry_set_speed(uint8_t speed)
 {
 	if(speed == current_speed)
@@ -32,6 +38,11 @@ void odometry_set_speed(uint8_t speed)
 	current_speed = speed;
 }
 
+/*
+ * 	void odometry_query_position(void)
+ *
+ * 	Get the current position. Update it to position
+ */
 void odometry_query_position(void)
 {
 	uint8_t buffer[8];
@@ -47,6 +58,11 @@ void odometry_query_position(void)
 	position.angle = (buffer[5] << 8) | buffer[6];
 }
 
+/*
+ * 	static uint8_t odometry_wait_until_done(uint8_t (*callback)(uint32_t start_time))
+ *
+ * 	Callback function, execute function while odometry is moving
+ */
 static uint8_t odometry_wait_until_done(uint8_t (*callback)(uint32_t start_time))
 {
 	uint32_t time = system_get_system_time();
@@ -63,6 +79,11 @@ static uint8_t odometry_wait_until_done(uint8_t (*callback)(uint32_t start_time)
 	return ODOMETRY_SUCCESS;
 }
 
+/*
+ * 	void odometry_stop(int8_t type)
+ *
+ * 	Send stop to odometry
+ */
 void odometry_stop(int8_t type)
 {
 	uint8_t buffer[8];
@@ -78,6 +99,11 @@ void odometry_stop(int8_t type)
 	}while(position.state == MOVING || position.state == ROTATING);
 }
 
+/*
+ * 	uint8_t odometry_move_straight(int16_t distance, uint8_t speed, uint8_t (*callback)(uint32_t start_time))
+ *
+ * 	Send move straight command to odometry
+ */
 uint8_t odometry_move_straight(int16_t distance, uint8_t speed, uint8_t (*callback)(uint32_t start_time))
 {
 	uint8_t buffer[8];
@@ -91,6 +117,11 @@ uint8_t odometry_move_straight(int16_t distance, uint8_t speed, uint8_t (*callba
 	return odometry_wait_until_done(callback);
 }
 
+/*
+ * 	uint8_t odometry_move_to_position(struct odometry_position* position, uint8_t speed, uint8_t direction, uint8_t (*callback)(uint32_t start_time))
+ *
+ * 	Send move to position function to odometry
+ */
 uint8_t odometry_move_to_position(struct odometry_position* position, uint8_t speed, uint8_t direction, uint8_t (*callback)(uint32_t start_time))
 {
 	uint8_t buffer[8];
@@ -130,6 +161,11 @@ void odometry_set_position(struct odometry_position* new_position)
 		_delay_ms(50);
 }
 
+/*
+ * 	uint8_t odometry_rotate_for(uint16_t angle,uint8_t speed, uint8_t (*callback)(uint32_t start_time))
+ *
+ * 	Send rotate for command to odometry board
+ */
 uint8_t odometry_rotate_for(uint16_t angle,uint8_t speed, uint8_t (*callback)(uint32_t start_time))
 {
 
@@ -147,6 +183,11 @@ uint8_t odometry_rotate_for(uint16_t angle,uint8_t speed, uint8_t (*callback)(ui
 
 }
 
+/*
+ * 	uint8_t odometry_set_angle(uint16_t angle, uint8_t speed, uint8_t (*callback)(uint32_t start_time))
+ *
+ * 	Set angle for odometry
+ */
 uint8_t odometry_set_angle(uint16_t angle, uint8_t speed, uint8_t (*callback)(uint32_t start_time))
 {
 	uint8_t buffer[8];
@@ -182,7 +223,7 @@ uint8_t odometry_kurva(uint16_t x_pos, uint16_t y_pos, int8_t angle, uint8_t dir
 	return odometry_wait_until_done(callback);
 }
 
-void match_end_odometry()
+void odometry_match_end(void)
 {
 	uint8_t buffer[8];
 
@@ -193,6 +234,9 @@ void match_end_odometry()
 
 }
 
+/*
+ * 	Update position
+ */
 uint8_t getState(void)
 {
 	odometry_query_position();

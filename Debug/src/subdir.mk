@@ -6,30 +6,27 @@
 C_SRCS += \
 ../src/actuator.c \
 ../src/ax.c \
-../src/debug.c \
+../src/can.c \
 ../src/gpio.c \
-../src/i2c.c \
-../src/sensors.c \
+../src/odometry.c \
 ../src/system.c \
 ../src/usart.c 
 
 OBJS += \
 ./src/actuator.o \
 ./src/ax.o \
-./src/debug.o \
+./src/can.o \
 ./src/gpio.o \
-./src/i2c.o \
-./src/sensors.o \
+./src/odometry.o \
 ./src/system.o \
 ./src/usart.o 
 
 C_DEPS += \
 ./src/actuator.d \
 ./src/ax.d \
-./src/debug.d \
+./src/can.d \
 ./src/gpio.d \
-./src/i2c.d \
-./src/sensors.d \
+./src/odometry.d \
 ./src/system.d \
 ./src/usart.d 
 
