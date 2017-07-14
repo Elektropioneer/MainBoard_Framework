@@ -13,6 +13,8 @@
 
 extern uint8_t debug_pins[5][2];
 
+#define PIN_JUMPER		0
+
 void system_init(void);
 
 uint8_t system_get_match_started(void);

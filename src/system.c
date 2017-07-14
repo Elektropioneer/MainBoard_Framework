@@ -11,22 +11,6 @@
 #include "list_generic.h"
 #include "can.h"
 
-static volatile unsigned long sys_time;
-static uint8_t match_started;
-static void (*timer_callback)(void) = NULL;
-
-unsigned int received = 0;
-
-//pin and the starting state
-
-uint8_t debug_pins[5][2] = {
-		{48, OFF},
-		{49, OFF},
-		{50, OFF},
-		{51, OFF},
-		{52, OFF}
-};
-
 /*
  * 0 PA0 		8  PB0 		16 PC0 		24 PD0 		32 PE0 		40 PF0		48 PG0
  * 1 PA1 		9  PB1 		17 PC1 		25 PD1 		33 PE1 		41 PF1		49 PG1
@@ -38,6 +22,21 @@ uint8_t debug_pins[5][2] = {
  * 7 PA7 		15 PB7 		23 PC7 		31 PD7 		39 PE7 		47 PF7
  */
 
+
+static volatile unsigned long sys_time;
+static uint8_t match_started;
+static void (*timer_callback)(void) = NULL;
+
+unsigned int received = 0;
+
+//pin and the starting state
+uint8_t debug_pins[5][2] = {
+		{48, OFF},
+		{49, OFF},
+		{50, OFF},
+		{51, OFF},
+		{52, OFF}
+};
 
 /*
  *	Function: 		void timer_register_callback(void (*callback)(void))
@@ -90,20 +89,18 @@ uint32_t system_get_system_time(void) 	{ 	return sys_time; 		}
 uint8_t system_get_match_started(void) 	{ 	return match_started; 	}
 
 static void debug_init() {
-	for(int i=0; i < 5; i++) {
+
+	// total divided by one element -> number of elements (row)
+	int num_of_elements = ((int) (sizeof (debug_pins) / sizeof (debug_pins)[0]));
+
+	for(int i=0; i < num_of_elements; i++) {
 		gpio_register_pin(debug_pins[i][0], GPIO_DIRECTION_OUTPUT, false);
 		gpio_write_pin(debug_pins[i][0], debug_pins[i][1]);
 	}
 }
 
-void debug_switch(uint8_t pin) {
-	gpio_write_pin(debug_pins[pin][0], ~debug_pins[pin][1]);
-}
-
-void debug_set(uint8_t pin, uint8_t state) {
-	debug_pins[pin][1] = state;
-	gpio_write_pin(debug_pins[pin][0], state);
-}
+void debug_switch(uint8_t pin) 				{ 		gpio_write_pin(debug_pins[pin][0], ~debug_pins[pin][1]); 					}
+void debug_set(uint8_t pin, uint8_t state) 	{ 		debug_pins[pin][1] = state; gpio_write_pin(debug_pins[pin][0], state); 		}
 
 void check_jumper(uint8_t pin) {
 	gpio_register_pin(pin, GPIO_DIRECTION_INPUT, false);
@@ -132,8 +129,7 @@ void system_init(void)
 
 	debug_init();
 
-	//jumper here
-
+	//check_jumper(PIN_JUMPER);
 
 	system_reset_system_time();															// reset system time
 	system_set_match_started();															// match has started!
