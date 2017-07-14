@@ -32,6 +32,8 @@
 #include "ax.h"
 #include "system.h"
 #include "sides.h"
+#include "sensors.h"
+#include "debug.h"
 
 int main()
 {
@@ -43,6 +45,8 @@ int main()
 	//debug_set(0, OFF);
 
 	//darkside();
+
+
 
 	return 0;
 

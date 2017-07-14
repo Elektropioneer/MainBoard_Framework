@@ -11,7 +11,6 @@
 #include <avr/io.h>
 #include <stdint.h>
 
-extern uint8_t debug_pins[5][2];
 
 #define PIN_JUMPER		0
 

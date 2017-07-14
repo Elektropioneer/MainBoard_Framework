@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include "list_generic.h"
 #include "can.h"
+#include "debug.h"
 
 /*
  * 0 PA0 		8  PB0 		16 PC0 		24 PD0 		32 PE0 		40 PF0		48 PG0
@@ -29,14 +30,7 @@ static void (*timer_callback)(void) = NULL;
 
 unsigned int received = 0;
 
-//pin and the starting state of debug pins
-uint8_t debug_pins[5][2] = {
-		{48, OFF},					// PORTG0
-		{49, OFF},					// PORTG1
-		{50, OFF},					// PORTG2
-		{51, OFF},					// PORTG3
-		{52, OFF}					// PORTG4
-};
+
 
 /*
  *	Function: 		void timer_register_callback(void (*callback)(void))
@@ -76,11 +70,14 @@ ISR(TIMER1_COMPA_vect)
 	{
 		if(system_get_match_started())		// if the match has started before
 		{
-			//odometry_match_end();
+			//odometry_match_end();			// turn off pwm (as the rules say)
 			while(1);
 		}
 	}
+
 	sys_time++;
+
+	//debug_switch(1);
 }
 
 void system_reset_system_time(void) 	{ 	sys_time = 0; 			}
@@ -88,27 +85,6 @@ void system_set_match_started(void) 	{ 	match_started = 1; 		}
 uint32_t system_get_system_time(void) 	{ 	return sys_time; 		}
 uint8_t system_get_match_started(void) 	{ 	return match_started; 	}
 
-static void debug_init() {
-
-	// total divided by one element -> number of elements (row)
-	int num_of_elements = ((int) (sizeof (debug_pins) / sizeof (debug_pins)[0]));
-
-	for(int i=0; i < num_of_elements; i++) {
-		gpio_register_pin(debug_pins[i][0], GPIO_DIRECTION_OUTPUT, false);				// register pin as output and no pull up
-		gpio_write_pin(debug_pins[i][0], debug_pins[i][1]);								// set the "starting" value
-	}
-}
-
-void debug_switch(uint8_t pin) {
-	uint8_t reverted_state = ~debug_pins[pin][1];										// creating reverted state
-
-	memcpy(&debug_pins[pin][1], &reverted_state, 8);									// copy to the array
-	gpio_write_pin(debug_pins[pin][0], reverted_state);									// write it to the pin
-}
-void debug_set(uint8_t pin, uint8_t state) 	{
-	memcpy(&debug_pins[pin][1], &state, 8);												// copy to array
-	gpio_write_pin(debug_pins[pin][0], state);											// write it to the pin
-}
 void check_jumper(uint8_t pin) {
 
 	gpio_register_pin(pin, GPIO_DIRECTION_INPUT, false);								// registering pin as input
@@ -120,8 +96,6 @@ void check_jumper(uint8_t pin) {
 	}
 
 	//debug_set(0, ON);
-
-
 }
 
 /*
@@ -138,8 +112,8 @@ void system_init(void)
 	_delay_ms(100);
 
 	CAN_Init(1);
-
-	debug_init();
+	//detection_setup();
+	//debug_init();
 
 	//check_jumper(PIN_JUMPER);
 
