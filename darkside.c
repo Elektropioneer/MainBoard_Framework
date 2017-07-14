@@ -34,6 +34,7 @@ static void wait_while_detection_tactic_one(void) {
 
 void darkside(void) {
 
+
 	// setting the starting position
 	struct odometry_position startingPosition; startingPosition.x = 30; startingPosition.y = 0; startingPosition.angle = 0;
 
@@ -41,9 +42,7 @@ void darkside(void) {
 	odometry_set_position(&startingPosition);
 
 	//testing functions
-
-	/*
-	int16_t x_compare;
+	/*int16_t x_compare;
 	x_compare = odometry_get_x();
 	if(x_compare == 30) {
 		DDRG = 0x01;
@@ -71,6 +70,7 @@ void darkside(void) {
 			break;
 		case TACTIC_ONE:	// TACTIC ONE
 			for(current_position = next_position; current_position < TACTIC_ONE_POSITION_COUNT; current_position++) {		// go through the position counts
+
 				// send the gotoField and receive status
 				odometry_status = odometry_move_to_position(&TACTIC_ONE_POSITION[current_position].point, TACTIC_ONE_POSITION[current_position].speed, TACTIC_ONE_POSITION[current_position].direction, TACTIC_ONE_POSITION[current_position].callback);
 

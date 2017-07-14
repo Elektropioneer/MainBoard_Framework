@@ -38,7 +38,10 @@ int main()
 
 	system_init();
 
-	darkside();
+	// test this
+	//debug(debug_pins, 0, ON);
+
+	//darkside();
 
 	return 0;
 

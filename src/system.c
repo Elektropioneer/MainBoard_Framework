@@ -17,6 +17,8 @@ static void (*timer_callback)(void) = NULL;
 
 unsigned int received = 0;
 
+uint8_t debug_pins[5] = {48,49,50,51,52};
+
 /*
  * 0 PA0 		8  PB0 		16 PC0 		24 PD0 		32 PE0 		40 PF0		48 PG0
  * 1 PA1 		9  PB1 		17 PC1 		25 PD1 		33 PE1 		41 PF1		49 PG1
@@ -79,6 +81,29 @@ void system_set_match_started(void) 	{ 	match_started = 1; 		}
 uint32_t system_get_system_time(void) 	{ 	return sys_time; 		}
 uint8_t system_get_match_started(void) 	{ 	return match_started; 	}
 
+static void debug_init() {
+
+	for(int i=0; i < 5; i++) {
+		gpio_register_pin(debug_pins[i], GPIO_DIRECTION_OUTPUT, false);
+		gpio_write_pin(debug_pins[i], OFF);
+	}
+
+}
+
+void debug(uint8_t* pins, uint8_t pin, uint8_t state) {
+	gpio_write_pin(pins[pin], state);
+}
+
+void check_jumper(uint8_t pin) {
+	gpio_register_pin(pin, GPIO_DIRECTION_INPUT, false);
+
+	while(gpio_read_pin(pin)){
+		_delay_ms(50);
+	}
+
+
+}
+
 /*
  *	Function: 		void system_init(void)
  *	Parameters: 	void
@@ -93,6 +118,10 @@ void system_init(void)
 	_delay_ms(100);
 
 	CAN_Init(1);
+
+	debug_init();
+
+	//jumper here
 
 
 	system_reset_system_time();															// reset system time
