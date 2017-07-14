@@ -21,7 +21,7 @@ void system_set_match_started(void);
 void system_reset_system_time(void);
 void check_jumper(uint8_t pin);
 
-void debug(uint8_t* pins, uint8_t pin, uint8_t state);
+void debug(uint8_t pin, uint8_t state);
 
 
 

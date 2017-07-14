@@ -90,8 +90,8 @@ static void debug_init() {
 
 }
 
-void debug(uint8_t* pins, uint8_t pin, uint8_t state) {
-	gpio_write_pin(pins[pin], state);
+void debug(uint8_t pin, uint8_t state) {
+	gpio_write_pin(debug_pins[pin], state);
 }
 
 void check_jumper(uint8_t pin) {

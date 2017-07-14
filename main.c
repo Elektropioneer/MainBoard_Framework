@@ -39,7 +39,7 @@ int main()
 	system_init();
 
 	// test this
-	//debug(debug_pins, 0, ON);
+	debug(0, ON);
 
 	//darkside();
 
