@@ -100,22 +100,26 @@ static void debug_init() {
 }
 
 void debug_switch(uint8_t pin) {
-	uint8_t reverted_state = ~debug_pins[pin][1];
+	uint8_t reverted_state = ~debug_pins[pin][1];										// creating reverted state
 
-	memcpy(&debug_pins[pin][1], &reverted_state, 8);
-	gpio_write_pin(debug_pins[pin][0], reverted_state);
+	memcpy(&debug_pins[pin][1], &reverted_state, 8);									// copy to the array
+	gpio_write_pin(debug_pins[pin][0], reverted_state);									// write it to the pin
 }
 void debug_set(uint8_t pin, uint8_t state) 	{
-	memcpy(&debug_pins[pin][1], &state, 8);
-	gpio_write_pin(debug_pins[pin][0], state);
+	memcpy(&debug_pins[pin][1], &state, 8);												// copy to array
+	gpio_write_pin(debug_pins[pin][0], state);											// write it to the pin
 }
 void check_jumper(uint8_t pin) {
 
-	gpio_register_pin(pin, GPIO_DIRECTION_INPUT, false);
+	gpio_register_pin(pin, GPIO_DIRECTION_INPUT, false);								// registering pin as input
 
+	// waiting for jumper
 	while(gpio_read_pin(pin)){
 		_delay_ms(50);
+		//debug_switch(0);
 	}
+
+	//debug_set(0, ON);
 
 
 }

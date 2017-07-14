@@ -6931,7 +6931,7 @@ void debug_switch(uint8_t pin) {
     2b70:	cd b7       	in	r28, 0x3d	; 61
     2b72:	de b7       	in	r29, 0x3e	; 62
     2b74:	8a 83       	std	Y+2, r24	; 0x02
-	uint8_t reverted_state = ~debug_pins[pin][1];
+	uint8_t reverted_state = ~debug_pins[pin][1];										// creating reverted state
     2b76:	8a 81       	ldd	r24, Y+2	; 0x02
     2b78:	88 2f       	mov	r24, r24
     2b7a:	90 e0       	ldi	r25, 0x00	; 0
@@ -6944,7 +6944,7 @@ void debug_switch(uint8_t pin) {
     2b88:	80 95       	com	r24
     2b8a:	89 83       	std	Y+1, r24	; 0x01
 
-	memcpy(&debug_pins[pin][1], &reverted_state, 8);
+	memcpy(&debug_pins[pin][1], &reverted_state, 8);									// copy to the array
     2b8c:	8a 81       	ldd	r24, Y+2	; 0x02
     2b8e:	88 2f       	mov	r24, r24
     2b90:	90 e0       	ldi	r25, 0x00	; 0
@@ -6960,7 +6960,7 @@ void debug_switch(uint8_t pin) {
     2ba4:	3f 4f       	sbci	r19, 0xFF	; 255
     2ba6:	b9 01       	movw	r22, r18
     2ba8:	0e 94 e2 1f 	call	0x3fc4	; 0x3fc4 <memcpy>
-	gpio_write_pin(debug_pins[pin][0], reverted_state);
+	gpio_write_pin(debug_pins[pin][0], reverted_state);									// write it to the pin
     2bac:	89 81       	ldd	r24, Y+1	; 0x01
     2bae:	21 e0       	ldi	r18, 0x01	; 1
     2bb0:	88 23       	and	r24, r24
@@ -6993,7 +6993,7 @@ void debug_set(uint8_t pin, uint8_t state) 	{
     2be0:	de b7       	in	r29, 0x3e	; 62
     2be2:	89 83       	std	Y+1, r24	; 0x01
     2be4:	6a 83       	std	Y+2, r22	; 0x02
-	memcpy(&debug_pins[pin][1], &state, 8);
+	memcpy(&debug_pins[pin][1], &state, 8);												// copy to array
     2be6:	89 81       	ldd	r24, Y+1	; 0x01
     2be8:	88 2f       	mov	r24, r24
     2bea:	90 e0       	ldi	r25, 0x00	; 0
@@ -7009,7 +7009,7 @@ void debug_set(uint8_t pin, uint8_t state) 	{
     2bfe:	50 e0       	ldi	r21, 0x00	; 0
     2c00:	b9 01       	movw	r22, r18
     2c02:	0e 94 e2 1f 	call	0x3fc4	; 0x3fc4 <memcpy>
-	gpio_write_pin(debug_pins[pin][0], state);
+	gpio_write_pin(debug_pins[pin][0], state);											// write it to the pin
     2c06:	8a 81       	ldd	r24, Y+2	; 0x02
     2c08:	21 e0       	ldi	r18, 0x01	; 1
     2c0a:	88 23       	and	r24, r24
@@ -7047,12 +7047,13 @@ void check_jumper(uint8_t pin) {
     2c44:	cd bf       	out	0x3d, r28	; 61
     2c46:	8f 87       	std	Y+15, r24	; 0x0f
 
-	gpio_register_pin(pin, GPIO_DIRECTION_INPUT, false);
+	gpio_register_pin(pin, GPIO_DIRECTION_INPUT, false);								// registering pin as input
     2c48:	40 e0       	ldi	r20, 0x00	; 0
     2c4a:	60 e0       	ldi	r22, 0x00	; 0
     2c4c:	8f 85       	ldd	r24, Y+15	; 0x0f
     2c4e:	0e 94 b9 0a 	call	0x1572	; 0x1572 <gpio_register_pin>
 
+	// waiting for jumper
 	while(gpio_read_pin(pin)){
     2c52:	72 c0       	rjmp	.+228    	; 0x2d38 <check_jumper+0x106>
     2c54:	80 e0       	ldi	r24, 0x00	; 0
@@ -7197,8 +7198,9 @@ void check_jumper(uint8_t pin) {
     2d3e:	88 23       	and	r24, r24
     2d40:	09 f0       	breq	.+2      	; 0x2d44 <check_jumper+0x112>
     2d42:	88 cf       	rjmp	.-240    	; 0x2c54 <check_jumper+0x22>
-		_delay_ms(50);
 	}
+
+	//debug_set(0, ON);
 
 
 }
