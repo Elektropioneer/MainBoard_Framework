@@ -17,7 +17,15 @@ static void (*timer_callback)(void) = NULL;
 
 unsigned int received = 0;
 
-uint8_t debug_pins[5] = {48,49,50,51,52};
+//pin and the starting state
+
+uint8_t debug_pins[5][2] = {
+		{48, OFF},
+		{49, OFF},
+		{50, OFF},
+		{51, OFF},
+		{52, OFF}
+};
 
 /*
  * 0 PA0 		8  PB0 		16 PC0 		24 PD0 		32 PE0 		40 PF0		48 PG0
@@ -82,16 +90,19 @@ uint32_t system_get_system_time(void) 	{ 	return sys_time; 		}
 uint8_t system_get_match_started(void) 	{ 	return match_started; 	}
 
 static void debug_init() {
-
 	for(int i=0; i < 5; i++) {
-		gpio_register_pin(debug_pins[i], GPIO_DIRECTION_OUTPUT, false);
-		gpio_write_pin(debug_pins[i], OFF);
+		gpio_register_pin(debug_pins[i][0], GPIO_DIRECTION_OUTPUT, false);
+		gpio_write_pin(debug_pins[i][0], debug_pins[i][1]);
 	}
-
 }
 
-void debug(uint8_t pin, uint8_t state) {
-	gpio_write_pin(debug_pins[pin], state);
+void debug_switch(uint8_t pin) {
+	gpio_write_pin(debug_pins[pin][0], ~debug_pins[pin][1]);
+}
+
+void debug_set(uint8_t pin, uint8_t state) {
+	debug_pins[pin][1] = state;
+	gpio_write_pin(debug_pins[pin][0], state);
 }
 
 void check_jumper(uint8_t pin) {

@@ -39,7 +39,8 @@ int main()
 	system_init();
 
 	// test this
-	debug(0, ON);
+	//debug_switch(0);
+	//debug_set(0, OFF);
 
 	//darkside();
 

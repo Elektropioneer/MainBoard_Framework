@@ -11,7 +11,7 @@
 #include <avr/io.h>
 #include <stdint.h>
 
-extern uint8_t debug_pins[5];
+extern uint8_t debug_pins[5][2];
 
 void system_init(void);
 
@@ -21,7 +21,8 @@ void system_set_match_started(void);
 void system_reset_system_time(void);
 void check_jumper(uint8_t pin);
 
-void debug(uint8_t pin, uint8_t state);
+void debug_switch(uint8_t pin);
+void debug_set(uint8_t pin, uint8_t state);
 
 
 
