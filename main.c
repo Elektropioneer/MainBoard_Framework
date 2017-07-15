@@ -40,13 +40,10 @@ int main()
 
 	system_init();
 
-	// test this
-	//debug_switch(0);
-	//debug_set(0, OFF);
 
 	//darkside();
 
-
+	//detection_get(SENSOR_BACK_LEFT);
 
 	return 0;
 

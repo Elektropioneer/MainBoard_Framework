@@ -77,7 +77,7 @@ ISR(TIMER1_COMPA_vect)
 
 	sys_time++;
 
-	//debug_switch(1);
+
 }
 
 void system_reset_system_time(void) 	{ 	sys_time = 0; 			}
@@ -113,7 +113,7 @@ void system_init(void)
 
 	CAN_Init(1);
 	//detection_setup();
-	//debug_init();
+	debug_init();
 
 	//check_jumper(PIN_JUMPER);
 
