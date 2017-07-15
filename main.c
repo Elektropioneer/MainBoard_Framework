@@ -38,12 +38,9 @@
 int main()
 {
 
+
 	system_init();
 
-
-	//darkside();
-
-	//detection_get(SENSOR_BACK_LEFT);
 
 	return 0;
 

@@ -87,13 +87,7 @@ uint8_t system_get_match_started(void) 	{ 	return match_started; 	}
 
 void check_jumper(uint8_t pin) {
 
-	gpio_register_pin(pin, GPIO_DIRECTION_INPUT, false);								// registering pin as input
 
-	// waiting for jumper
-	while(gpio_read_pin(pin)){
-		_delay_ms(50);
-		//debug_switch(0);
-	}
 
 	//debug_set(0, ON);
 }
@@ -106,7 +100,7 @@ void check_jumper(uint8_t pin) {
 void system_init(void)
 {
 	// sets debouncer
-	timer_register_callback(gpio_debouncer);
+	timer_register_callback(fillDebaunsingData);
 
 	// small delay
 	_delay_ms(100);
