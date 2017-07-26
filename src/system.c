@@ -29,7 +29,7 @@ static uint8_t match_started;
 static void (*timer_callback)(void) = NULL;
 
 unsigned int received = 0;
-
+static char jumper_pulled = false;
 
 
 /*
@@ -71,10 +71,14 @@ ISR(TIMER1_COMPA_vect)
 		if(system_get_match_started())		// if the match has started before
 		{
 			odometry_match_end();
-			PORTG = 0xff;
-			while(1);
+			while(1) {
+				PORTG = ~PORTG;
+				_delay_ms(1000);
+			}
 		}
 	}
+
+	// for testing if the timer is working
 	/*if((sys_time % 1000) == 0) {
 
 		PORTG = ~PORTG;
@@ -90,11 +94,27 @@ void system_set_match_started(void) 	{ 	match_started = 1; 		}
 uint32_t system_get_system_time(void) 	{ 	return sys_time; 		}
 uint8_t system_get_match_started(void) 	{ 	return match_started; 	}
 
-void check_jumper(uint8_t pin) {
 
+ISR(INT7_vect) {
+	jumper_pulled = true;
+}
 
+void system_setup_jumper() {
+	DDRE &= ~(1 << PIN7);
 
-	//debug_set(0, ON);
+	PORTE |= (1 << PIN7);
+
+	EICRB = (1 << ISC70);
+
+	EIMSK |= (1 << INT7);
+
+	_delay_ms(100);
+
+	sei();
+}
+
+void system_wait_for_jumper() {
+	while(jumper_pulled == false);
 }
 
 /*
@@ -107,17 +127,24 @@ void system_init(void)
 	// sets debouncer
 	timer_register_callback(gpio_debouncer);
 
-
-
 	// small delay
 	_delay_ms(100);
 
+
+	DDRG = 0xff;
+	PORTG = 0x00;
+
 	timer_init(1000);
 	CAN_Init(1);
+	system_setup_jumper();
+
 	//detection_setup();
 	//debug_init();
 
-	//check_jumper(PIN_JUMPER);
+
+	system_wait_for_jumper();
+	PORTG = 0xff;
+
 
 	system_reset_system_time();															// reset system time
 	system_set_match_started();															// match has started!

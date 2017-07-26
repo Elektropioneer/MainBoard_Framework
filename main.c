@@ -35,6 +35,8 @@
 #include "sensors.h"
 #include "debug.h"
 #include "can.h"
+#include <avr/interrupt.h>
+
 
 int main()
 {
@@ -42,14 +44,9 @@ int main()
 
 	system_init();
 
-	DDRG = 0xff;
-	PORTG = 0x00;
 
-	while(1) {
 
-	}
-	//odometry_match_end();
-
+	while(1);
 
 
 	return 0;

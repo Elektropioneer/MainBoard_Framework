@@ -14,6 +14,8 @@
 
 #define PIN_JUMPER		0
 
+#define JUMPER_PIN				40		//portf 0 // working
+
 void system_init(void);
 
 uint8_t system_get_match_started(void);

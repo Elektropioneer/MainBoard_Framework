@@ -6,8 +6,6 @@
 
 #define GPIO_DEBOUNCE_COUNT         3
 
-#define TRUE						1
-#define FALSE						0
 
 #define GPIO_DIRECTION_INPUT        0
 #define GPIO_DIRECTION_OUTPUT       1
