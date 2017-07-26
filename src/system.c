@@ -70,10 +70,15 @@ ISR(TIMER1_COMPA_vect)
 	{
 		if(system_get_match_started())		// if the match has started before
 		{
-			//odometry_match_end();			// turn off pwm (as the rules say)
+			odometry_match_end();
+			PORTG = 0xff;
 			while(1);
 		}
 	}
+	/*if((sys_time % 1000) == 0) {
+
+		PORTG = ~PORTG;
+	}*/
 
 	sys_time++;
 
@@ -100,14 +105,17 @@ void check_jumper(uint8_t pin) {
 void system_init(void)
 {
 	// sets debouncer
-	timer_register_callback(fillDebaunsingData);
+	timer_register_callback(gpio_debouncer);
+
+
 
 	// small delay
 	_delay_ms(100);
 
+	timer_init(1000);
 	CAN_Init(1);
 	//detection_setup();
-	debug_init();
+	//debug_init();
 
 	//check_jumper(PIN_JUMPER);
 

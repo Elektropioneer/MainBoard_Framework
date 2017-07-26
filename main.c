@@ -34,12 +34,22 @@
 #include "sides.h"
 #include "sensors.h"
 #include "debug.h"
+#include "can.h"
 
 int main()
 {
 
 
 	system_init();
+
+	DDRG = 0xff;
+	PORTG = 0x00;
+
+	while(1) {
+
+	}
+	//odometry_match_end();
+
 
 
 	return 0;
