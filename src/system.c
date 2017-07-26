@@ -99,21 +99,22 @@ ISR(INT7_vect) {
 	jumper_pulled = true;
 }
 
-void system_setup_jumper() {
-	DDRE &= ~(1 << PIN7);
+static void system_setup_jumper() {
 
-	PORTE |= (1 << PIN7);
+	DDRE &= ~(1 << PIN7);			// setup pin as input
 
-	EICRB = (1 << ISC70);
+	PORTE |= (1 << PIN7);			// pullup
 
-	EIMSK |= (1 << INT7);
+	EICRB = (1 << ISC70);			// set on status change to triggure interrupt
+
+	EIMSK |= (1 << INT7);			// enable interrupt
 
 	_delay_ms(100);
 
-	sei();
+	sei();							// enable global interrupts
 }
 
-void system_wait_for_jumper() {
+static void system_wait_for_jumper() {
 	while(jumper_pulled == false);
 }
 
@@ -142,6 +143,7 @@ void system_init(void)
 	//debug_init();
 
 
+	// waiting for jumper
 	system_wait_for_jumper();
 	PORTG = 0xff;
 
