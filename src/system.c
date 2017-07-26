@@ -115,7 +115,9 @@ static void system_setup_jumper() {
 }
 
 static void system_wait_for_jumper() {
-	while(jumper_pulled == false);
+
+	while(jumper_pulled == false);		// wait for jumper_pulled t be set true
+
 }
 
 /*
@@ -135,6 +137,7 @@ void system_init(void)
 	DDRG = 0xff;
 	PORTG = 0x00;
 
+	// waiting for jumper
 	timer_init(1000);
 	CAN_Init(1);
 	system_setup_jumper();

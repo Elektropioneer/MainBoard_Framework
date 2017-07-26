@@ -10,13 +10,14 @@
 
 
 // must be the same number as the same number of gotoFields, if not only some of it will execute
-#define TACTIC_ONE_POSITION_COUNT	1
+#define TACTIC_ONE_POSITION_COUNT	2
 
 // variables for keeping position count, odometry return status and active state
 unsigned char current_position = 0, next_position = 0, odometry_status, active_state = TACTIC_ONE;
 
 const gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
-		{{100,0,0}, 50, FORWARD, NULL}
+		{{500,0,0}, 150, FORWARD, NULL},
+		{{0,0,0}, 50, BACKWARD, NULL}
 };
 
 /*
@@ -36,7 +37,7 @@ void darkside(void) {
 
 
 	// setting the starting position
-	struct odometry_position startingPosition; startingPosition.x = 30; startingPosition.y = 0; startingPosition.angle = 0;
+	struct odometry_position startingPosition; startingPosition.x = 0; startingPosition.y = 0; startingPosition.angle = 0;
 
 	// sending the starting position to odometry
 	odometry_set_position(&startingPosition);
@@ -57,6 +58,8 @@ void darkside(void) {
 		}
 	}
 	while(1);*/
+
+	active_state = TACTIC_ONE;
 
 	while(1) {
 		switch(active_state) {
@@ -84,7 +87,9 @@ void darkside(void) {
 				{
 
 				}
-
+				if(current_position == 0) {
+					_delay_ms(2000);
+				}
 				// last position
 				if(current_position == (TACTIC_ONE_POSITION_COUNT - 1))
 				{
