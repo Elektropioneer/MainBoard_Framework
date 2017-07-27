@@ -130,9 +130,12 @@ void system_init(void)
 	// sets debouncer
 	timer_register_callback(gpio_debouncer);
 
-	// small delay
 	_delay_ms(100);
 
+	gpio_register_pin(0, GPIO_DIRECTION_INPUT, true);
+
+	// small delay
+	_delay_ms(100);
 
 	DDRG = 0xff;
 	PORTG = 0x00;
@@ -140,6 +143,9 @@ void system_init(void)
 	// waiting for jumper
 	timer_init(1000);
 	CAN_Init(1);
+
+	_delay_ms(500);
+
 	system_setup_jumper();
 
 	//detection_setup();

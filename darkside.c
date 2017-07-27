@@ -9,15 +9,26 @@
 #include "actuator.h"
 
 
+char test_sensor(unsigned long start_time) {
+	if(gpio_read_pin(0) == 1) {
+		odometry_stop(HARD_STOP);
+		return 1;
+	}
+
+	return 0;
+}
+
+
 // must be the same number as the same number of gotoFields, if not only some of it will execute
 #define TACTIC_ONE_POSITION_COUNT	2
 
 // variables for keeping position count, odometry return status and active state
-unsigned char current_position = 0, next_position = 0, odometry_status, active_state = TACTIC_ONE;
+uint8_t current_position = 0, next_position = 0, odometry_status, active_state = TACTIC_ONE;
 
-const gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
-		{{500,0,0}, 150, FORWARD, NULL},
-		{{0,0,0}, 50, BACKWARD, NULL}
+
+gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
+		{{450,0,0}, 10, FORWARD, test_sensor},
+		{{0,0,0}, 10, BACKWARD, test_sensor}
 };
 
 /*
@@ -26,8 +37,9 @@ const gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
  */
 static void wait_while_detection_tactic_one(void) {
 
+	_delay_ms(200);
 	while(TACTIC_ONE_POSITION[current_position].callback(0) == 1)
-		_delay_ms(100);
+		_delay_ms(10);
 	next_position = current_position;
 	active_state = TACTIC_ONE;
 
@@ -41,7 +53,6 @@ void darkside(void) {
 
 	// sending the starting position to odometry
 	odometry_set_position(&startingPosition);
-
 	//testing functions
 	/*int16_t x_compare;
 	x_compare = odometry_get_x();
@@ -59,11 +70,17 @@ void darkside(void) {
 	}
 	while(1);*/
 
-	active_state = TACTIC_ONE;
-
 	while(1) {
 		switch(active_state) {
 		case COLLISION:		// COLLISION
+			if(current_position == 0) {
+				wait_while_detection_tactic_one();
+				break;
+			} else if(current_position == 1) {
+				wait_while_detection_tactic_one();
+				break;
+			}
+
 			break;
 		case STUCK:			// STUCK
 			_delay_ms(1000);

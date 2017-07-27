@@ -122,7 +122,7 @@ uint8_t odometry_move_straight(int16_t distance, uint8_t speed, uint8_t (*callba
  *
  * 	Send move to position function to odometry
  */
-uint8_t odometry_move_to_position(struct odometry_position* position, uint8_t speed, uint8_t direction, uint8_t (*callback)(uint32_t start_time))
+uint8_t odometry_move_to_position(struct odometry_position* position, uint8_t speed, uint8_t direction, char (*callback)(uint32_t start_time))
 {
 	uint8_t buffer[8];
 

@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define GPIO_DEBOUNCE_COUNT         3
+#define GPIO_DEBOUNCE_COUNT         2
 
 
 #define GPIO_DIRECTION_INPUT        0
