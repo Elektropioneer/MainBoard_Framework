@@ -53,22 +53,6 @@ void darkside(void) {
 
 	// sending the starting position to odometry
 	odometry_set_position(&startingPosition);
-	//testing functions
-	/*int16_t x_compare;
-	x_compare = odometry_get_x();
-	if(x_compare == 30) {
-		DDRG = 0x01;
-		PORTG = 0x01;
-	} else {
-		DDRG = 0x01;
-		while(1) {
-			PORTG = 0x01;
-			_delay_ms(100);
-			PORTG = 0x00;
-			_delay_ms(100);
-		}
-	}
-	while(1);*/
 
 	while(1) {
 		switch(active_state) {

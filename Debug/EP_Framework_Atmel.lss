@@ -9192,9 +9192,6 @@ void darkside(void) {
     3a14:	ce 01       	movw	r24, r28
     3a16:	4d 96       	adiw	r24, 0x1d	; 29
     3a18:	0e 94 b7 10 	call	0x216e	; 0x216e <odometry_set_position>
-		}
-	}
-	while(1);*/
 
 	while(1) {
 		switch(active_state) {
