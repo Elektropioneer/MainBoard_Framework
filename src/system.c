@@ -116,7 +116,8 @@ static void system_setup_jumper() {
 
 static void system_wait_for_jumper() {
 
-	while(jumper_pulled == false);		// wait for jumper_pulled t be set true
+	while(jumper_pulled == false)		// wait for jumper_pulled t be set true
+		_delay_ms(10);
 
 }
 

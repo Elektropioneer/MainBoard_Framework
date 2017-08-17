@@ -44,7 +44,34 @@ int main()
 
 	system_init();
 
-	darkside();
+	/* Test uart stuff */
+	/*
+	uart1_init(BAUD_CALC(115200));				// TODO test with 9600
+
+	sei();
+
+	while(1) {
+
+		uart1_puts("We are sending shit");
+
+		char buffer[25];
+
+		uart1_gets(buffer, 25);
+
+		uart1_puts("We got: ");
+
+		uart1_putstr(buffer);
+
+		_delay_ms(1000);
+	}
+
+	*/
+	/* End of uart stuff */
+
+	// add uart logging the current position every second first through uart, after through bluetooth.
+	// make a python app that will log all of it and maybe do some drawing aswell and a dashboard for easier debug
+
+	//darkside();
 
 
 	return 0;
