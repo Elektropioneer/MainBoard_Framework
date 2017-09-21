@@ -24,8 +24,6 @@ char test_sensor(unsigned long start_time) {
 // must be the same number as the same number of gotoFields, if not only some of it will execute
 #define TACTIC_ONE_POSITION_COUNT	2
 
-
-
 // variables for keeping position count, odometry return status and active state
 uint8_t current_position = 0, next_position = 0, odometry_status, active_state = TACTIC_ONE;
 
@@ -68,7 +66,7 @@ void darkside(void) {
 
 	while(1) {
 		switch(active_state) {
-		case COLLISION:		// COLLISION
+		case COLLISION:		// COLLISION ! DON'T FORGET BREAK !
 			if(current_position == 0) {
 				wait_while_detection_tactic_one();
 				break;

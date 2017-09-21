@@ -154,7 +154,7 @@ void system_init(void)
 
 
 	// waiting for jumper
-	system_wait_for_jumper();
+	//system_wait_for_jumper();
 	PORTG = 0xff;
 
 

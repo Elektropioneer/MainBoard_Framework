@@ -38,41 +38,29 @@
 #include <avr/interrupt.h>
 
 
+
+void send_arduino(unsigned char type, unsigned char id, unsigned char data) {
+	UART1_Write(type);					// the type of device we want to change
+	UART1_Write((unsigned char)id);		// the id of the specific device
+	UART1_Write((unsigned char)data);	// the data
+
+	UART1_Write('X');					// end bit
+}
+
 int main()
 {
 
 
 	system_init();
 
-	/* Test uart stuff */
-	/*
-	uart1_init(BAUD_CALC(9600));				// TODO test with 9600
+	UART1_Init(UART1_BAUD, UART_ISR_ON);
 
-	sei();
 
-	while(1) {
+	while(1){
 
-		uart1_puts("We are sending shit");
-
-		char buffer[25];
-
-		uart1_gets(buffer, 25);
-
-		uart1_puts("We got: ");
-
-		uart1_putstr(buffer);
-
+		send_arduino('F', 255, 255);
 		_delay_ms(1000);
 	}
-
-	*/
-	/* End of uart stuff */
-
-	// add uart logging the current position every second first through uart, after through bluetooth.
-	// make a python app that will log all of it and maybe do some drawing aswell and a dashboard for easier debug
-
-	//darkside();
-
 
 	return 0;
 
