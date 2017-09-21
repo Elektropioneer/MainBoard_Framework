@@ -8,6 +8,8 @@
 #include "gpio.h"
 #include "actuator.h"
 
+// if this is defined it will execute the coordinates for the "first desk" if commented it will moveon to the "second desk"
+#define first_desk
 
 char test_sensor(unsigned long start_time) {
 	if(gpio_read_pin(0) == 1) {
@@ -22,14 +24,24 @@ char test_sensor(unsigned long start_time) {
 // must be the same number as the same number of gotoFields, if not only some of it will execute
 #define TACTIC_ONE_POSITION_COUNT	2
 
+
+
 // variables for keeping position count, odometry return status and active state
 uint8_t current_position = 0, next_position = 0, odometry_status, active_state = TACTIC_ONE;
 
-
+#ifdef first_desk
+// first desk coordinates
 gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
 		{{450,0,0}, 10, FORWARD, test_sensor},
 		{{0,0,0}, 10, BACKWARD, test_sensor}
 };
+#else
+// second desk coordinates
+gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
+		{{450,0,0}, 10, FORWARD, test_sensor},
+		{{0,0,0}, 10, BACKWARD, test_sensor}
+};
+#endif
 
 /*
  * 	Function: static void wait_while_detection_tactic_one(void)

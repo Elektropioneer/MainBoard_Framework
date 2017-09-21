@@ -46,7 +46,7 @@ int main()
 
 	/* Test uart stuff */
 	/*
-	uart1_init(BAUD_CALC(115200));				// TODO test with 9600
+	uart1_init(BAUD_CALC(9600));				// TODO test with 9600
 
 	sei();
 
