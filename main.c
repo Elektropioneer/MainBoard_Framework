@@ -58,7 +58,9 @@ int main()
 
 	while(1){
 
-		send_arduino('F', 255, 255);
+		send_arduino('R', 1, 1);
+		_delay_ms(1000);
+		send_arduino('R', 1, 0);
 		_delay_ms(1000);
 	}
 
