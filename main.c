@@ -57,11 +57,21 @@ int main()
 
 
 	while(1){
-
+		/*
 		send_arduino('R', 1, 1);
 		_delay_ms(1000);
 		send_arduino('R', 1, 0);
-		_delay_ms(1000);
+		_delay_ms(1000); */
+
+/*
+				send_arduino('S', 1, 255);
+				_delay_ms(1000);
+				send_arduino('S', 1, 0);
+				_delay_ms(1000);*/
+		send_arduino('M', 3, 1);
+				_delay_ms(1000);
+				send_arduino('M', 3, 0);
+				_delay_ms(1000);
 	}
 
 	return 0;

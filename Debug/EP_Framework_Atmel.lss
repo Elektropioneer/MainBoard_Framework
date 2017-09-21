@@ -9838,14 +9838,15 @@ int main()
     3e3a:	80 e0       	ldi	r24, 0x00	; 0
     3e3c:	90 e0       	ldi	r25, 0x00	; 0
     3e3e:	0e 94 50 1a 	call	0x34a0	; 0x34a0 <UART1_Init>
-
-
-	while(1){
-
-		send_arduino('R', 1, 1);
+/*
+				send_arduino('S', 1, 255);
+				_delay_ms(1000);
+				send_arduino('S', 1, 0);
+				_delay_ms(1000);*/
+		send_arduino('M', 3, 1);
     3e42:	41 e0       	ldi	r20, 0x01	; 1
-    3e44:	61 e0       	ldi	r22, 0x01	; 1
-    3e46:	82 e5       	ldi	r24, 0x52	; 82
+    3e44:	63 e0       	ldi	r22, 0x03	; 3
+    3e46:	8d e4       	ldi	r24, 0x4D	; 77
     3e48:	0e 94 f3 1e 	call	0x3de6	; 0x3de6 <send_arduino>
     3e4c:	80 e0       	ldi	r24, 0x00	; 0
     3e4e:	90 e0       	ldi	r25, 0x00	; 0
@@ -9984,11 +9985,11 @@ int main()
     3f2a:	f1 f7       	brne	.-4      	; 0x3f28 <main+0x10c>
     3f2c:	9e 87       	std	Y+14, r25	; 0x0e
     3f2e:	8d 87       	std	Y+13, r24	; 0x0d
-		_delay_ms(1000);
-		send_arduino('R', 1, 0);
+				_delay_ms(1000);
+				send_arduino('M', 3, 0);
     3f30:	40 e0       	ldi	r20, 0x00	; 0
-    3f32:	61 e0       	ldi	r22, 0x01	; 1
-    3f34:	82 e5       	ldi	r24, 0x52	; 82
+    3f32:	63 e0       	ldi	r22, 0x03	; 3
+    3f34:	8d e4       	ldi	r24, 0x4D	; 77
     3f36:	0e 94 f3 1e 	call	0x3de6	; 0x3de6 <send_arduino>
     3f3a:	80 e0       	ldi	r24, 0x00	; 0
     3f3c:	90 e0       	ldi	r25, 0x00	; 0
@@ -10127,7 +10128,7 @@ int main()
     4018:	f1 f7       	brne	.-4      	; 0x4016 <main+0x1fa>
     401a:	9c 8f       	std	Y+28, r25	; 0x1c
     401c:	8b 8f       	std	Y+27, r24	; 0x1b
-		_delay_ms(1000);
+				_delay_ms(1000);
 	}
     401e:	11 cf       	rjmp	.-478    	; 0x3e42 <main+0x26>
 
