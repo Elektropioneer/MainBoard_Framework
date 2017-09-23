@@ -45,8 +45,6 @@ int main()
 
 	_delay_ms(3000);
 
-
-
 	while(1) {
 		SER_1(180);
 		_delay_ms(1000);

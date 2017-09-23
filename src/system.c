@@ -32,6 +32,7 @@ static void (*timer_callback)(void) = NULL;
 
 unsigned int received = 0;
 static char jumper_pulled = false;
+static char setup_complete = false;
 
 
 /*
@@ -81,10 +82,10 @@ ISR(TIMER1_COMPA_vect)
 	}
 
 	// for testing if the timer is working
-	/*if((sys_time % 1000) == 0) {
+	if((sys_time % 1000) == 0 && !setup_complete) {
 
-		PORTG = ~PORTG;
-	}*/
+		PORTG ^= 1 << 0;
+	}
 
 	sys_time++;
 
@@ -133,6 +134,7 @@ void system_init(void)
 	// sets debouncer
 	timer_register_callback(gpio_debouncer);
 
+
 	_delay_ms(100);
 
 	gpio_register_pin(0, GPIO_DIRECTION_INPUT, true);									// test detection
@@ -140,10 +142,10 @@ void system_init(void)
 	// small delay
 	_delay_ms(100);
 
-	DDRG = 0xff;
+	DDRG = 0x01;
 	PORTG = 0x00;
 
-	// waiting for jumper
+	// initing
 	timer_init(1000);
 	CAN_Init(1);
 	UART1_Init(UART1_BAUD, UART_ISR_OFF);
@@ -152,19 +154,24 @@ void system_init(void)
 
 	system_setup_jumper();
 
+	// uart1 ping
 	ping_actuator();
 
 	//detection_setup();
 	//debug_init();
 
+	setup_complete = true;
+
+	PORTG = 0x01;
 
 	// waiting for jumper
-	//system_wait_for_jumper();
-	PORTG = 0xff;
+	system_wait_for_jumper();
 
+	PORTG = 0x00;
 
 	system_reset_system_time();															// reset system time
 	system_set_match_started();															// match has started!
 
 }
+
 

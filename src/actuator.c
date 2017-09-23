@@ -13,6 +13,7 @@
  * 				 unsigned char data	- data
  */
 void send_arduino(unsigned char type, unsigned char id, unsigned char data) {
+
 	UART1_Write(type);							// the type of device we want to change
 	UART1_Write((unsigned char)id);				// the id of the specific device
 	UART1_Write((unsigned char)data);			// the data
@@ -27,6 +28,7 @@ void send_arduino(unsigned char type, unsigned char id, unsigned char data) {
  * 				 unsigned char id   - the id of the device 1-x
  */
 unsigned char get_arduino(unsigned char type, unsigned char id) {
+
 	send_arduino('G',type,(unsigned char)id);	// send the "get data protocol"
 	UART1_Read();								// read (because it is sending 2x)
 
@@ -49,13 +51,11 @@ void servo_move(unsigned char id, unsigned char data) { send_arduino('S', id, da
 void ping_actuator() {
 
 	do {
+
 		UART1_Write('P');
 		UART1_Write(0);
 		UART1_Write(0);
 		UART1_Write('X');
-
-		PORTG = 0x01;
-		_delay_ms(50);
 
 	} while(UART1_Read() != 1);
 }

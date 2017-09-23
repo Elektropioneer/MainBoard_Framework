@@ -223,7 +223,7 @@ uint8_t odometry_kurva(uint16_t x_pos, uint16_t y_pos, int8_t angle, uint8_t dir
 	return odometry_wait_until_done(callback);
 }
 
-void odometry_match_end(void)
+void odometry_match_end()
 {
 	uint8_t buffer[8];
 

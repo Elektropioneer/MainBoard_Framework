@@ -12,6 +12,7 @@
 #define first_desk
 
 char test_sensor(unsigned long start_time) {
+
 	if(gpio_read_pin(0) == 1) {
 		odometry_stop(HARD_STOP);
 		return 1;
@@ -42,7 +43,7 @@ gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
 #endif
 
 /*
- * 	Function: static void wait_while_detection_tactic_one(void)
+ * 	Function: 	 static void wait_while_detection_tactic_one(void)
  * 	Description: This will wait until the callback(sensor) is returning 1, so called detecting the enemy
  */
 static void wait_while_detection_tactic_one(void) {
