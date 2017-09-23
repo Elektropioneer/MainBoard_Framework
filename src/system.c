@@ -75,7 +75,7 @@ ISR(TIMER1_COMPA_vect)
 		{
 			odometry_match_end();
 			while(1) {
-				PORTG = ~PORTG;
+				PORTG ^= 1 << 0;
 				_delay_ms(1000);
 			}
 		}
@@ -165,7 +165,7 @@ void system_init(void)
 	PORTG = 0x01;
 
 	// waiting for jumper
-	system_wait_for_jumper();
+	//system_wait_for_jumper();
 
 	PORTG = 0x00;
 
