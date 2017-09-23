@@ -47,13 +47,9 @@ int main()
 	_delay_ms(3000);
 
 	while(1) {
-		while(get_arduino('S',1) != 0);
-		send_arduino('S',1,255);
-
+		SER_1(180);
 		_delay_ms(1000);
-		while(get_arduino('S',1) != 255);
-		send_arduino('S',1,0);
-
+		SER_1(0);
 		_delay_ms(2000);
 	}
 	return 0;

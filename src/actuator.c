@@ -33,3 +33,5 @@ unsigned char get_arduino(unsigned char type, unsigned char id) {
 	return UART1_Read();						// return the read
 
 }
+
+void servo_move(unsigned char id, unsigned char data) { send_arduino('S', id, data); }
