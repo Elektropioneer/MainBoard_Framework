@@ -11,6 +11,7 @@
 #include "list_generic.h"
 #include "can.h"
 #include "debug.h"
+#include "usart.h"
 
 /*
  * 0 PA0 		8  PB0 		16 PC0 		24 PD0 		32 PE0 		40 PF0		48 PG0
@@ -144,6 +145,7 @@ void system_init(void)
 	// waiting for jumper
 	timer_init(1000);
 	CAN_Init(1);
+	UART1_Init(UART1_BAUD, UART_ISR_OFF);
 
 	_delay_ms(500);
 

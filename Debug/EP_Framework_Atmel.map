@@ -5,19 +5,19 @@ Archive member included to satisfy reference by file (symbol)
 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
                               ./src/debug.o (__do_copy_data)
 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
-                              ./src/actuator.o (__do_clear_bss)
+                              ./src/can.o (__do_clear_bss)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
                               ./src/usart.o (__subsf3)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
                               /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o) (__addsf3x)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(cmpsf2.o)
-                              ./src/actuator.o (__ltsf2)
+                              ./src/ax.o (__ltsf2)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(divsf3.o)
                               ./src/ax.o (__divsf3)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(divsf3x.o)
                               /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(divsf3.o) (__divsf3x)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
-                              ./src/actuator.o (__fixunssfsi)
+                              ./src/ax.o (__fixunssfsi)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
                               ./src/ax.o (__floatunsisf)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_cmp.o)
@@ -37,9 +37,9 @@ Archive member included to satisfy reference by file (symbol)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
                               /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o) (__fp_zero)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(gesf2.o)
-                              ./src/actuator.o (__gtsf2)
+                              ./src/ax.o (__gtsf2)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
-                              ./src/actuator.o (__mulsf3)
+                              ./src/ax.o (__mulsf3)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
                               /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o) (__mulsf3x)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libc.a(calloc.o)
@@ -54,7 +54,6 @@ Common symbol       size              file
 
 __brkval            0x2               /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libc.a(malloc.o)
 odometry_status     0x1               ./darkside.o
-servo1              0x3               ./src/actuator.o
 __flp               0x2               /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libc.a(malloc.o)
 
 Memory Configuration
@@ -181,7 +180,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000     0x485c
+.text           0x0000000000000000     0x41b4
  *(.vectors)
  .vectors       0x0000000000000000       0x94 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
                 0x0000000000000000                __vectors
@@ -305,346 +304,328 @@ END GROUP
  .text          0x00000000000000d6        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libc.a(memset.o)
                 0x00000000000000d6                . = ALIGN (0x2)
  *(.text.*)
- .text.act_servo
-                0x00000000000000d6      0x156 ./src/actuator.o
-                0x00000000000000d6                act_servo
- .text.setup_servo
-                0x000000000000022c       0x64 ./src/actuator.o
-                0x000000000000022c                setup_servo
- .text.attach_servo
-                0x0000000000000290      0x140 ./src/actuator.o
-                0x0000000000000290                attach_servo
- .text.detach_servo
-                0x00000000000003d0      0x13e ./src/actuator.o
-                0x00000000000003d0                detach_servo
- .text.act_relay
-                0x000000000000050e      0x138 ./src/actuator.o
-                0x000000000000050e                act_relay
- .text.act_mosfet
-                0x0000000000000646      0x138 ./src/actuator.o
-                0x0000000000000646                act_mosfet
- .text.AX_UART_Init
-                0x000000000000077e      0x14a ./src/ax.o
-                0x000000000000077e                AX_UART_Init
- .text.AX_SendChar
-                0x00000000000008c8       0x34 ./src/ax.o
-                0x00000000000008c8                AX_SendChar
- .text.AX_ReadChar
-                0x00000000000008fc       0x24 ./src/ax.o
-                0x00000000000008fc                AX_ReadChar
- .text.AX_ReadStatus
-                0x0000000000000920       0x5a ./src/ax.o
-                0x0000000000000920                AX_ReadStatus
- .text.AX_StopTransmitter
-                0x000000000000097a       0x48 ./src/ax.o
-                0x000000000000097a                AX_StopTransmitter
- .text.AX_ReleaseTransmitter
-                0x00000000000009c2       0x20 ./src/ax.o
-                0x00000000000009c2                AX_ReleaseTransmitter
- .text.AX_StopReceiver
-                0x00000000000009e2       0x20 ./src/ax.o
-                0x00000000000009e2                AX_StopReceiver
- .text.AX_ReleaseReceiver
-                0x0000000000000a02       0x20 ./src/ax.o
-                0x0000000000000a02                AX_ReleaseReceiver
- .text.AX_SetAngle
-                0x0000000000000a22      0x22a ./src/ax.o
-                0x0000000000000a22                AX_SetAngle
- .text.AX_EndlessTurn
-                0x0000000000000c4c      0x164 ./src/ax.o
-                0x0000000000000c4c                AX_EndlessTurn
- .text.AX_SetSpeed
-                0x0000000000000db0       0xb4 ./src/ax.o
-                0x0000000000000db0                AX_SetSpeed
- .text.__vector_18
-                0x0000000000000e64      0x1c4 ./src/can.o
-                0x0000000000000e64                __vector_18
- .text.CAN_InitModule
-                0x0000000000001028       0xf6 ./src/can.o
- .text.CAN_InitRxMob
-                0x000000000000111e      0x106 ./src/can.o
- .text.CAN_Init
-                0x0000000000001224       0x8e ./src/can.o
-                0x0000000000001224                CAN_Init
- .text.CAN_CheckRX
-                0x00000000000012b2       0x24 ./src/can.o
-                0x00000000000012b2                CAN_CheckRX
- .text.CAN_Read
-                0x00000000000012d6       0xea ./src/can.o
-                0x00000000000012d6                CAN_Read
- .text.CAN_Write
-                0x00000000000013c0      0x114 ./src/can.o
-                0x00000000000013c0                CAN_Write
- .text.debug_init
-                0x00000000000014d4        0xe ./src/debug.o
-                0x00000000000014d4                debug_init
- .text.__list_add
-                0x00000000000014e2       0x64 ./src/gpio.o
- .text.list_add
-                0x0000000000001546       0x3a ./src/gpio.o
- .text.gpio_register_pin
-                0x0000000000001580      0x1ce ./src/gpio.o
-                0x0000000000001580                gpio_register_pin
- .text.gpio_write_pin
-                0x000000000000174e       0xf6 ./src/gpio.o
-                0x000000000000174e                gpio_write_pin
- .text.__gpio_read_pin
-                0x0000000000001844       0x62 ./src/gpio.o
- .text.gpio_read_pin
-                0x00000000000018a6       0xfa ./src/gpio.o
-                0x00000000000018a6                gpio_read_pin
- .text.gpio_debouncer
-                0x00000000000019a0       0xa6 ./src/gpio.o
-                0x00000000000019a0                gpio_debouncer
- .text.odometry_set_speed
-                0x0000000000001a46      0x138 ./src/odometry.o
-                0x0000000000001a46                odometry_set_speed
- .text.odometry_query_position
-                0x0000000000001b7e      0x184 ./src/odometry.o
-                0x0000000000001b7e                odometry_query_position
- .text.odometry_wait_until_done
-                0x0000000000001d02       0x6e ./src/odometry.o
- .text.odometry_stop
-                0x0000000000001d70      0x13a ./src/odometry.o
-                0x0000000000001d70                odometry_stop
- .text.odometry_move_straight
-                0x0000000000001eaa      0x148 ./src/odometry.o
-                0x0000000000001eaa                odometry_move_straight
- .text.odometry_move_to_position
-                0x0000000000001ff2      0x17c ./src/odometry.o
-                0x0000000000001ff2                odometry_move_to_position
- .text.odometry_set_position
-                0x000000000000216e      0x1b4 ./src/odometry.o
-                0x000000000000216e                odometry_set_position
- .text.odometry_rotate_for
-                0x0000000000002322      0x146 ./src/odometry.o
-                0x0000000000002322                odometry_rotate_for
- .text.odometry_set_angle
-                0x0000000000002468      0x146 ./src/odometry.o
-                0x0000000000002468                odometry_set_angle
- .text.odometry_kurva
-                0x00000000000025ae      0x180 ./src/odometry.o
-                0x00000000000025ae                odometry_kurva
- .text.odometry_match_end
-                0x000000000000272e      0x120 ./src/odometry.o
-                0x000000000000272e                odometry_match_end
- .text.getState
-                0x000000000000284e       0x16 ./src/odometry.o
-                0x000000000000284e                getState
- .text.odometry_get_x
-                0x0000000000002864       0x1a ./src/odometry.o
-                0x0000000000002864                odometry_get_x
- .text.odometry_get_y
-                0x000000000000287e       0x1a ./src/odometry.o
-                0x000000000000287e                odometry_get_y
- .text.odometry_get_angle
-                0x0000000000002898       0x1a ./src/odometry.o
-                0x0000000000002898                odometry_get_angle
- .text.timer_register_callback
-                0x00000000000028b2       0x24 ./src/system.o
-                0x00000000000028b2                timer_register_callback
- .text.timer_init
-                0x00000000000028d6       0xa2 ./src/system.o
-                0x00000000000028d6                timer_init
- .text.__vector_12
-                0x0000000000002978      0x1d2 ./src/system.o
-                0x0000000000002978                __vector_12
- .text.system_reset_system_time
-                0x0000000000002b4a       0x1e ./src/system.o
-                0x0000000000002b4a                system_reset_system_time
- .text.system_set_match_started
-                0x0000000000002b68       0x14 ./src/system.o
-                0x0000000000002b68                system_set_match_started
- .text.system_get_system_time
-                0x0000000000002b7c       0x22 ./src/system.o
-                0x0000000000002b7c                system_get_system_time
- .text.system_get_match_started
-                0x0000000000002b9e       0x12 ./src/system.o
-                0x0000000000002b9e                system_get_match_started
- .text.__vector_8
-                0x0000000000002bb0       0x2e ./src/system.o
-                0x0000000000002bb0                __vector_8
- .text.system_setup_jumper
-                0x0000000000002bde      0x14c ./src/system.o
- .text.system_wait_for_jumper
-                0x0000000000002d2a      0x116 ./src/system.o
- .text.system_init
-                0x0000000000002e40      0x31a ./src/system.o
-                0x0000000000002e40                system_init
- .text.UART0_Init
-                0x000000000000315a      0x100 ./src/usart.o
-                0x000000000000315a                UART0_Init
- .text.__vector_23
-                0x000000000000325a       0x84 ./src/usart.o
-                0x000000000000325a                __vector_23
- .text.UART0_Write
-                0x00000000000032de       0x9c ./src/usart.o
-                0x00000000000032de                UART0_Write
- .text.__vector_21
-                0x000000000000337a       0x98 ./src/usart.o
-                0x000000000000337a                __vector_21
- .text.UART0_Read
-                0x0000000000003412       0x8e ./src/usart.o
-                0x0000000000003412                UART0_Read
- .text.UART1_Init
-                0x00000000000034a0      0x100 ./src/usart.o
-                0x00000000000034a0                UART1_Init
- .text.__vector_34
-                0x00000000000035a0       0x84 ./src/usart.o
-                0x00000000000035a0                __vector_34
- .text.__vector_32
-                0x0000000000003624       0x98 ./src/usart.o
-                0x0000000000003624                __vector_32
- .text.altUart0Write
-                0x00000000000036bc       0x34 ./src/usart.o
-                0x00000000000036bc                altUart0Write
- .text.altUart1Write
-                0x00000000000036f0       0x34 ./src/usart.o
-                0x00000000000036f0                altUart1Write
- .text.UART1_Write
-                0x0000000000003724       0x9c ./src/usart.o
-                0x0000000000003724                UART1_Write
- .text.UART1_Read
-                0x00000000000037c0       0x8e ./src/usart.o
-                0x00000000000037c0                UART1_Read
- .text.UART1_Buffer
-                0x000000000000384e       0x3c ./src/usart.o
-                0x000000000000384e                UART1_Buffer
- .text.test_sensor
-                0x000000000000388a       0x38 ./darkside.o
-                0x000000000000388a                test_sensor
- .text.wait_while_detection_tactic_one
-                0x00000000000038c2      0x22c ./darkside.o
- .text.darkside
-                0x0000000000003aee      0x2f8 ./darkside.o
-                0x0000000000003aee                darkside
  .text.send_arduino
-                0x0000000000003de6       0x36 ./main.o
-                0x0000000000003de6                send_arduino
+                0x00000000000000d6       0x36 ./src/actuator.o
+                0x00000000000000d6                send_arduino
  .text.get_arduino
-                0x0000000000003e1c       0x2a ./main.o
-                0x0000000000003e1c                get_arduino
- .text.main     0x0000000000003e46      0x304 ./main.o
-                0x0000000000003e46                main
+                0x000000000000010c       0x2a ./src/actuator.o
+                0x000000000000010c                get_arduino
+ .text.AX_UART_Init
+                0x0000000000000136      0x14a ./src/ax.o
+                0x0000000000000136                AX_UART_Init
+ .text.AX_SendChar
+                0x0000000000000280       0x34 ./src/ax.o
+                0x0000000000000280                AX_SendChar
+ .text.AX_ReadChar
+                0x00000000000002b4       0x24 ./src/ax.o
+                0x00000000000002b4                AX_ReadChar
+ .text.AX_ReadStatus
+                0x00000000000002d8       0x5a ./src/ax.o
+                0x00000000000002d8                AX_ReadStatus
+ .text.AX_StopTransmitter
+                0x0000000000000332       0x48 ./src/ax.o
+                0x0000000000000332                AX_StopTransmitter
+ .text.AX_ReleaseTransmitter
+                0x000000000000037a       0x20 ./src/ax.o
+                0x000000000000037a                AX_ReleaseTransmitter
+ .text.AX_StopReceiver
+                0x000000000000039a       0x20 ./src/ax.o
+                0x000000000000039a                AX_StopReceiver
+ .text.AX_ReleaseReceiver
+                0x00000000000003ba       0x20 ./src/ax.o
+                0x00000000000003ba                AX_ReleaseReceiver
+ .text.AX_SetAngle
+                0x00000000000003da      0x22a ./src/ax.o
+                0x00000000000003da                AX_SetAngle
+ .text.AX_EndlessTurn
+                0x0000000000000604      0x164 ./src/ax.o
+                0x0000000000000604                AX_EndlessTurn
+ .text.AX_SetSpeed
+                0x0000000000000768       0xb4 ./src/ax.o
+                0x0000000000000768                AX_SetSpeed
+ .text.__vector_18
+                0x000000000000081c      0x1c4 ./src/can.o
+                0x000000000000081c                __vector_18
+ .text.CAN_InitModule
+                0x00000000000009e0       0xf6 ./src/can.o
+ .text.CAN_InitRxMob
+                0x0000000000000ad6      0x106 ./src/can.o
+ .text.CAN_Init
+                0x0000000000000bdc       0x8e ./src/can.o
+                0x0000000000000bdc                CAN_Init
+ .text.CAN_CheckRX
+                0x0000000000000c6a       0x24 ./src/can.o
+                0x0000000000000c6a                CAN_CheckRX
+ .text.CAN_Read
+                0x0000000000000c8e       0xea ./src/can.o
+                0x0000000000000c8e                CAN_Read
+ .text.CAN_Write
+                0x0000000000000d78      0x114 ./src/can.o
+                0x0000000000000d78                CAN_Write
+ .text.debug_init
+                0x0000000000000e8c        0xe ./src/debug.o
+                0x0000000000000e8c                debug_init
+ .text.__list_add
+                0x0000000000000e9a       0x64 ./src/gpio.o
+ .text.list_add
+                0x0000000000000efe       0x3a ./src/gpio.o
+ .text.gpio_register_pin
+                0x0000000000000f38      0x1ce ./src/gpio.o
+                0x0000000000000f38                gpio_register_pin
+ .text.gpio_write_pin
+                0x0000000000001106       0xf6 ./src/gpio.o
+                0x0000000000001106                gpio_write_pin
+ .text.__gpio_read_pin
+                0x00000000000011fc       0x62 ./src/gpio.o
+ .text.gpio_read_pin
+                0x000000000000125e       0xfa ./src/gpio.o
+                0x000000000000125e                gpio_read_pin
+ .text.gpio_debouncer
+                0x0000000000001358       0xa6 ./src/gpio.o
+                0x0000000000001358                gpio_debouncer
+ .text.odometry_set_speed
+                0x00000000000013fe      0x138 ./src/odometry.o
+                0x00000000000013fe                odometry_set_speed
+ .text.odometry_query_position
+                0x0000000000001536      0x184 ./src/odometry.o
+                0x0000000000001536                odometry_query_position
+ .text.odometry_wait_until_done
+                0x00000000000016ba       0x6e ./src/odometry.o
+ .text.odometry_stop
+                0x0000000000001728      0x13a ./src/odometry.o
+                0x0000000000001728                odometry_stop
+ .text.odometry_move_straight
+                0x0000000000001862      0x148 ./src/odometry.o
+                0x0000000000001862                odometry_move_straight
+ .text.odometry_move_to_position
+                0x00000000000019aa      0x17c ./src/odometry.o
+                0x00000000000019aa                odometry_move_to_position
+ .text.odometry_set_position
+                0x0000000000001b26      0x1b4 ./src/odometry.o
+                0x0000000000001b26                odometry_set_position
+ .text.odometry_rotate_for
+                0x0000000000001cda      0x146 ./src/odometry.o
+                0x0000000000001cda                odometry_rotate_for
+ .text.odometry_set_angle
+                0x0000000000001e20      0x146 ./src/odometry.o
+                0x0000000000001e20                odometry_set_angle
+ .text.odometry_kurva
+                0x0000000000001f66      0x180 ./src/odometry.o
+                0x0000000000001f66                odometry_kurva
+ .text.odometry_match_end
+                0x00000000000020e6      0x120 ./src/odometry.o
+                0x00000000000020e6                odometry_match_end
+ .text.getState
+                0x0000000000002206       0x16 ./src/odometry.o
+                0x0000000000002206                getState
+ .text.odometry_get_x
+                0x000000000000221c       0x1a ./src/odometry.o
+                0x000000000000221c                odometry_get_x
+ .text.odometry_get_y
+                0x0000000000002236       0x1a ./src/odometry.o
+                0x0000000000002236                odometry_get_y
+ .text.odometry_get_angle
+                0x0000000000002250       0x1a ./src/odometry.o
+                0x0000000000002250                odometry_get_angle
+ .text.timer_register_callback
+                0x000000000000226a       0x24 ./src/system.o
+                0x000000000000226a                timer_register_callback
+ .text.timer_init
+                0x000000000000228e       0xa2 ./src/system.o
+                0x000000000000228e                timer_init
+ .text.__vector_12
+                0x0000000000002330      0x1d2 ./src/system.o
+                0x0000000000002330                __vector_12
+ .text.system_reset_system_time
+                0x0000000000002502       0x1e ./src/system.o
+                0x0000000000002502                system_reset_system_time
+ .text.system_set_match_started
+                0x0000000000002520       0x14 ./src/system.o
+                0x0000000000002520                system_set_match_started
+ .text.system_get_system_time
+                0x0000000000002534       0x22 ./src/system.o
+                0x0000000000002534                system_get_system_time
+ .text.system_get_match_started
+                0x0000000000002556       0x12 ./src/system.o
+                0x0000000000002556                system_get_match_started
+ .text.__vector_8
+                0x0000000000002568       0x2e ./src/system.o
+                0x0000000000002568                __vector_8
+ .text.system_setup_jumper
+                0x0000000000002596      0x14c ./src/system.o
+ .text.system_wait_for_jumper
+                0x00000000000026e2      0x116 ./src/system.o
+ .text.system_init
+                0x00000000000027f8      0x328 ./src/system.o
+                0x00000000000027f8                system_init
+ .text.UART0_Init
+                0x0000000000002b20      0x100 ./src/usart.o
+                0x0000000000002b20                UART0_Init
+ .text.__vector_23
+                0x0000000000002c20       0x84 ./src/usart.o
+                0x0000000000002c20                __vector_23
+ .text.UART0_Write
+                0x0000000000002ca4       0x9c ./src/usart.o
+                0x0000000000002ca4                UART0_Write
+ .text.__vector_21
+                0x0000000000002d40       0x98 ./src/usart.o
+                0x0000000000002d40                __vector_21
+ .text.UART0_Read
+                0x0000000000002dd8       0x8e ./src/usart.o
+                0x0000000000002dd8                UART0_Read
+ .text.UART1_Init
+                0x0000000000002e66      0x100 ./src/usart.o
+                0x0000000000002e66                UART1_Init
+ .text.__vector_34
+                0x0000000000002f66       0x84 ./src/usart.o
+                0x0000000000002f66                __vector_34
+ .text.__vector_32
+                0x0000000000002fea       0x98 ./src/usart.o
+                0x0000000000002fea                __vector_32
+ .text.altUart0Write
+                0x0000000000003082       0x34 ./src/usart.o
+                0x0000000000003082                altUart0Write
+ .text.altUart1Write
+                0x00000000000030b6       0x34 ./src/usart.o
+                0x00000000000030b6                altUart1Write
+ .text.UART1_Write
+                0x00000000000030ea       0x9c ./src/usart.o
+                0x00000000000030ea                UART1_Write
+ .text.UART1_Read
+                0x0000000000003186       0x8e ./src/usart.o
+                0x0000000000003186                UART1_Read
+ .text.UART1_Buffer
+                0x0000000000003214       0x3c ./src/usart.o
+                0x0000000000003214                UART1_Buffer
+ .text.test_sensor
+                0x0000000000003250       0x38 ./darkside.o
+                0x0000000000003250                test_sensor
+ .text.wait_while_detection_tactic_one
+                0x0000000000003288      0x22c ./darkside.o
+ .text.darkside
+                0x00000000000034b4      0x2f8 ./darkside.o
+                0x00000000000034b4                darkside
+ .text.main     0x00000000000037ac      0x2f6 ./main.o
+                0x00000000000037ac                main
  .text.libgcc.mul
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.div
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
- .text.libgcc   0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .text.libgcc   0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.fixed
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.mul
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.div
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
- .text.libgcc   0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.prologue
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.builtins
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.fmul
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.fixed
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.mul
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.div
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
- .text.libgcc   0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.prologue
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.builtins
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.fmul
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
-                0x000000000000414a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                0x0000000000003aa2        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
  .text.avr-libc.fplib
-                0x000000000000414a        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
-                0x000000000000414a                __subsf3
-                0x000000000000414c                __addsf3
+                0x0000000000003aa2        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
+                0x0000000000003aa2                __subsf3
+                0x0000000000003aa4                __addsf3
  .text.avr-libc.fplib
-                0x0000000000004158       0xcc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
-                0x000000000000417a                __addsf3x
+                0x0000000000003ab0       0xcc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+                0x0000000000003ad2                __addsf3x
  .text.avr-libc.fplib
-                0x0000000000004224        0xa /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(cmpsf2.o)
-                0x0000000000004224                __lesf2
-                0x0000000000004224                __nesf2
-                0x0000000000004224                __eqsf2
-                0x0000000000004224                __cmpsf2
-                0x0000000000004224                __ltsf2
+                0x0000000000003b7c        0xa /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(cmpsf2.o)
+                0x0000000000003b7c                __lesf2
+                0x0000000000003b7c                __nesf2
+                0x0000000000003b7c                __eqsf2
+                0x0000000000003b7c                __cmpsf2
+                0x0000000000003b7c                __ltsf2
  .text.avr-libc.fplib
-                0x000000000000422e        0x8 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(divsf3.o)
-                0x000000000000422e                __divsf3
+                0x0000000000003b86        0x8 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(divsf3.o)
+                0x0000000000003b86                __divsf3
  .text.avr-libc.fplib
-                0x0000000000004236       0xdc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(divsf3x.o)
-                0x0000000000004256                __divsf3x
-                0x000000000000425c                __divsf3_pse
+                0x0000000000003b8e       0xdc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(divsf3x.o)
+                0x0000000000003bae                __divsf3x
+                0x0000000000003bb4                __divsf3_pse
  .text.avr-libc.fplib
-                0x0000000000004312       0x5e /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
-                0x0000000000004312                __fixunssfsi
+                0x0000000000003c6a       0x5e /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
+                0x0000000000003c6a                __fixunssfsi
  .text.avr-libc.fplib
-                0x0000000000004370       0x7a /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
-                0x0000000000004370                __floatunsisf
-                0x0000000000004374                __floatsisf
+                0x0000000000003cc8       0x7a /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
+                0x0000000000003cc8                __floatunsisf
+                0x0000000000003ccc                __floatsisf
  .text.avr-libc.fplib
-                0x00000000000043ea       0x48 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_cmp.o)
-                0x00000000000043ea                __fp_cmp
+                0x0000000000003d42       0x48 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_cmp.o)
+                0x0000000000003d42                __fp_cmp
  .text.avr-libc.fplib
-                0x0000000000004432        0xc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_inf.o)
-                0x0000000000004432                __fp_inf
+                0x0000000000003d8a        0xc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_inf.o)
+                0x0000000000003d8a                __fp_inf
  .text.avr-libc.fplib
-                0x000000000000443e        0x6 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_nan.o)
-                0x000000000000443e                __fp_nan
+                0x0000000000003d96        0x6 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_nan.o)
+                0x0000000000003d96                __fp_nan
  .text.avr-libc.fplib
-                0x0000000000004444        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscA.o)
-                0x0000000000004444                __fp_pscA
+                0x0000000000003d9c        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscA.o)
+                0x0000000000003d9c                __fp_pscA
  .text.avr-libc.fplib
-                0x0000000000004452        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscB.o)
-                0x0000000000004452                __fp_pscB
+                0x0000000000003daa        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscB.o)
+                0x0000000000003daa                __fp_pscB
  .text.avr-libc.fplib
-                0x0000000000004460       0x22 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_round.o)
-                0x0000000000004460                __fp_round
+                0x0000000000003db8       0x22 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_round.o)
+                0x0000000000003db8                __fp_round
  .text.avr-libc.fplib
-                0x0000000000004482       0x44 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
-                0x0000000000004482                __fp_split3
-                0x0000000000004492                __fp_splitA
+                0x0000000000003dda       0x44 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
+                0x0000000000003dda                __fp_split3
+                0x0000000000003dea                __fp_splitA
  .text.avr-libc.fplib
-                0x00000000000044c6        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
-                0x00000000000044c6                __fp_zero
-                0x00000000000044c8                __fp_szero
+                0x0000000000003e1e        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
+                0x0000000000003e1e                __fp_zero
+                0x0000000000003e20                __fp_szero
  .text.avr-libc.fplib
-                0x00000000000044d4        0xa /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(gesf2.o)
-                0x00000000000044d4                __gtsf2
-                0x00000000000044d4                __gesf2
+                0x0000000000003e2c        0xa /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(gesf2.o)
+                0x0000000000003e2c                __gtsf2
+                0x0000000000003e2c                __gesf2
  .text.avr-libc.fplib
-                0x00000000000044de        0x8 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
-                0x00000000000044de                __mulsf3
+                0x0000000000003e36        0x8 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
+                0x0000000000003e36                __mulsf3
  .text.avr-libc.fplib
-                0x00000000000044e6       0xd2 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
-                0x0000000000004504                __mulsf3x
-                0x000000000000450a                __mulsf3_pse
+                0x0000000000003e3e       0xd2 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+                0x0000000000003e5c                __mulsf3x
+                0x0000000000003e62                __mulsf3_pse
  .text.avr-libc
-                0x00000000000045b8       0x38 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libc.a(calloc.o)
-                0x00000000000045b8                calloc
+                0x0000000000003f10       0x38 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libc.a(calloc.o)
+                0x0000000000003f10                calloc
  .text.avr-libc
-                0x00000000000045f0      0x25a /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libc.a(malloc.o)
-                0x00000000000045f0                malloc
-                0x000000000000471a                free
+                0x0000000000003f48      0x25a /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libc.a(malloc.o)
+                0x0000000000003f48                malloc
+                0x0000000000004072                free
  .text.avr-libc
-                0x000000000000484a        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libc.a(memset.o)
-                0x000000000000484a                memset
-                0x0000000000004858                . = ALIGN (0x2)
+                0x00000000000041a2        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libc.a(memset.o)
+                0x00000000000041a2                memset
+                0x00000000000041b0                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000000000004858        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
-                0x0000000000004858                exit
-                0x0000000000004858                _exit
+ .fini9         0x00000000000041b0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x00000000000041b0                exit
+                0x00000000000041b0                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -663,11 +644,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000000000004858        0x4 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .fini0         0x00000000000041b0        0x4 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
  *(.fini0)
-                0x000000000000485c                _etext = .
+                0x00000000000041b4                _etext = .
 
-.data           0x0000000000800100       0x2e load address 0x000000000000485c
+.data           0x0000000000800100       0x2e load address 0x00000000000041b4
                 0x0000000000800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x0000000000800100        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
@@ -733,7 +714,7 @@ END GROUP
                 0x000000000080012e                _edata = .
                 0x000000000080012e                PROVIDE (__data_end, .)
 
-.bss            0x000000000080012e      0x157
+.bss            0x000000000080012e      0x154
                 0x000000000080012e                PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x000000000080012e        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
@@ -835,23 +816,21 @@ END GROUP
                 0x000000000080027c        0x1 ./darkside.o
                 0x000000000080027c                next_position
  *(COMMON)
- COMMON         0x000000000080027d        0x3 ./src/actuator.o
-                0x000000000080027d                servo1
- COMMON         0x0000000000800280        0x1 ./darkside.o
-                0x0000000000800280                odometry_status
- COMMON         0x0000000000800281        0x4 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libc.a(malloc.o)
-                0x0000000000800281                __brkval
-                0x0000000000800283                __flp
-                0x0000000000800285                PROVIDE (__bss_end, .)
-                0x000000000000485c                __data_load_start = LOADADDR (.data)
-                0x000000000000488a                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x000000000080027d        0x1 ./darkside.o
+                0x000000000080027d                odometry_status
+ COMMON         0x000000000080027e        0x4 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libc.a(malloc.o)
+                0x000000000080027e                __brkval
+                0x0000000000800280                __flp
+                0x0000000000800282                PROVIDE (__bss_end, .)
+                0x00000000000041b4                __data_load_start = LOADADDR (.data)
+                0x00000000000041e2                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0000000000800285        0x0
-                0x0000000000800285                PROVIDE (__noinit_start, .)
+.noinit         0x0000000000800282        0x0
+                0x0000000000800282                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x0000000000800285                PROVIDE (__noinit_end, .)
-                0x0000000000800285                _end = .
-                0x0000000000800285                PROVIDE (__heap_start, .)
+                0x0000000000800282                PROVIDE (__noinit_end, .)
+                0x0000000000800282                _end = .
+                0x0000000000800282                PROVIDE (__heap_start, .)
 
 .eeprom         0x0000000000810000        0x0
  *(.eeprom*)
@@ -872,33 +851,33 @@ END GROUP
 .user_signatures
  *(.user_signatures*)
 
-.stab           0x0000000000000000     0x6984
+.stab           0x0000000000000000     0x618c
  *(.stab)
- .stab          0x0000000000000000      0xcf0 ./src/actuator.o
- .stab          0x0000000000000cf0      0xb4c ./src/ax.o
+ .stab          0x0000000000000000      0x600 ./src/actuator.o
+ .stab          0x0000000000000600      0xb4c ./src/ax.o
                                         0xd14 (size before relaxing)
- .stab          0x000000000000183c      0xae0 ./src/can.o
+ .stab          0x000000000000114c      0xae0 ./src/can.o
                                         0xd14 (size before relaxing)
- .stab          0x000000000000231c      0x30c ./src/debug.o
+ .stab          0x0000000000001c2c      0x30c ./src/debug.o
                                         0x570 (size before relaxing)
- .stab          0x0000000000002628      0x990 ./src/gpio.o
+ .stab          0x0000000000001f38      0x990 ./src/gpio.o
                                         0xbac (size before relaxing)
- .stab          0x0000000000002fb8     0x1350 ./src/odometry.o
+ .stab          0x00000000000028c8     0x1350 ./src/odometry.o
                                        0x156c (size before relaxing)
- .stab          0x0000000000004308      0x258 ./src/sensors.o
+ .stab          0x0000000000003c18      0x258 ./src/sensors.o
                                         0x264 (size before relaxing)
- .stab          0x0000000000004560      0xaa4 ./src/system.o
-                                        0xd20 (size before relaxing)
- .stab          0x0000000000005004      0xb04 ./src/usart.o
+ .stab          0x0000000000003e70      0xab0 ./src/system.o
+                                        0xd2c (size before relaxing)
+ .stab          0x0000000000004920      0xb04 ./src/usart.o
                                         0xccc (size before relaxing)
- .stab          0x0000000000005b08      0x81c ./darkside.o
-                                        0xab0 (size before relaxing)
- .stab          0x0000000000006324      0x660 ./main.o
-                                        0x90c (size before relaxing)
+ .stab          0x0000000000005424      0x804 ./darkside.o
+                                        0xa44 (size before relaxing)
+ .stab          0x0000000000005c28      0x564 ./main.o
+                                        0x7bc (size before relaxing)
 
-.stabstr        0x0000000000000000     0x2290
+.stabstr        0x0000000000000000     0x200c
  *(.stabstr)
- .stabstr       0x0000000000000000     0x2290 ./src/actuator.o
+ .stabstr       0x0000000000000000     0x200c ./src/actuator.o
 
 .stab.excl
  *(.stab.excl)
