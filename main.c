@@ -43,11 +43,19 @@
 #define MOS_1_OFF send_arduino('M', 1, 0);
 
 void send_arduino(unsigned char type, unsigned char id, unsigned char data) {
-	UART1_Write(type);					// the type of device we want to change
-	UART1_Write((unsigned char)id);		// the id of the specific device
-	UART1_Write((unsigned char)data);	// the data
+	UART1_Write(type);							// the type of device we want to change
+	UART1_Write((unsigned char)id);				// the id of the specific device
+	UART1_Write((unsigned char)data);			// the data
 
-	UART1_Write('X');					// end bit
+	UART1_Write('X');							// end bit
+}
+
+unsigned char get_arduino(unsigned char type, unsigned char id) {
+	send_arduino('G',type,(unsigned char)id);	// send the "get data protocol"
+	UART1_Read();								// read (because it is sending 2x)
+
+	return UART1_Read();
+
 }
 
 int main()
@@ -59,25 +67,16 @@ int main()
 	UART1_Init(UART1_BAUD, UART_ISR_OFF);
 
 	_delay_ms(3000);
+
 	while(1) {
- 	send_arduino('G','M',1);
-	UART1_Read();// it sends 2x the data idk why
-	while(1) {
-	if(UART1_Read() == 0) {
+		while(get_arduino('M',1) != 0);
 		send_arduino('M',1,1);
-		break;
-	}
-	}
-	_delay_ms(1000);
-	send_arduino('G','M',1);
-	UART1_Read();
-	while(1) {
-		if(UART1_Read() == 1) {
-			send_arduino('M',1,0);
-			break;
-		}
-		}
-	_delay_ms(2000);
+
+		_delay_ms(1000);
+		while(get_arduino('M',1) != 1);
+		send_arduino('M',1,0);
+
+		_delay_ms(2000);
 	}
 	return 0;
 
