@@ -12,6 +12,7 @@
 #include "can.h"
 #include "debug.h"
 #include "usart.h"
+#include "actuator.h"
 
 /*
  * 0 PA0 		8  PB0 		16 PC0 		24 PD0 		32 PE0 		40 PF0		48 PG0
@@ -150,6 +151,8 @@ void system_init(void)
 	_delay_ms(500);
 
 	system_setup_jumper();
+
+	ping_actuator();
 
 	//detection_setup();
 	//debug_init();

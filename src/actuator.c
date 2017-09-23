@@ -34,4 +34,28 @@ unsigned char get_arduino(unsigned char type, unsigned char id) {
 
 }
 
+/*
+ * 	Function: 	 void servo_move(unsigned char id, unsigned char data);
+ * 	Description: Sending the angle of the id of the servo
+ * 	Parameters:  unsigned char id   - the id of the servo
+ * 				 unsigned char data - the angle of the servo
+ */
 void servo_move(unsigned char id, unsigned char data) { send_arduino('S', id, data); }
+
+/*
+ * 	Function: 	 void ping_actuator()
+ * 	Description: this will ping the actuator and it will run until ping is good
+ */
+void ping_actuator() {
+
+	do {
+		UART1_Write('P');
+		UART1_Write(0);
+		UART1_Write(0);
+		UART1_Write('X');
+
+		PORTG = 0x01;
+		_delay_ms(50);
+
+	} while(UART1_Read() != 1);
+}

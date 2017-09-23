@@ -8,7 +8,7 @@
 #include "gpio.h"
 #include "actuator.h"
 
-// if this is defined it will execute the coordinates for the "first desk" if commented it will moveon to the "second desk"
+// if this is defined it will execute the coordinates for the "first desk" if commented it will move on to the "second desk"
 #define first_desk
 
 char test_sensor(unsigned long start_time) {

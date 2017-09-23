@@ -41,10 +41,11 @@
 int main()
 {
 
-
 	system_init();
 
 	_delay_ms(3000);
+
+
 
 	while(1) {
 		SER_1(180);
