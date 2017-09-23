@@ -47,12 +47,12 @@ int main()
 	_delay_ms(3000);
 
 	while(1) {
-		while(get_arduino('M',1) != 0);
-		send_arduino('M',1,1);
+		while(get_arduino('S',1) != 0);
+		send_arduino('S',1,255);
 
 		_delay_ms(1000);
-		while(get_arduino('M',1) != 1);
-		send_arduino('M',1,0);
+		while(get_arduino('S',1) != 255);
+		send_arduino('S',1,0);
 
 		_delay_ms(2000);
 	}

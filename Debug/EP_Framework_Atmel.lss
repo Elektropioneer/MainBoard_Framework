@@ -6530,7 +6530,7 @@ void system_init(void)
 
 	_delay_ms(100);
 
-	gpio_register_pin(0, GPIO_DIRECTION_INPUT, true);
+	gpio_register_pin(0, GPIO_DIRECTION_INPUT, true);									// test detection
     28f8:	41 e0       	ldi	r20, 0x01	; 1
     28fa:	60 e0       	ldi	r22, 0x00	; 0
     28fc:	80 e0       	ldi	r24, 0x00	; 0
@@ -8980,21 +8980,20 @@ int main()
     38a4:	9e 87       	std	Y+14, r25	; 0x0e
     38a6:	8d 87       	std	Y+13, r24	; 0x0d
 
-
 	_delay_ms(3000);
 
 	while(1) {
-		while(get_arduino('M',1) != 0);
+		while(get_arduino('S',1) != 0);
     38a8:	00 00       	nop
     38aa:	61 e0       	ldi	r22, 0x01	; 1
-    38ac:	8d e4       	ldi	r24, 0x4D	; 77
+    38ac:	83 e5       	ldi	r24, 0x53	; 83
     38ae:	0e 94 86 00 	call	0x10c	; 0x10c <get_arduino>
     38b2:	88 23       	and	r24, r24
     38b4:	d1 f7       	brne	.-12     	; 0x38aa <main+0xfe>
-		send_arduino('M',1,1);
-    38b6:	41 e0       	ldi	r20, 0x01	; 1
+		send_arduino('S',1,255);
+    38b6:	4f ef       	ldi	r20, 0xFF	; 255
     38b8:	61 e0       	ldi	r22, 0x01	; 1
-    38ba:	8d e4       	ldi	r24, 0x4D	; 77
+    38ba:	83 e5       	ldi	r24, 0x53	; 83
     38bc:	0e 94 6b 00 	call	0xd6	; 0xd6 <send_arduino>
     38c0:	80 e0       	ldi	r24, 0x00	; 0
     38c2:	90 e0       	ldi	r25, 0x00	; 0
@@ -9135,17 +9134,17 @@ int main()
     39a2:	8b 8f       	std	Y+27, r24	; 0x1b
 
 		_delay_ms(1000);
-		while(get_arduino('M',1) != 1);
+		while(get_arduino('S',1) != 255);
     39a4:	00 00       	nop
     39a6:	61 e0       	ldi	r22, 0x01	; 1
-    39a8:	8d e4       	ldi	r24, 0x4D	; 77
+    39a8:	83 e5       	ldi	r24, 0x53	; 83
     39aa:	0e 94 86 00 	call	0x10c	; 0x10c <get_arduino>
-    39ae:	81 30       	cpi	r24, 0x01	; 1
+    39ae:	8f 3f       	cpi	r24, 0xFF	; 255
     39b0:	d1 f7       	brne	.-12     	; 0x39a6 <main+0x1fa>
-		send_arduino('M',1,0);
+		send_arduino('S',1,0);
     39b2:	40 e0       	ldi	r20, 0x00	; 0
     39b4:	61 e0       	ldi	r22, 0x01	; 1
-    39b6:	8d e4       	ldi	r24, 0x4D	; 77
+    39b6:	83 e5       	ldi	r24, 0x53	; 83
     39b8:	0e 94 6b 00 	call	0xd6	; 0xd6 <send_arduino>
     39bc:	80 e0       	ldi	r24, 0x00	; 0
     39be:	90 e0       	ldi	r25, 0x00	; 0
