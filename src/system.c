@@ -125,9 +125,11 @@ static void system_wait_for_jumper() {
 
 }
 
-void flip_debug_led() {
-	PORTG ^= 1 << 0;
-}
+/*
+ * 	Function: 	 flip_debug_led()
+ * 	Description: just flip the led
+ */
+void flip_debug_led() { PORTG ^= 1 << 0; }
 
 /*
  *	Function: 		void system_init(void)
