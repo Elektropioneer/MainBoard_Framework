@@ -98,10 +98,11 @@ void system_set_match_started(void) 	{ 	match_started = 1; 		}
 uint32_t system_get_system_time(void) 	{ 	return sys_time; 		}
 uint8_t system_get_match_started(void) 	{ 	return match_started; 	}
 
-
-ISR(INT7_vect) {
-	jumper_pulled = true;
-}
+/*
+ * 	Function:    ISR(INT7_vect)
+ * 	Description: interrupt which will execute when the jumper is pulled (when there is change on the pin)
+ */
+ISR(INT7_vect) { jumper_pulled = true; }
 
 static void system_setup_jumper() {
 
@@ -118,12 +119,11 @@ static void system_setup_jumper() {
 	sei();							// enable global interrupts
 }
 
-static void system_wait_for_jumper() {
-
-	while(jumper_pulled == false)		// wait for jumper_pulled t be set true
-		_delay_ms(10);
-
-}
+/*
+ * 	Function: 	 system_wait_for_jumper()
+ * 	Description: wait for the jumper to be true
+ */
+static void system_wait_for_jumper() { while(jumper_pulled == false) {_delay_ms(10); } }
 
 /*
  * 	Function: 	 flip_debug_led()
