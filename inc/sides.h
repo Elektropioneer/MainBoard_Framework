@@ -20,5 +20,7 @@ typedef struct
 
 
 void darkside(void);
+void greenside(void);
+void orangeside(void);
 
 #endif /* INC_SIDES_H_ */
