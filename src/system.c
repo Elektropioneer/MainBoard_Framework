@@ -104,6 +104,10 @@ uint8_t system_get_match_started(void) 	{ 	return match_started; 	}
  */
 ISR(INT7_vect) { jumper_pulled = true; }
 
+/*
+ * 	Function: 	 static void system_setup_jumper()
+ * 	Description: setup the interrupt jumper pin
+ */
 static void system_setup_jumper() {
 
 	DDRE &= ~(1 << PIN7);			// setup pin as input
@@ -140,7 +144,6 @@ void system_init(void)
 {
 	// sets debouncer
 	timer_register_callback(gpio_debouncer);
-
 
 	_delay_ms(100);
 
