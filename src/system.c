@@ -70,13 +70,14 @@ ISR(TIMER1_COMPA_vect)
 {
     if(timer_callback != NULL)
         timer_callback();
+
 	if(sys_time >= 90000)					// if match end
 	{
 		if(system_get_match_started())		// if the match has started before
 		{
 			odometry_match_end();
 			while(1) {
-				PORTG ^= 1 << 0;
+				flip_debug_led();
 				_delay_ms(1000);
 			}
 		}
@@ -85,11 +86,10 @@ ISR(TIMER1_COMPA_vect)
 	// for testing if the timer is working
 	if((sys_time % 1000) == 0 && !setup_complete) {
 
-		PORTG ^= 1 << 0;
+		flip_debug_led();
 	}
 
 	sys_time++;
-
 
 }
 
@@ -123,6 +123,10 @@ static void system_wait_for_jumper() {
 	while(jumper_pulled == false)		// wait for jumper_pulled t be set true
 		_delay_ms(10);
 
+}
+
+void flip_debug_led() {
+	PORTG ^= 1 << 0;
 }
 
 /*
@@ -166,9 +170,6 @@ void system_init(void)
 
 	// uart1 ping
 	//ping_actuator();
-
-	//detection_setup();
-	//debug_init();
 
 	setup_complete = true;
 
