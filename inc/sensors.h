@@ -33,13 +33,13 @@
 #define SENSOR_FC_TRIG	1
 #define SENSOR_BC_TRIG	1
 
-uint8_t sensor_fc(); uint8_t sensor_bc();
+char sensor_fc(); char sensor_bc();
 
 #endif
 
-uint8_t sensor_fr(); uint8_t sensor_fl();
-uint8_t sensor_br(); uint8_t sensor_bl();
+char sensor_fr(); char sensor_fl();
+char sensor_br(); char sensor_bl();
 
-uint8_t sensor_all_front(); uint8_t sensor_all_back();
+char sensor_all_front(); char sensor_all_back();
 
 #endif /* INC_SENSORS_H_ */

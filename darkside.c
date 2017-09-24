@@ -7,20 +7,10 @@
 #include "sides.h"
 #include "gpio.h"
 #include "actuator.h"
+#include "sensors.h"
 
 // if this is defined it will execute the coordinates for the "first desk" if commented it will move on to the "second desk"
 #define first_desk
-
-char test_sensor(unsigned long start_time) {
-
-	if(gpio_read_pin(0) == 1) {
-		odometry_stop(HARD_STOP);
-		return 1;
-	}
-
-	return 0;
-}
-
 
 // must be the same number as the same number of gotoFields, if not only some of it will execute
 #define TACTIC_ONE_POSITION_COUNT	2
@@ -31,14 +21,14 @@ uint8_t current_position = 0, next_position = 0, odometry_status, active_state =
 #ifdef first_desk
 // first desk coordinates
 gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
-		{{450,0,0}, 10, FORWARD, test_sensor},
-		{{0,0,0}, 10, BACKWARD, test_sensor}
+		{{450,0,0}, 10, FORWARD, sensor_all_front},
+		{{0,0,0}, 10, BACKWARD, sensor_all_back}
 };
 #else
 // second desk coordinates
 gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
-		{{450,0,0}, 10, FORWARD, test_sensor},
-		{{0,0,0}, 10, BACKWARD, test_sensor}
+		{{450,0,0}, 10, FORWARD, sensor_all_front},
+	    {{0,0,0}, 10, BACKWARD, sensor_all_back}
 };
 #endif
 

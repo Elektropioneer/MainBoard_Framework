@@ -436,96 +436,93 @@ END GROUP
                 0x000000000000216a       0x24 ./src/sensors.o
                 0x000000000000216a                sensor_fl
  .text.sensor_fc
-                0x000000000000218e       0x10 ./src/sensors.o
+                0x000000000000218e       0x24 ./src/sensors.o
                 0x000000000000218e                sensor_fc
  .text.sensor_br
-                0x000000000000219e       0x24 ./src/sensors.o
-                0x000000000000219e                sensor_br
+                0x00000000000021b2       0x24 ./src/sensors.o
+                0x00000000000021b2                sensor_br
  .text.sensor_bl
-                0x00000000000021c2       0x24 ./src/sensors.o
-                0x00000000000021c2                sensor_bl
+                0x00000000000021d6       0x24 ./src/sensors.o
+                0x00000000000021d6                sensor_bl
  .text.sensor_bc
-                0x00000000000021e6       0x10 ./src/sensors.o
-                0x00000000000021e6                sensor_bc
+                0x00000000000021fa       0x24 ./src/sensors.o
+                0x00000000000021fa                sensor_bc
  .text.sensor_all_front
-                0x00000000000021f6       0x24 ./src/sensors.o
-                0x00000000000021f6                sensor_all_front
+                0x000000000000221e       0x2c ./src/sensors.o
+                0x000000000000221e                sensor_all_front
  .text.sensor_all_back
-                0x000000000000221a       0x24 ./src/sensors.o
-                0x000000000000221a                sensor_all_back
+                0x000000000000224a       0x2c ./src/sensors.o
+                0x000000000000224a                sensor_all_back
  .text.timer_register_callback
-                0x000000000000223e       0x24 ./src/system.o
-                0x000000000000223e                timer_register_callback
+                0x0000000000002276       0x24 ./src/system.o
+                0x0000000000002276                timer_register_callback
  .text.timer_init
-                0x0000000000002262       0xa2 ./src/system.o
-                0x0000000000002262                timer_init
+                0x000000000000229a       0xa2 ./src/system.o
+                0x000000000000229a                timer_init
  .text.__vector_12
-                0x0000000000002304      0x21c ./src/system.o
-                0x0000000000002304                __vector_12
+                0x000000000000233c      0x21c ./src/system.o
+                0x000000000000233c                __vector_12
  .text.system_reset_system_time
-                0x0000000000002520       0x1e ./src/system.o
-                0x0000000000002520                system_reset_system_time
+                0x0000000000002558       0x1e ./src/system.o
+                0x0000000000002558                system_reset_system_time
  .text.system_set_match_started
-                0x000000000000253e       0x14 ./src/system.o
-                0x000000000000253e                system_set_match_started
+                0x0000000000002576       0x14 ./src/system.o
+                0x0000000000002576                system_set_match_started
  .text.system_get_system_time
-                0x0000000000002552       0x22 ./src/system.o
-                0x0000000000002552                system_get_system_time
+                0x000000000000258a       0x22 ./src/system.o
+                0x000000000000258a                system_get_system_time
  .text.system_get_match_started
-                0x0000000000002574       0x12 ./src/system.o
-                0x0000000000002574                system_get_match_started
+                0x00000000000025ac       0x12 ./src/system.o
+                0x00000000000025ac                system_get_match_started
  .text.__vector_8
-                0x0000000000002586       0x2e ./src/system.o
-                0x0000000000002586                __vector_8
+                0x00000000000025be       0x2e ./src/system.o
+                0x00000000000025be                __vector_8
  .text.system_setup_jumper
-                0x00000000000025b4      0x14c ./src/system.o
+                0x00000000000025ec      0x14c ./src/system.o
  .text.system_wait_for_jumper
-                0x0000000000002700      0x116 ./src/system.o
+                0x0000000000002738      0x116 ./src/system.o
  .text.system_init
-                0x0000000000002816      0x33e ./src/system.o
-                0x0000000000002816                system_init
+                0x000000000000284e      0x33e ./src/system.o
+                0x000000000000284e                system_init
  .text.UART0_Init
-                0x0000000000002b54      0x100 ./src/usart.o
-                0x0000000000002b54                UART0_Init
+                0x0000000000002b8c      0x100 ./src/usart.o
+                0x0000000000002b8c                UART0_Init
  .text.__vector_23
-                0x0000000000002c54       0x84 ./src/usart.o
-                0x0000000000002c54                __vector_23
+                0x0000000000002c8c       0x84 ./src/usart.o
+                0x0000000000002c8c                __vector_23
  .text.UART0_Write
-                0x0000000000002cd8       0x9c ./src/usart.o
-                0x0000000000002cd8                UART0_Write
+                0x0000000000002d10       0x9c ./src/usart.o
+                0x0000000000002d10                UART0_Write
  .text.__vector_21
-                0x0000000000002d74       0x98 ./src/usart.o
-                0x0000000000002d74                __vector_21
+                0x0000000000002dac       0x98 ./src/usart.o
+                0x0000000000002dac                __vector_21
  .text.UART0_Read
-                0x0000000000002e0c       0x8e ./src/usart.o
-                0x0000000000002e0c                UART0_Read
+                0x0000000000002e44       0x8e ./src/usart.o
+                0x0000000000002e44                UART0_Read
  .text.UART1_Init
-                0x0000000000002e9a      0x100 ./src/usart.o
-                0x0000000000002e9a                UART1_Init
+                0x0000000000002ed2      0x100 ./src/usart.o
+                0x0000000000002ed2                UART1_Init
  .text.__vector_34
-                0x0000000000002f9a       0x84 ./src/usart.o
-                0x0000000000002f9a                __vector_34
+                0x0000000000002fd2       0x84 ./src/usart.o
+                0x0000000000002fd2                __vector_34
  .text.__vector_32
-                0x000000000000301e       0x98 ./src/usart.o
-                0x000000000000301e                __vector_32
+                0x0000000000003056       0x98 ./src/usart.o
+                0x0000000000003056                __vector_32
  .text.altUart0Write
-                0x00000000000030b6       0x34 ./src/usart.o
-                0x00000000000030b6                altUart0Write
+                0x00000000000030ee       0x34 ./src/usart.o
+                0x00000000000030ee                altUart0Write
  .text.altUart1Write
-                0x00000000000030ea       0x34 ./src/usart.o
-                0x00000000000030ea                altUart1Write
+                0x0000000000003122       0x34 ./src/usart.o
+                0x0000000000003122                altUart1Write
  .text.UART1_Write
-                0x000000000000311e       0x9c ./src/usart.o
-                0x000000000000311e                UART1_Write
+                0x0000000000003156       0x9c ./src/usart.o
+                0x0000000000003156                UART1_Write
  .text.UART1_Read
-                0x00000000000031ba       0x8e ./src/usart.o
-                0x00000000000031ba                UART1_Read
+                0x00000000000031f2       0x8e ./src/usart.o
+                0x00000000000031f2                UART1_Read
  .text.UART1_Buffer
-                0x0000000000003248       0x3c ./src/usart.o
-                0x0000000000003248                UART1_Buffer
- .text.test_sensor
-                0x0000000000003284       0x38 ./darkside.o
-                0x0000000000003284                test_sensor
+                0x0000000000003280       0x3c ./src/usart.o
+                0x0000000000003280                UART1_Buffer
  .text.wait_while_detection_tactic_one
                 0x00000000000032bc      0x22c ./darkside.o
  .text.darkside
@@ -909,20 +906,20 @@ END GROUP
                                         0xbac (size before relaxing)
  .stab          0x00000000000021f0     0x1350 ./src/odometry.o
                                        0x156c (size before relaxing)
- .stab          0x0000000000003540      0x54c ./src/sensors.o
-                                        0x7c8 (size before relaxing)
- .stab          0x0000000000003a8c      0xb04 ./src/system.o
+ .stab          0x0000000000003540      0x5ac ./src/sensors.o
+                                        0x828 (size before relaxing)
+ .stab          0x0000000000003aec      0xb04 ./src/system.o
                                         0xd80 (size before relaxing)
- .stab          0x0000000000004590      0xb04 ./src/usart.o
+ .stab          0x00000000000045f0      0xb04 ./src/usart.o
                                         0xccc (size before relaxing)
- .stab          0x0000000000005094      0x804 ./darkside.o
-                                        0xa44 (size before relaxing)
+ .stab          0x00000000000050f4      0x7a4 ./darkside.o
+                                        0x9e4 (size before relaxing)
  .stab          0x0000000000005898      0x534 ./main.o
                                         0x78c (size before relaxing)
 
-.stabstr        0x0000000000000000     0x2093
+.stabstr        0x0000000000000000     0x206e
  *(.stabstr)
- .stabstr       0x0000000000000000     0x2093 ./src/actuator.o
+ .stabstr       0x0000000000000000     0x206e ./src/actuator.o
 
 .stab.excl
  *(.stab.excl)
