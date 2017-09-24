@@ -46,10 +46,10 @@ int main()
 	_delay_ms(3000);
 
 	while(1) {
-		SER_1(180);
+		servo_set_angle_four(0);
 		_delay_ms(1000);
-		SER_1(0);
-		_delay_ms(2000);
+		servo_set_angle_four(180);
+		_delay_ms(1000);
 	}
 	return 0;
 

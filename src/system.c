@@ -149,13 +149,14 @@ void system_init(void)
 	timer_init(1000);
 	CAN_Init(1);
 	UART1_Init(UART1_BAUD, UART_ISR_OFF);
+	servo_init(PWM_FREQ);
 
 	_delay_ms(500);
 
 	system_setup_jumper();
 
 	// uart1 ping
-	ping_actuator();
+	//ping_actuator();
 
 	//detection_setup();
 	//debug_init();
