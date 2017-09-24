@@ -13,6 +13,7 @@
 #include "debug.h"
 #include "usart.h"
 #include "actuator.h"
+#include "sensors.h"
 
 /*
  * 0 PA0 		8  PB0 		16 PC0 		24 PD0 		32 PE0 		40 PF0		48 PG0
@@ -137,7 +138,15 @@ void system_init(void)
 
 	_delay_ms(100);
 
-	gpio_register_pin(PIN_TEST, GPIO_DIRECTION_INPUT, true);									// test detection
+	gpio_register_pin(SENSOR_FR_PIN, GPIO_DIRECTION_INPUT, true);
+	gpio_register_pin(SENSOR_FL_PIN, GPIO_DIRECTION_INPUT, true);
+	gpio_register_pin(SENSOR_BR_PIN, GPIO_DIRECTION_INPUT, true);
+	gpio_register_pin(SENSOR_BL_PIN, GPIO_DIRECTION_INPUT, true);
+
+	#ifdef BIG_ROBOT
+	gpio_register_pin(SENSOR_FC_PIN, GPIO_DIRECTION_INPUT, true);
+	gpio_register_pin(SENSOR_BC_PIN, GPIO_DIRECTION_INPUT, true);
+	#endif
 
 	// small delay
 	_delay_ms(100);
@@ -174,5 +183,4 @@ void system_init(void)
 	system_set_match_started();															// match has started!
 
 }
-
 

@@ -12,9 +12,9 @@
 #define SENSOR_BL		6
 
 #define SENSOR_FR_PIN	0
-#define SENSOR_FL_PIN	0
-#define SENSOR_BR_PIN	0
-#define SENSOR_BL_PIN	0
+#define SENSOR_FL_PIN	1
+#define SENSOR_BR_PIN	2
+#define SENSOR_BL_PIN	3
 
 // it will return 1 when it reads the trig value
 #define SENSOR_FR_TRIG	1
@@ -27,8 +27,8 @@
 #define SENSOR_FC		2
 #define SENSOR_BC		5
 
-#define SENSOR_FC_PIN	0
-#define SENSOR_BC_PIN	0
+#define SENSOR_FC_PIN	4
+#define SENSOR_BC_PIN	5
 
 #define SENSOR_FC_TRIG	1
 #define SENSOR_BC_TRIG	1

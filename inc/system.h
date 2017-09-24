@@ -12,8 +12,6 @@
 #include <stdint.h>
 
 
-#define PIN_TEST		0
-
 #define JUMPER_PIN		40		//portf 0 // working
 
 #define PWM_FREQ		50

@@ -25,7 +25,7 @@ char sensor_fr() {
 char sensor_fl() {
 
 	if(gpio_read_pin(SENSOR_FL_PIN) == SENSOR_FL_TRIG) {
-		odometry_stop(HARD_STOP);
+		//odometry_stop(HARD_STOP);
 		return 1;
 	}
 
@@ -35,7 +35,7 @@ char sensor_fl() {
 char sensor_fc() {
 	#ifdef BIG_ROBOT
 	if(gpio_read_pin(SENSOR_FC_PIN) == SENSOR_FC_TRIG) {
-		odometry_stop(HARD_STOP);
+		//odometry_stop(HARD_STOP);
 		return 1;
 	}
 	#endif

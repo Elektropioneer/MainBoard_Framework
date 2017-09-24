@@ -45,10 +45,11 @@ int main()
 	_delay_ms(3000);
 
 	while(1) {
-		servo_set_angle_four(0);
-		_delay_ms(1000);
-		servo_set_angle_four(180);
-		_delay_ms(1000);
+		if(sensor_fc()) {
+			PORTG = 0x01;
+		} else{
+			PORTG = 0x00;
+		}
 	}
 	return 0;
 
