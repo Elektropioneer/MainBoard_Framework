@@ -5,7 +5,6 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/actuator.c \
-../src/ax.c \
 ../src/can.c \
 ../src/debug.c \
 ../src/gpio.c \
@@ -16,7 +15,6 @@ C_SRCS += \
 
 OBJS += \
 ./src/actuator.o \
-./src/ax.o \
 ./src/can.o \
 ./src/debug.o \
 ./src/gpio.o \
@@ -27,7 +25,6 @@ OBJS += \
 
 C_DEPS += \
 ./src/actuator.d \
-./src/ax.d \
 ./src/can.d \
 ./src/debug.d \
 ./src/gpio.d \

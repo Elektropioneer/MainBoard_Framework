@@ -137,7 +137,7 @@ void system_init(void)
 
 	_delay_ms(100);
 
-	gpio_register_pin(0, GPIO_DIRECTION_INPUT, true);									// test detection
+	gpio_register_pin(PIN_TEST, GPIO_DIRECTION_INPUT, true);									// test detection
 
 	// small delay
 	_delay_ms(100);

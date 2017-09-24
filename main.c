@@ -30,7 +30,6 @@
 #include "usart.h"
 #include "actuator.h"
 #include "gpio.h"
-#include "ax.h"
 #include "system.h"
 #include "sides.h"
 #include "sensors.h"
