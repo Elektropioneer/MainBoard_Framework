@@ -31,52 +31,51 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 LSS += \
-Mainboard_Framework.lss \
+EP_Framework_Atmel.lss \
 
 FLASH_IMAGE += \
-Mainboard_Framework.hex \
+EP_Framework_Atmel.hex \
 
 SIZEDUMMY += \
 sizedummy \
 
 
 # All Target
-all: Mainboard_Framework.elf secondary-outputs
+all: EP_Framework_Atmel.elf secondary-outputs
 
 # Tool invocations
-Mainboard_Framework.elf: $(OBJS) $(USER_OBJS)
+EP_Framework_Atmel.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,Mainboard_Framework.map -mmcu=at90can128 -o "Mainboard_Framework.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,EP_Framework_Atmel.map -mmcu=at90can128 -o "EP_Framework_Atmel.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-Mainboard_Framework.lss: Mainboard_Framework.elf
+EP_Framework_Atmel.lss: EP_Framework_Atmel.elf
 	@echo 'Invoking: AVR Create Extended Listing'
-	-avr-objdump -h -S Mainboard_Framework.elf  >"Mainboard_Framework.lss"
+	-avr-objdump -h -S EP_Framework_Atmel.elf  >"EP_Framework_Atmel.lss"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Mainboard_Framework.hex: Mainboard_Framework.elf
+EP_Framework_Atmel.hex: EP_Framework_Atmel.elf
 	@echo 'Create Flash image (ihex format)'
-	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex Mainboard_Framework.elf  "Mainboard_Framework.hex"
+	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex EP_Framework_Atmel.elf  "EP_Framework_Atmel.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sizedummy: Mainboard_Framework.elf
+sizedummy: EP_Framework_Atmel.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=at90can128 Mainboard_Framework.elf
+	-avr-size --format=berkeley -t EP_Framework_Atmel.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) Mainboard_Framework.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) EP_Framework_Atmel.elf
 	-@echo ' '
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(SIZEDUMMY)
 
 .PHONY: all clean dependents
-.SECONDARY:
 
 -include ../makefile.targets

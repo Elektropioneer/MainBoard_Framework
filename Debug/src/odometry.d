@@ -1,10 +1,10 @@
 src/odometry.o: ../src/odometry.c \
- /home/silard_g/workspace/Mainboard_Framework/inc/odometry.h \
- /home/silard_g/workspace/Mainboard_Framework/inc/system.h \
- /home/silard_g/workspace/Mainboard_Framework/inc/can.h
+ /home/silardg/Development/Robotics/Software/MainBoard/inc/odometry.h \
+ /home/silardg/Development/Robotics/Software/MainBoard/inc/system.h \
+ /home/silardg/Development/Robotics/Software/MainBoard/inc/can.h
 
-/home/silard_g/workspace/Mainboard_Framework/inc/odometry.h:
+/home/silardg/Development/Robotics/Software/MainBoard/inc/odometry.h:
 
-/home/silard_g/workspace/Mainboard_Framework/inc/system.h:
+/home/silardg/Development/Robotics/Software/MainBoard/inc/system.h:
 
-/home/silard_g/workspace/Mainboard_Framework/inc/can.h:
+/home/silardg/Development/Robotics/Software/MainBoard/inc/can.h:

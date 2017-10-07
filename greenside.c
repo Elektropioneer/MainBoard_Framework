@@ -8,6 +8,7 @@
 #include "gpio.h"
 #include "actuator.h"
 #include "sensors.h"
+#include <inttypes.h>
 
 // if this is defined it will execute the coordinates for the "first desk" if commented it will move on to the "second desk"
 #define first_desk
@@ -16,17 +17,17 @@
 #define TACTIC_ONE_POSITION_COUNT	2
 
 // variables for keeping position count, odometry return status and active state
-uint8_t current_position = 0, next_position = 0, odometry_status, active_state = TACTIC_ONE;
+static uint8_t current_position = 0, next_position = 0, odometry_status, active_state = TACTIC_ONE;
 
 #ifdef first_desk
 // first desk coordinates
-gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
+static gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
 		{{450,0,0}, 10, FORWARD, sensor_all_front},
 		{{0,0,0}, 10, BACKWARD, sensor_all_back}
 };
 #else
 // second desk coordinates
-gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
+static gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
 		{{450,0,0}, 10, FORWARD, sensor_all_front},
 	    {{0,0,0}, 10, BACKWARD, sensor_all_back}
 };
@@ -50,7 +51,7 @@ void greenside(void) {
 
 
 	// setting the starting position
-	struct odometry_position startingPosition; startingPosition.x = 0; startingPosition.y = 0; startingPosition.angle = 0;
+	static struct odometry_position startingPosition; startingPosition.x = 0; startingPosition.y = 0; startingPosition.angle = 0;
 
 	// sending the starting position to odometry
 	odometry_set_position(&startingPosition);

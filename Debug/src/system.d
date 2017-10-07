@@ -1,25 +1,25 @@
 src/system.o: ../src/system.c \
- /home/silard_g/workspace/Mainboard_Framework/inc/system.h \
- /home/silard_g/workspace/Mainboard_Framework/inc/gpio.h \
- /home/silard_g/workspace/Mainboard_Framework/inc/list_generic.h \
- /home/silard_g/workspace/Mainboard_Framework/inc/can.h \
- /home/silard_g/workspace/Mainboard_Framework/inc/debug.h \
- /home/silard_g/workspace/Mainboard_Framework/inc/usart.h \
- /home/silard_g/workspace/Mainboard_Framework/inc/actuator.h \
- /home/silard_g/workspace/Mainboard_Framework/inc/sensors.h
+ /home/silardg/Development/Robotics/Software/MainBoard/inc/system.h \
+ /home/silardg/Development/Robotics/Software/MainBoard/inc/gpio.h \
+ /home/silardg/Development/Robotics/Software/MainBoard/inc/list_generic.h \
+ /home/silardg/Development/Robotics/Software/MainBoard/inc/can.h \
+ /home/silardg/Development/Robotics/Software/MainBoard/inc/debug.h \
+ /home/silardg/Development/Robotics/Software/MainBoard/inc/usart.h \
+ /home/silardg/Development/Robotics/Software/MainBoard/inc/actuator.h \
+ /home/silardg/Development/Robotics/Software/MainBoard/inc/sensors.h
 
-/home/silard_g/workspace/Mainboard_Framework/inc/system.h:
+/home/silardg/Development/Robotics/Software/MainBoard/inc/system.h:
 
-/home/silard_g/workspace/Mainboard_Framework/inc/gpio.h:
+/home/silardg/Development/Robotics/Software/MainBoard/inc/gpio.h:
 
-/home/silard_g/workspace/Mainboard_Framework/inc/list_generic.h:
+/home/silardg/Development/Robotics/Software/MainBoard/inc/list_generic.h:
 
-/home/silard_g/workspace/Mainboard_Framework/inc/can.h:
+/home/silardg/Development/Robotics/Software/MainBoard/inc/can.h:
 
-/home/silard_g/workspace/Mainboard_Framework/inc/debug.h:
+/home/silardg/Development/Robotics/Software/MainBoard/inc/debug.h:
 
-/home/silard_g/workspace/Mainboard_Framework/inc/usart.h:
+/home/silardg/Development/Robotics/Software/MainBoard/inc/usart.h:
 
-/home/silard_g/workspace/Mainboard_Framework/inc/actuator.h:
+/home/silardg/Development/Robotics/Software/MainBoard/inc/actuator.h:
 
-/home/silard_g/workspace/Mainboard_Framework/inc/sensors.h:
+/home/silardg/Development/Robotics/Software/MainBoard/inc/sensors.h:
