@@ -6,7 +6,6 @@
 C_SRCS += \
 ../src/actuator.c \
 ../src/can.c \
-../src/debug.c \
 ../src/gpio.c \
 ../src/odometry.c \
 ../src/sensors.c \
@@ -16,7 +15,6 @@ C_SRCS += \
 OBJS += \
 ./src/actuator.o \
 ./src/can.o \
-./src/debug.o \
 ./src/gpio.o \
 ./src/odometry.o \
 ./src/sensors.o \
@@ -26,7 +24,6 @@ OBJS += \
 C_DEPS += \
 ./src/actuator.d \
 ./src/can.d \
-./src/debug.d \
 ./src/gpio.d \
 ./src/odometry.d \
 ./src/sensors.d \

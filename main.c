@@ -33,7 +33,6 @@
 #include "system.h"
 #include "sides.h"
 #include "sensors.h"
-#include "debug.h"
 #include "can.h"
 #include <avr/interrupt.h>
 

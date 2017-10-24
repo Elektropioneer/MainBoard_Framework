@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include "list_generic.h"
 #include "can.h"
-#include "debug.h"
 #include "usart.h"
 #include "actuator.h"
 #include "sensors.h"
