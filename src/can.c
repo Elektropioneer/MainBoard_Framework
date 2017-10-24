@@ -7,34 +7,30 @@
 
 #define RX_BUFFER_SIZE		5
 
-
-// unutrasnje promenljive koje sluze za komunikaciju
-// svaka poruka sadrzi 8 bajtova podataka i identifikator poruke
-
+// every message contains 8 bytes and the indentificator of the message
 static volatile unsigned char *rxBuffers[10];
 static volatile unsigned char rxWrIndex[10];
 static volatile unsigned char rxRdIndex[10];
 static volatile unsigned char rxCounter[10];
 //volatile static long canTime;
 
-// Interrupt Service Routine
-ISR(CANIT_vect)
-{
+/*
+ * 	Function: ISR(CANIT_vect)
+ * 	Description: Interrupt Service Routine on CAN
+ */
+ISR(CANIT_vect) {
 	unsigned char tempPage = CANPAGE;
 	unsigned char ch, ide;
 	unsigned char i;
 
-	// prolazim redom kroz MOb- ove i gledam da li se nesto dogadja
-	for(ch = 0; ch < 15; ch++)
-	{
+	// Checking all MoB's
+	for(ch = 0; ch < 15; ch++) {
 		CANPAGE = ch << 4;
 
 		// receive interrupt
-		if( (CANSTMOB >> RXOK) & 0x01)
-		{
-			// PRIJEMNI MOb- ovi uvek ostaju prijemni!
-			CANCDMOB = (1 << CONMOB1); // podesavam MOb kao receiver
-			CANSTMOB &= ~(1 << RXOK); // resetujem flag
+		if( (CANSTMOB >> RXOK) & 0x01) {
+			CANCDMOB = (1 << CONMOB1); // settings MoB as receiver
+			CANSTMOB &= ~(1 << RXOK); // reseting the  flag
 
 			ide = (CANIDT2 >> 5) | (CANIDT1 << 3);
 
@@ -50,31 +46,30 @@ ISR(CANIT_vect)
 		}
 
 		//transmit interrupt
-		if( (CANSTMOB >> TXOK) & 0x01)
-		{
+		if( (CANSTMOB >> TXOK) & 0x01) {
 			CANCDMOB = 0; // disable mob
-			CANSTMOB &= ~(1 << TXOK); // resetujem flag
+			CANSTMOB &= ~(1 << TXOK); // reset flag
 
 			break;
 		}
 	}
 
 	CANPAGE = tempPage;
-	//CANGIT = CANGIT; // zato sto tako treba.
 }
 
-
-static void CAN_InitModule(void)
-{
+/*
+ * 	Function:    static void CAN_InitModule(void)
+ * 	Description: Init the CAN module
+ */
+static void CAN_InitModule(void) {
 	unsigned char ch;
 	unsigned char data;
 
 	// Reset the CAN controller
 	CANGCON = 0x01;
 
-	// idem od 0 do 14 MOba i resetujem ih, zato sto posle reseta MObovi imaju nedefinisano stanje
-	for(ch = 0; ch < 15; ch++)
-	{
+	// reseting all MOb's because after reset they dont have a defined state
+	for(ch = 0; ch < 15; ch++) {
 		CANPAGE = ch << 4;
 
 		CANSTMOB = 0;
@@ -89,8 +84,7 @@ static void CAN_InitModule(void)
 		CANIDM3 = 0;
 		CANIDM4 = 0;
 
-		// CANMSG je organizovan kao 8- bajtni FIFO red
-		// koristi se auto-increment pa ce proci kroz svih 8 bajtova poruke-> organizovan kao FIFO
+		// CANMSG -> 8 byte FIFO row
 		for(data = 0; data < 8; data++)
 			CANMSG = 0;
 	}
@@ -121,36 +115,37 @@ static void CAN_InitModule(void)
 	sei();
 }
 
-
-static char CAN_InitRxMob(unsigned int ide)
-{
+/*
+ * 	Function:    static char CAN_InitRxMob(unsigned int ide)
+ * 	Description: Create an Rx Mob based on the ide
+ */
+static char CAN_InitRxMob(unsigned int ide) {
 	unsigned char ch;
 	unsigned char tempPage = CANPAGE;
 
-	// sve dok je magistrala zauzeta
+	// until busy
 	while(((CANGSTA >> TXBSY) & 0x01) || ((CANGSTA >> RXBSY) & 0x01));
 
-	// prolazim redom kroz MOb- ove, cim naidjem na slobodan MOb
-	for(ch = 0; ch < 15; ch++)
-	{
+	// checking for free MObs
+	for(ch = 0; ch < 15; ch++) {
 		CANPAGE = ch << 4;
 
-		// ako je MOb vec zauzet nastavi dalje
+		// if not free continue
 		if((CANCDMOB >> 6))
 			continue;
 
-		//uvek primam 8 bajtova
+		// receiving 8 bytes
 		CANCDMOB = (1 << DLC0) | (1 << DLC1) | (1 << DLC2) | (1 << DLC3);
 
-		// podesavam identifikator
+		// set indentificator
 		CANIDT1 = (0x00FF & ide) >> 3;
 		CANIDT2 = (ide & 0x00FF) << 5;
 
-		// podesavam masku- gledam sve bitove
+		// set mask - look at all the bits
 		CANIDM2 = 0x07 << 5;
 		CANIDM1 = 0xFF;
 
-		// podesavam MOb kao receiver
+		// settings MOb as receiver
 		CANCDMOB |= (1 << CONMOB1);
 
 		CANPAGE = tempPage;
@@ -163,9 +158,11 @@ static char CAN_InitRxMob(unsigned int ide)
 	return 0;
 }
 
-
-void CAN_Init(unsigned char numOfNodes)
-{
+/*
+ * 	Function:    void CAN_Init(unsigned char numOfNodes)
+ * 	Description: Init can with specified number of nodes
+ */
+void CAN_Init(unsigned char numOfNodes) {
     unsigned char i;
 	CAN_InitModule();
 
@@ -185,18 +182,22 @@ void CAN_Init(unsigned char numOfNodes)
 	//rxRdIndex = (unsigned char *) calloc(RX_BUFFER_SIZE, sizeof(unsigned char));
 }
 
-
-unsigned char CAN_CheckRX(unsigned char nodeID)
-{
+/*
+ * 	Function: 	 unsigned char CAN_CheckRX(unsigned char nodeID)
+ * 	Description: num of not read data from the node
+ */
+unsigned char CAN_CheckRX(unsigned char nodeID) {
 	return rxCounter[nodeID - 1];
 }
 
-
-char CAN_Read(unsigned char *buffer, unsigned char sendingNodeID)
-{
+/*
+ * 	Function:    char CAN_Read(unsigned char *buffer, unsigned char sendingNodeID)
+ * 	Description: read the buffer from the node id
+ */
+char CAN_Read(unsigned char *buffer, unsigned char sendingNodeID) {
 	unsigned char i;
-	PORTG = 0xff;
-	// sve dok ne stigne neki podatak ostajem u funkciji
+
+	// until no data
 	while(!rxCounter[sendingNodeID - 1]);
 
 	for(i = 0; i < 8; ++i)
@@ -210,41 +211,44 @@ char CAN_Read(unsigned char *buffer, unsigned char sendingNodeID)
 	return 0;
 }
 
-char CAN_Write(unsigned char *data, unsigned char receivingNodeAddress)
-{
+/*
+ * 	Function:    char CAN_Write(unsigned char *data, unsigned char receivingNodeAddress)
+ * 	Description: write array of data to the receiving node address
+ */
+char CAN_Write(unsigned char *data, unsigned char receivingNodeAddress) {
     unsigned char i;
-	// Cekam sve dok je magistrala zauzeta-> da li je neophodno?
+
+    // waiting for not busy
 	while(((CANGSTA >> TXBSY) & 0x01) || ((CANGSTA >> RXBSY) & 0x01));
 
 	unsigned char ch;
 	unsigned char tempPage = CANPAGE;
 
-	// trazim slobodan MOb jel ovo sranje mene zajebava ili? sta ti treba? find all
-	for(ch = 0; ch < 15; ch++)
-	{
+	// waiting for a free MOb
+	for(ch = 0; ch < 15; ch++) {
 		CANPAGE = ch << 4;
 
 		if(!(CANCDMOB >> 6))
 			break;
 	}
 
-	// nema slobodnih MOb- ova
+	// no free MObs found
 	if(ch == 15)
 		return -1;
 
 
-	//ova dva registra sadrze identifikator poruke koja ce se slati! efektivno to je adresa cvora koji ce primiti poruku
+	// this is the indentificator
 	CANIDT2 = (receivingNodeAddress & 0x0F) << 5;
 	CANIDT1 = (receivingNodeAddress) >> 3;
 
 	// DLC = 8
 	CANCDMOB = 8;
 
-	// upisujem 8 bajtova koje ce se slati u predajni bafer
+	// writing the 8byte
 	for(i = 0; i < 8; i++)
 		CANMSG = data[i];
 
-	// podesavam ga kao predajnik
+	// as a sender
 	CANCDMOB |= (1 << CONMOB0);
 
 	CANPAGE = tempPage;

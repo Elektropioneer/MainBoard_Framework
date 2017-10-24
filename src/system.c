@@ -41,8 +41,7 @@ static char setup_complete = false;
  *	Parameters: 	void (*callback)(void))
  *	Description: 	timer callbacks
  */
-void timer_register_callback(void (*callback)(void))
-{
+void timer_register_callback(void (*callback)(void)) {
     timer_callback = callback;
 }
 
@@ -51,8 +50,7 @@ void timer_register_callback(void (*callback)(void))
  *	Parameters: 	unsigned int freq - frequency of timer
  *	Description: 	setup timer
  */
-void timer_init(unsigned int freq)
-{
+void timer_init(unsigned int freq) {
 
     TCCR1A = 0;
 	TCCR1B = (1 << WGM12) | (1 << CS10);
@@ -66,15 +64,12 @@ void timer_init(unsigned int freq)
  *	Function: 		ISR(TIMER1_COMPA_vect)
  *	Description: 	ISR interrupt for timer
  */
-ISR(TIMER1_COMPA_vect)
-{
+ISR(TIMER1_COMPA_vect) {
     if(timer_callback != NULL)
         timer_callback();
 
-	if(sys_time >= 90000)					// if match end
-	{
-		if(system_get_match_started())		// if the match has started before
-		{
+	if(sys_time >= 90000) {	     			// if match end
+		if(system_get_match_started()) {
 			odometry_match_end();
 			while(1) {
 				flip_debug_led();
@@ -140,8 +135,7 @@ void flip_debug_led() { PORTG ^= 1 << 0; }
  *	Parameters: 	void
  *	Description:	initing all the things
  */
-void system_init(void)
-{
+void system_init(void) {
 	// sets debouncer
 	timer_register_callback(gpio_debouncer);
 
@@ -172,9 +166,6 @@ void system_init(void)
 	_delay_ms(500);
 
 	system_setup_jumper();
-
-	// uart1 ping
-	//ping_actuator();
 
 	setup_complete = true;
 

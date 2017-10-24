@@ -5,8 +5,7 @@
 #include "gpio.h"
 #include "list_generic.h"
 
-struct gpio_input
-{
+struct gpio_input {
     uint8_t          pin;
     bool             pulled_up;
     uint8_t          values[GPIO_DEBOUNCE_COUNT];
@@ -17,8 +16,11 @@ struct gpio_input
 
 LIST_HEAD(gpio_inputs);
 
-uint8_t gpio_register_pin(uint8_t pin, uint8_t direction, bool pulled_up)
-{
+/*
+ * 	Function:    uint8_t gpio_register_pin(uint8_t pin, uint8_t direction, bool pulled_up)
+ * 	Description: register the pin
+ */
+uint8_t gpio_register_pin(uint8_t pin, uint8_t direction, bool pulled_up) {
     struct gpio_input* input;
     list_for_each_entry(input, &gpio_inputs, list)
     {
@@ -48,8 +50,11 @@ uint8_t gpio_register_pin(uint8_t pin, uint8_t direction, bool pulled_up)
     return 0;
 }
 
-uint8_t gpio_write_pin(uint8_t pin, bool value)
-{
+/*
+ * 	Function:    uint8_t gpio_write_pin(uint8_t pin, bool value)
+ * 	Description: Write to a specific pin and the value of it
+ */
+uint8_t gpio_write_pin(uint8_t pin, bool value) {
 	uint8_t port = 1 + pin / 8;
 	pin = pin % 8;
 
@@ -61,8 +66,10 @@ uint8_t gpio_write_pin(uint8_t pin, bool value)
 	return 0;
 }
 
-static uint8_t __gpio_read_pin(uint8_t pin)
-{
+/*
+ * 	Function: static uint8_t __gpio_read_pin(uint8_t pin)
+ */
+static uint8_t __gpio_read_pin(uint8_t pin) {
     uint8_t port = 1 + pin / 8;
     pin = pin % 8;
 
@@ -71,8 +78,11 @@ static uint8_t __gpio_read_pin(uint8_t pin)
     return ((temp >> pin) & 0x01);
 }
 
-uint8_t gpio_read_pin(uint8_t pin)
-{
+/*
+ * 	Function:    uint8_t gpio_read_pin(uint8_t pin)
+ * 	Description: reading the state of a pin
+ */
+uint8_t gpio_read_pin(uint8_t pin) {
     struct gpio_input* input;
     list_for_each_entry(input, &gpio_inputs, list)
     {
@@ -95,9 +105,12 @@ uint8_t gpio_read_pin(uint8_t pin)
 
     return 1;
 }
-uint16_t test = 0;
-void gpio_debouncer(void)
-{
+
+/*
+ * 	Function:    void gpio_debouncer(void)
+ * 	Description: debouncer function, used for triggering inputs smoothly
+ */
+void gpio_debouncer(void) {
     static volatile count = 0;
     struct gpio_input* input;
     list_for_each_entry(input, &gpio_inputs, list)

@@ -65,7 +65,7 @@ EP_Framework_Atmel.hex: EP_Framework_Atmel.elf
 
 sizedummy: EP_Framework_Atmel.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=berkeley -t EP_Framework_Atmel.elf
+	-avr-size --format=avr --mcu=at90can128 EP_Framework_Atmel.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 

@@ -22,14 +22,14 @@ static uint8_t current_position = 0, next_position = 0, odometry_status, active_
 #ifdef first_desk
 // first desk coordinates
 static gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
-		{{450,0,0}, 10, FORWARD, sensor_all_front},
-		{{0,0,0}, 10, BACKWARD, sensor_all_back}
+		{{450,0,0}, NORMAL_SPEED, FORWARD, sensor_all_front},
+		{{0,0,0}, NORMAL_SPEED, BACKWARD, sensor_all_back}
 };
 #else
 // second desk coordinates
 static gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
-		{{450,0,0}, 10, FORWARD, sensor_all_front},
-	    {{0,0,0}, 10, BACKWARD, sensor_all_back}
+		{{450,0,0}, NORMAL_SPEED, FORWARD, sensor_all_front},
+	    {{0,0,0}, NORMAL_SPEED, BACKWARD, sensor_all_back}
 };
 #endif
 
@@ -59,14 +59,12 @@ void greenside(void) {
 	while(1) {
 		switch(active_state) {
 		case COLLISION:		// COLLISION ! DON'T FORGET BREAK !
-			if(current_position == 0) {
+			/* if(current_position == 0) {
 				wait_while_detection_tactic_one();
 				break;
-			} else if(current_position == 1) {
-				wait_while_detection_tactic_one();
-				break;
-			}
+				} */
 
+			wait_while_detection_tactic_one();
 			break;
 		case STUCK:			// STUCK
 			_delay_ms(1000);

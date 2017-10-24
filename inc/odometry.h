@@ -12,15 +12,17 @@
 #define ODOMETRY_STUCK				2
 #define ODOMETRY_CALLBACK_RETURN	3
 
-#define LOW_SPEED					30
-#define NORMAL_SPEED				65
-#define HIGH_SPEED					90
+#define LOW_SPEED					50
+#define NORMAL_SPEED				150
+#define HIGH_SPEED					210
 
 #define FORWARD						1
 #define BACKWARD					-1
 
-#define COLLISION		0
-#define TACTIC_ONE		1
+#define COLLISION					0
+#define TACTIC_ONE					1
+
+#define BACKUP_DISTANCE 			150
 
 struct odometry_position
 {

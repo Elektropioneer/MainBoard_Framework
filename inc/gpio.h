@@ -5,8 +5,6 @@
 #include <stdbool.h>
 
 #define GPIO_DEBOUNCE_COUNT         2
-
-
 #define GPIO_DIRECTION_INPUT        0
 #define GPIO_DIRECTION_OUTPUT       1
 
