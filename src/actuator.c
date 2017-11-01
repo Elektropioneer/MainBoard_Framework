@@ -1,4 +1,5 @@
 #include "actuator.h"
+#include "can.h"
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdlib.h>
@@ -93,6 +94,73 @@ void servo_set_angle_three(float angle) {
 void servo_set_angle_four(float angle) {
 	if(check_servo_range(angle))
 		OCR0A = (int)((255 * angle) / 180);
+}
+
+/*
+ *  Test functions for actuator board communication
+ */
+
+/*
+ * 		Protocol for actuator
+ * 		buffer[0] - ID OF TOOL (ax, relay, mosfet)
+ * 		buffer[1] - THE EXACT ID OF THE TOOL
+ * 		buffer[2] - THE FUNCTION TO DO (position, move, turn on off)
+ * 		buffer[3] - value >> 8
+ * 		buffer[4] - value & 0xFF
+ *
+ */
+
+static void _actuator(uint8_t *buffer, uint8_t *return_buffer) {
+
+	while(CAN_Write(buffer, DRIVER_LIFT_TX_IDENTIFICATOR))
+		_delay_ms(10);
+
+	CAN_Read(return_buffer, DRIVER_LIFT_RX_IDENTIFICATOR);
+
+}
+
+uint8_t ax_set_angle(uint8_t id, uint8_t angle) {
+
+	uint8_t buffer[8];
+	uint8_t return_buffer[8];
+	uint8_t status;
+
+	buffer[0] = 'A'; 			// calling AX
+	buffer[1] = id;				// id
+	buffer[2] = 'A';			// set angle
+	buffer[3] = angle >> 8;
+	buffer[4] = angle & 0xFF;
+
+	_actuator(buffer, return_buffer);
+
+	// do stuff with return buffer
+	status = return_buffer[0];
+
+	return status;
+
+}
+
+uint8_t ax_get_status(uint8_t id, uint8_t return_option) {
+
+	/*
+	 * 	return_option:
+	 * 	0->temperature
+	 * 	1->voltage
+	 * 	2->current position
+	 * 	3->moving?
+	 */
+
+	uint8_t buffer[8];
+	uint8_t return_buffer[8];
+
+	buffer[0] = 'A';
+	buffer[1] = id;
+	buffer[2] = 'S';
+
+	_actuator(buffer, return_buffer);
+
+	return return_buffer[return_option];
+
 }
 
 

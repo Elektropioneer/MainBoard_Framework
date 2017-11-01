@@ -33,7 +33,7 @@ void odometry_set_speed(uint8_t speed)
 	buffer[0] = 'V';
 	buffer[1] = speed;
 	while(CAN_Write(buffer, DRIVER_TX_IDENTIFICATOR))
-		_delay_ms(50);
+		_delay_ms(10);
 
 	current_speed = speed;
 }
@@ -48,7 +48,7 @@ void odometry_query_position(void)
 	uint8_t buffer[8];
 	buffer[0] = 'P';
 	while(CAN_Write(buffer, DRIVER_TX_IDENTIFICATOR))
-		_delay_ms(50);
+		_delay_ms(10);
 
 	CAN_Read(buffer, DRIVER_RX_IDENTIFICATOR);
 
@@ -93,7 +93,7 @@ void odometry_stop(int8_t type)
 		buffer[0] = type;
 
 		while(CAN_Write(buffer, DRIVER_TX_IDENTIFICATOR))
-			_delay_ms(50);
+			_delay_ms(10);
 
 		odometry_query_position();
 	}while(position.state == MOVING || position.state == ROTATING);
@@ -112,7 +112,7 @@ uint8_t odometry_move_straight(int16_t distance, uint8_t speed, uint8_t (*callba
 	buffer[1] = distance >> 8;
 	buffer[2] = distance & 0xFF;
 	while(CAN_Write(buffer, DRIVER_TX_IDENTIFICATOR))
-		_delay_ms(50);
+		_delay_ms(10);
 
 	return odometry_wait_until_done(callback);
 }
@@ -136,7 +136,7 @@ uint8_t odometry_move_to_position(struct odometry_position* position, uint8_t sp
 	buffer[5] = 0;
 	buffer[6] = direction;
 	while(CAN_Write(buffer, DRIVER_TX_IDENTIFICATOR))
-		_delay_ms(50);
+		_delay_ms(10);
 
 	return odometry_wait_until_done(callback);
 }
@@ -158,7 +158,7 @@ void odometry_set_position(struct odometry_position* new_position)
 	position.angle = new_position->angle;
 
 	while(CAN_Write(buffer, DRIVER_TX_IDENTIFICATOR))
-		_delay_ms(50);
+		_delay_ms(10);
 }
 
 /*
@@ -177,7 +177,7 @@ uint8_t odometry_rotate_for(uint16_t angle,uint8_t speed, uint8_t (*callback)(ui
 	buffer[2] = angle & 0xFF;
 
 	while(CAN_Write(buffer, DRIVER_TX_IDENTIFICATOR))
-		_delay_ms(50);
+		_delay_ms(10);
 
 	return odometry_wait_until_done(callback);
 
@@ -197,7 +197,7 @@ uint8_t odometry_set_angle(uint16_t angle, uint8_t speed, uint8_t (*callback)(ui
 	buffer[1] = angle >> 8;
 	buffer[2] = angle & 0xFF;
 	while(CAN_Write(buffer, DRIVER_TX_IDENTIFICATOR))
-		_delay_ms(50);
+		_delay_ms(10);
 
 	return odometry_wait_until_done(callback);
 }
@@ -218,7 +218,7 @@ uint8_t odometry_kurva(uint16_t x_pos, uint16_t y_pos, int8_t angle, uint8_t dir
 	buffer[7] = direction;
 
 	while(CAN_Write(buffer, DRIVER_TX_IDENTIFICATOR))
-		_delay_ms(50);
+		_delay_ms(10);
 
 	return odometry_wait_until_done(callback);
 }
@@ -230,7 +230,7 @@ void odometry_match_end()
 	buffer[0] = 'K';
 
 	while(CAN_Write(buffer, DRIVER_TX_IDENTIFICATOR))
-			_delay_ms(50);
+			_delay_ms(10);
 
 }
 
