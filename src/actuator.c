@@ -5,6 +5,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
+uint8_t buffer[8];
+uint8_t return_buffer[8];
+
 /*
  *	Function: 		void servo_init(unsigned int f_pwm)
  *	Parameters: 	unsigned int f_pwm
@@ -119,17 +123,38 @@ static void _actuator(uint8_t *buffer, uint8_t *return_buffer) {
 
 }
 
-uint8_t ax_set_angle(uint8_t id, uint8_t angle) {
+static void buffer_load(uint8_t tool,
+						uint8_t tool_id,
+						uint8_t tool_function,
+						int16_t value) {
 
-	uint8_t buffer[8];
-	uint8_t return_buffer[8];
+	buffer[0] = tool;			// calling AX
+	buffer[1] = tool_id;				// id
+	buffer[2] = tool_function;			// set angle
+	buffer[3] = value >> 8;
+	buffer[4] = value & 0xFF;
+
+}
+
+uint8_t _actuator_ping() {
+
+	buffer_load('P', 0, 0, 0);
+
+	_actuator(buffer, return_buffer);
+
+	if(return_buffer[0] == 'P') {
+		return 1;
+	} else {
+		return 0;
+	}
+
+}
+
+uint8_t ax_set_angle(uint8_t id, uint16_t angle) {
+
 	uint8_t status;
 
-	buffer[0] = 'A'; 			// calling AX
-	buffer[1] = id;				// id
-	buffer[2] = 'A';			// set angle
-	buffer[3] = angle >> 8;
-	buffer[4] = angle & 0xFF;
+	buffer_load('A', id, 'A', angle);
 
 	_actuator(buffer, return_buffer);
 
@@ -150,12 +175,7 @@ uint8_t ax_get_status(uint8_t id, uint8_t return_option) {
 	 * 	3->moving?
 	 */
 
-	uint8_t buffer[8];
-	uint8_t return_buffer[8];
-
-	buffer[0] = 'A';
-	buffer[1] = id;
-	buffer[2] = 'S';
+	buffer_load('A',id, 'S', 0);
 
 	_actuator(buffer, return_buffer);
 
