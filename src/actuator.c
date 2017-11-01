@@ -114,6 +114,10 @@ void servo_set_angle_four(float angle) {
  *
  */
 
+/*
+ * WARNING:
+ * the can.c arent the same at actuator and here
+ */
 static void _actuator(uint8_t *buffer, uint8_t *return_buffer) {
 
 	while(CAN_Write(buffer, DRIVER_LIFT_TX_IDENTIFICATOR))
@@ -128,10 +132,10 @@ static void buffer_load(uint8_t tool,
 						uint8_t tool_function,
 						int16_t value) {
 
-	buffer[0] = tool;			// calling AX
-	buffer[1] = tool_id;				// id
-	buffer[2] = tool_function;			// set angle
-	buffer[3] = value >> 8;
+	buffer[0] = tool;				// the tool (AX, MOSFET, RELAY)
+	buffer[1] = tool_id;			// the id of the tool (ID of an AX, MOSFET, RELAY)
+	buffer[2] = tool_function;		// what function (move to position, turn on off)
+	buffer[3] = value >> 8;			// 16bit value, good for percision with servos
 	buffer[4] = value & 0xFF;
 
 }
