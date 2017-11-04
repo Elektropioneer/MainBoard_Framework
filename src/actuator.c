@@ -140,12 +140,17 @@ static void buffer_load(uint8_t tool,
 
 }
 
+/*
+ * 	Function: 	 _actuator_ping()
+ * 	Description: it pings and checks if the communication with the actuator board is present
+ */
 uint8_t _actuator_ping() {
 
-	buffer_load('P', 0, 0, 0);
+	buffer_load('P', 0, 0, 0);			// TOOL: Ping
 
-	_actuator(buffer, return_buffer);
+	_actuator(buffer, return_buffer);	// Sending the buffer to the actuator and receiving the return one
 
+	// if it successful it will return 'P'
 	if(return_buffer[0] == 'P') {
 		return 1;
 	} else {
@@ -154,36 +159,59 @@ uint8_t _actuator_ping() {
 
 }
 
+/*
+ * 	Function:    uint8_t ax_set_angle(uint8_t id, uint16_t angle)
+ * 	Description: It send the goal angle for the ax
+ * 	Paramteres:  uint8_t id -> the id of the servo, uint16_t angle -> the angle it will go to
+ */
 uint8_t ax_set_angle(uint8_t id, uint16_t angle) {
 
-	uint8_t status;
+	uint8_t status;						// return status
 
-	buffer_load('A', id, 'A', angle);
+	buffer_load('A', id, 'A', angle);	// TOOL: 'AX', ID_TOOL: id, FUNC_TOOL: Angle, VALUE: angle
+	_actuator(buffer, return_buffer);	// Sending the buffer to the actuator and receiving the return one
+	status = return_buffer[0];			// Do something with the buffer
 
-	_actuator(buffer, return_buffer);
-
-	// do stuff with return buffer
-	status = return_buffer[0];
-
+	// we are returning the first return_buffer index because it will say if it was successful or not
 	return status;
-
 }
 
+/*
+ * 	Function:    uint8_t ax_set_speed(uint8_t id, uint16_t speed)
+ * 	Description: It sends the goal speed for the ax
+ * 	Parameters:  uint8_t id -> the id of the servo, uint16_t speed -> the goal speed
+ */
+uint8_t ax_set_speed(uint8_t id, uint16_t speed) {
+
+	uint8_t status;						// return status
+
+	buffer_load('A', id, 'S', speed);	// TOOL: 'AX', ID_TOOL: id, FUNC_TOOL: Speed, VALUE: speed
+	_actuator(buffer, return_buffer);	// Sending the buffer to the actuator and receiving the return one
+	status = return_buffer[0];			// Do something with the buffer
+
+	// we are returning the first return_buffer index because it will say if it was successful or not
+	return status;
+}
+
+/*
+ * 	Function:    uint8_t ax_get_status(uint8_t id, uint8_t return_option)
+ * 	Description: It gets the status of a servo
+ * 	Parameters:  uint8_t id -> the id of the ax, uint8_t return_option -> the type of status it will return
+ */
 uint8_t ax_get_status(uint8_t id, uint8_t return_option) {
 
 	/*
 	 * 	return_option:
-	 * 	0->temperature
-	 * 	1->voltage
-	 * 	2->current position
-	 * 	3->moving?
+	 * 	0 -> temperature
+	 * 	1 -> voltage
+	 * 	2 -> current position
+	 * 	3 -> moving?
 	 */
 
-	buffer_load('A',id, 'S', 0);
+	buffer_load('A',id, 'S', 0);			// TOOL: 'AX', ID_TOOL: id, FUNC_TOOL: Status, VALUE: 0
+	_actuator(buffer, return_buffer);		// Sending the buffer to the actuator and receiving the return one
 
-	_actuator(buffer, return_buffer);
-
-	return return_buffer[return_option];
+	return return_buffer[return_option];	// return a buffer index dependent on the return_option value
 
 }
 
