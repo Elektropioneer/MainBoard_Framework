@@ -16,5 +16,10 @@ uint8_t ax_set_angle(uint8_t id, uint16_t angle);
 uint8_t ax_set_speed(uint8_t id, uint16_t speed);
 uint8_t ax_get_status(uint8_t id, uint8_t return_option);
 
+uint8_t mosfet_set(uint8_t id, uint16_t status);
+uint8_t mosfet_status(uint8_t id);
+
+uint8_t relay_set(uint8_t id, uint16_t status);
+uint8_t relay_status(uint8_t id);
 
 #endif /* INC_ACTUATOR_H_ */

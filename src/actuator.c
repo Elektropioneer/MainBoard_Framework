@@ -215,5 +215,63 @@ uint8_t ax_get_status(uint8_t id, uint8_t return_option) {
 
 }
 
+/*
+ * 	Function: 	 uint8_t mosfet_set(uint8_t id, uint16_t status)
+ * 	Description: ON/OFF for the mosfet on the actuator board
+ * 	Paramters:   uint8_t id -> the id of the mosfet, uint16_t status -> ON/OFF
+ */
+uint8_t mosfet_set(uint8_t id, uint16_t status) {
+
+	buffer_load('M', id, 'C', status);		// TOOL: Mosfet, ID_TOOL: id, FUNC_TOOL: Condition, VALUE: status
+	_actuator(buffer, return_buffer);		// Sending the buffer to the actuator and receiving the return one
+
+	status = return_buffer[0];				// Get the status/return of the actuator board
+
+	return status;
+
+}
+
+/*
+ * 	Function: 	 uint8_t mosfet_status(uint8_t id)
+ * 	Description: Returns the status of the id mosfet
+ * 	Paramters:   uint8_t id -> the id of the mosfet
+ */
+uint8_t mosfet_status(uint8_t id) {
+
+	buffer_load('M',id, 'S', 0);			// TOOL: Mosfet, ID_TOOL: id, FUNC_TOOL: Status, VALUE: 0
+	_actuator(buffer, return_buffer);		// Sending the buffer to the actuator and receiving the return one
+
+	return return_buffer[0];				// return the status of it
+
+}
+
+/*
+ * 	Function: 	 uint8_t relay_set(uint8_t id, uint16_t status)
+ * 	Description: ON/OFF for the relay on the actuator board
+ * 	Paramters:   uint8_t id -> the id of the relay, uint16_t status -> ON/OFF
+ */
+uint8_t relay_set(uint8_t id, uint16_t status) {
+
+	buffer_load('R', id, 'C', status);		// TOOL: Relay, ID_TOOL: id, FUNC_TOOL: Condition, VALUE: status
+	_actuator(buffer, return_buffer);		// Sending the buffer to the actuator and receiving the return one
+
+	status = return_buffer[0];				// Get the status/return of the actuator board
+
+	return status;
+}
+
+/*
+ * 	Function: 	 uint8_t relay_status(uint8_t id)
+ * 	Description: Returns the status of the id relay
+ * 	Paramters:   uint8_t id -> the id of the relay
+ */
+uint8_t relay_status(uint8_t id) {
+
+	buffer_load('R',id, 'S', 0);			// TOOL: Relay, ID_TOOL: id, FUNC_TOOL: Status, VALUE: 0
+	_actuator(buffer, return_buffer);		// Sending the buffer to the actuator and receiving the return one
+
+	return return_buffer[0];				// return the status of it
+}
+
 
 
