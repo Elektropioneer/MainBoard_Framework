@@ -10,6 +10,13 @@
 uint8_t buffer[8];
 uint8_t return_buffer[8];
 
+uint8_t module_mosfet_status[3][3] = {
+		{1, false, MOSFET_1_PIN},
+		{2, false, MOSFET_2_PIN},
+		{3, false, MOSFET_3_PIN}
+};
+uint8_t module_relay_status = 0;
+
 /*
  *	Function: 		void servo_init(unsigned int f_pwm)
  *	Parameters: 	unsigned int f_pwm
@@ -295,16 +302,52 @@ void module_init(unsigned char version) {
 
 	if(version) {
 		// relay module
-		gpio_register_pin(48, GPIO_DIRECTION_OUTPUT, false);		// PG0
+		gpio_register_pin(RELAY_PIN, GPIO_DIRECTION_OUTPUT, false);		// PG0
 
 	} else {
 		// mosfet module
-		gpio_register_pin(48, GPIO_DIRECTION_OUTPUT, false);		// PG0
-		gpio_register_pin(49, GPIO_DIRECTION_OUTPUT, false);		// PG1
-		gpio_register_pin(50, GPIO_DIRECTION_OUTPUT, false);		// PG2
+		gpio_register_pin(48, GPIO_DIRECTION_OUTPUT, false);			// PG0
+		gpio_register_pin(49, GPIO_DIRECTION_OUTPUT, false);			// PG1
+		gpio_register_pin(50, GPIO_DIRECTION_OUTPUT, false);			// PG2
 
 	}
 }
+
+/*
+ * 	Function:    void module_set_relay_status(bool status)
+ * 	Description: sets the relay to the parameter status and updates the "database"
+ * 	Parameters:  bool status -> the status we want to set it to
+ */
+void module_set_relay_status(bool status) {
+
+	gpio_write_pin(RELAY_PIN, status);
+	module_relay_status = status;
+
+}
+
+/*
+ * 	Function:    bool module_read_relay_status()
+ * 	Description: returns the status of the relay
+ */
+bool module_read_relay_status() { return module_relay_status; }
+
+/*
+ * 	Function:    void module_set_mosfet_status(uint8_t id, bool status)
+ * 	Description: sets the mosfet by the id to the parameter status and updates the "database"
+ * 	Parameters:  uint8_t id -> the id of the mosfet we want to updatebool status -> the status we want to set it to
+ */
+void module_set_mosfet_status(uint8_t id, bool status) {
+
+	gpio_write_pin(module_mosfet_status[id-1][2], status);
+	module_mosfet_status[id-1][1] = status;
+
+}
+
+/*
+ * 	Function:    bool module_read_mosfet_status(uint8_t id)
+ * 	Description: return the status of the id of the mosfet
+ */
+bool module_read_mosfet_status(uint8_t id) { return module_mosfet_status[id-1][1]; }
 
 
 

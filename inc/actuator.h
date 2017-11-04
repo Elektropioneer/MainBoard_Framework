@@ -2,6 +2,7 @@
 #define INC_ACTUATOR_H_
 
 #include <stdio.h>
+#include "gpio.h"
 
 void servo_init(unsigned int f_pwm);
 
@@ -26,5 +27,16 @@ uint8_t relay_status(uint8_t id);
 #define MODULE_VERSION_MOSFET	0
 #define MODULE_VERSION_RELAY	1
 
+#define RELAY_PIN				48
+#define MOSFET_1_PIN			48
+#define MOSFET_2_PIN			49
+#define MOSFET_3_PIN			50
+
 void module_init(unsigned char version);
+void module_set_relay_status(bool status);
+bool module_read_relay_status();
+void module_set_mosfet_status(uint8_t id, bool status);
+bool module_read_mosfet_status(uint8_t id);
+
+
 #endif /* INC_ACTUATOR_H_ */
