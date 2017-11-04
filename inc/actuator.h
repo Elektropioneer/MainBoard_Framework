@@ -22,4 +22,9 @@ uint8_t mosfet_status(uint8_t id);
 uint8_t relay_set(uint8_t id, uint16_t status);
 uint8_t relay_status(uint8_t id);
 
+/*	  MODULE FUNCTIONS	*/
+#define MODULE_VERSION_MOSFET	0
+#define MODULE_VERSION_RELAY	1
+
+void module_init(unsigned char version);
 #endif /* INC_ACTUATOR_H_ */

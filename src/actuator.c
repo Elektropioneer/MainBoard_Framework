@@ -1,5 +1,6 @@
 #include "actuator.h"
 #include "can.h"
+#include "gpio.h"
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdlib.h>
@@ -127,6 +128,10 @@ static void _actuator(uint8_t *buffer, uint8_t *return_buffer) {
 
 }
 
+/*
+ * 	Function:    static void buffer_load(uint8_t tool, uint8_t tool_id, uint8_t tool_function, int16_t value)
+ * 	Description: it loads the buffer with the parameters
+ */
 static void buffer_load(uint8_t tool,
 						uint8_t tool_id,
 						uint8_t tool_function,
@@ -248,7 +253,7 @@ uint8_t mosfet_status(uint8_t id) {
 /*
  * 	Function: 	 uint8_t relay_set(uint8_t id, uint16_t status)
  * 	Description: ON/OFF for the relay on the actuator board
- * 	Paramters:   uint8_t id -> the id of the relay, uint16_t status -> ON/OFF
+ * 	Parameters:  uint8_t id -> the id of the relay, uint16_t status -> ON/OFF
  */
 uint8_t relay_set(uint8_t id, uint16_t status) {
 
@@ -263,7 +268,7 @@ uint8_t relay_set(uint8_t id, uint16_t status) {
 /*
  * 	Function: 	 uint8_t relay_status(uint8_t id)
  * 	Description: Returns the status of the id relay
- * 	Paramters:   uint8_t id -> the id of the relay
+ * 	Parameters:  uint8_t id -> the id of the relay
  */
 uint8_t relay_status(uint8_t id) {
 
@@ -272,6 +277,35 @@ uint8_t relay_status(uint8_t id) {
 
 	return return_buffer[0];				// return the status of it
 }
+
+/*
+ * 	Function: 	 void module_init(unsigned char version)
+ * 	Description: Init the EP_Module
+ * 	Parameters:  unsigned char version -> the version we want to use
+ */
+void module_init(unsigned char version) {
+
+	/* https://github.com/Elektropioneer/EP_Module */
+
+	/*
+	 * 	Version:
+	 * 	0 -> mosfet module
+	 * 	1 -> relay module
+	 */
+
+	if(version) {
+		// relay module
+		gpio_register_pin(48, GPIO_DIRECTION_OUTPUT, false);		// PG0
+
+	} else {
+		// mosfet module
+		gpio_register_pin(48, GPIO_DIRECTION_OUTPUT, false);		// PG0
+		gpio_register_pin(49, GPIO_DIRECTION_OUTPUT, false);		// PG1
+		gpio_register_pin(50, GPIO_DIRECTION_OUTPUT, false);		// PG2
+
+	}
+}
+
 
 
 
