@@ -121,7 +121,7 @@ static void system_setup_jumper() {
  * 	Function: 	 system_wait_for_jumper()
  * 	Description: wait for the jumper to be true
  */
-static void system_wait_for_jumper() { while(jumper_pulled == false) {_delay_ms(10); } }
+static void system_wait_for_jumper() { while(jumper_pulled == false) { _delay_ms(10); } }
 
 /*
  * 	Function: 	 flip_debug_led()

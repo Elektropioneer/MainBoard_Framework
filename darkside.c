@@ -88,21 +88,18 @@ void darkside(void) {
 				// send the gotoField and receive status
 				odometry_status = odometry_move_to_position(&TACTIC_ONE_POSITION[current_position].point, TACTIC_ONE_POSITION[current_position].speed, TACTIC_ONE_POSITION[current_position].direction, TACTIC_ONE_POSITION[current_position].callback);
 
-				// if odometry fails set state to collision
+				// if odometry fails set state to collision, which is mostly triggured by stop
 				if(odometry_status == ODOMETRY_FAIL)
 				{
 					active_state = COLLISION;
 					break;
 				}
-				else if(odometry_status == ODOMETRY_STUCK)
-				{
 
-				}
 				if(current_position == 0) {
 					_delay_ms(2000);
 				}
 				// last position
-				if(current_position == (TACTIC_ONE_POSITION_COUNT - 1))
+				else if(current_position == (TACTIC_ONE_POSITION_COUNT - 1))
 				{
 					while(1);
 				}
