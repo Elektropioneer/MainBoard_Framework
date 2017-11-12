@@ -43,13 +43,6 @@ int main()
 
 	_delay_ms(3000);
 
-	while(1) {
-		if(sensor_all_back()) {
-			PORTG = 0x01;
-		} else{
-			PORTG = 0x00;
-		}
-	}
 	return 0;
 
 }//end of main()

@@ -11,9 +11,6 @@
 #include <avr/io.h>
 #include <stdint.h>
 
-
-#define JUMPER_PIN		40		//portf 0 // working
-
 #define PWM_FREQ		50
 
 void system_init(void);

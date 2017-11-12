@@ -5,21 +5,15 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../darkside.c \
-../greenside.c \
-../main.c \
-../orangeside.c 
+../main.c 
 
 OBJS += \
 ./darkside.o \
-./greenside.o \
-./main.o \
-./orangeside.o 
+./main.o 
 
 C_DEPS += \
 ./darkside.d \
-./greenside.d \
-./main.d \
-./orangeside.d 
+./main.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
