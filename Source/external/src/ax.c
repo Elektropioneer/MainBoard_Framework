@@ -4,10 +4,10 @@
 #include "ax.h"
 #include <string.h>
 
-const unsigned char null_buffer[8] = {0,0,0,0,0,0,0,0};
+#define ang_to_num(y) ((y * 1023) / 300)
+#define num_to_ang(y) ((y * 300) / 1023))
 
-#define ang_to_num(angle) ((angle * 1023) / 300)
-#define num_to_ang(num)	  ((num * 300) / 1023))
+#define all_to_zero(buffer) memset(buffer, 0, sizeof buffer);
 
 /*
  * 	Function:    static unsigned char ax_send(unsigned char buffer[])
@@ -31,12 +31,8 @@ static unsigned char ax_send(unsigned char buffer[]) {
 
 	unsigned int error_counter;
 
-	for(int i=0; i < 8; i++) {
-		// the logic here is that it will write if data is not 0, but if there is no data, it will send a 0
-		if(null_buffer[i] != buffer[i])
-			UART1_Write(buffer[i]);
-		else
-			UART1_Write(0);
+	for(int i=0; i<8; i++) {
+		UART1_Write(buffer[i]);
 	}
 
 	// reading uart while it is NOT success
@@ -72,7 +68,7 @@ void ax_init() {
  */
 unsigned char ax_board_ping(void) {
 
-	unsigned char buffer[8];
+	unsigned char buffer[8]; all_to_zero(buffer);
 
 	buffer[0] = 'b';						// board
 	buffer[1] = 0;							// id 0
@@ -93,9 +89,9 @@ unsigned char ax_move(unsigned char ID, float position, float goal_speed) {
 
 	// converting 0-300 to 0-1023
     int16_t angle = ang_to_num(position);
-    int16_t speed = ang_to_num(speed);
+    int16_t speed = ang_to_num(goal_speed);
 
-	unsigned char buffer[8];
+    unsigned char buffer[8]; all_to_zero(buffer);
 
 	buffer[0] = 'a';							// ax
 	buffer[1] = ID;								// the id of the ax
@@ -117,7 +113,7 @@ unsigned char ax_move(unsigned char ID, float position, float goal_speed) {
  */
 unsigned char ax_led(unsigned char ID, unsigned char status) {
 
-	unsigned char buffer[8];
+	unsigned char buffer[8]; all_to_zero(buffer);
 
 	buffer[0] = 'a';
 	buffer[1] = ID;
