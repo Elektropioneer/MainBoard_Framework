@@ -11,6 +11,7 @@ uint8_t module_mosfet_status[3][3] = {
 		{2, false, MOSFET_2_PIN},
 		{3, false, MOSFET_3_PIN}
 };
+
 uint8_t module_relay_status = 0;
 
 /*
