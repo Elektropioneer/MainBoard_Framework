@@ -16,7 +16,9 @@
 #define SERVO3_ID 	2
 
 void ax_init();
-unsigned char ax_board_ping();
+unsigned char ax_board_ping(void);
+unsigned char ax_move(unsigned char ID, float position, float goal_speed);
+unsigned char ax_led(unsigned char ID, unsigned char status);
 
 
 #endif /* SOURCE_EXTERNAL_INC_AX_H_ */

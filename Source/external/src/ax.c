@@ -5,7 +5,7 @@
 #include <string.h>
 
 #define ang_to_num(y) ((y * 1023) / 300)
-#define num_to_ang(y) ((y * 300) / 1023))
+#define num_to_ang(y) ((y * 300) / 1023)
 
 #define all_to_zero(buffer) memset(buffer, 0, sizeof buffer);
 
