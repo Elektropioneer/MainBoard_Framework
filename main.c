@@ -36,12 +36,16 @@
 #include "can.h"
 #include <avr/interrupt.h>
 
+uint8_t data[8];
+
 int main()
 {
 
 	system_init();
 
-	_delay_ms(3000);
+	while(1) {
+
+	}
 
 	return 0;
 
