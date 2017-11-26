@@ -13,6 +13,9 @@
 #include "usart.h"
 #include "actuator.h"
 #include "sensors.h"
+#include "act.h"
+#include "ax.h"
+#include "odometry.h"
 
 /*
  * 0 PA0 		8  PB0 		16 PC0 		24 PD0 		32 PE0 		40 PF0		48 PG0
@@ -75,12 +78,6 @@ ISR(TIMER1_COMPA_vect) {
 				_delay_ms(1000);
 			}
 		}
-	}
-
-	// for testing if the timer is working
-	if((sys_time % 1000) == 0 && !setup_complete) {
-
-		flip_debug_led();
 	}
 
 	sys_time++;
@@ -159,8 +156,8 @@ void system_init(void) {
 	// initing
 	timer_init(1000);
 	CAN_Init(1);
-	UART1_Init(UART1_BAUD, UART_ISR_OFF);
 	servo_init(PWM_FREQ);
+	ax_init();
 
 	_delay_ms(500);
 

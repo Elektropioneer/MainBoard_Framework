@@ -95,7 +95,7 @@ void odometry_stop(int8_t type)
 			_delay_ms(10);
 
 		odometry_query_position();
-	}while(position.state == MOVING || position.state == ROTATING);
+	} while(position.state == MOVING || position.state == ROTATING);
 }
 
 /*

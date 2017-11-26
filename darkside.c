@@ -36,27 +36,16 @@ gotoFields TACTIC_ONE_POSITION[TACTIC_ONE_POSITION_COUNT] = {
  * 	Function: 	 static void wait_while_detection_options(uint8_t jump_enabled)
  * 	Description: checking sensors and if jump_enabled is 1 then it jumps back
  */
-static void wait_while_detection_options(uint8_t jump_enabled) {
+static void wait_while_detection() {
 
 	_delay_ms(200);
-	while(TACTIC_ONE_POSITION[current_position].callback(0) == 1) {
-		if(backjump_status == 0 && jump_enabled == 1) {
-			if(TACTIC_ONE_POSITION[current_position].direction == FORWARD) {
-				odometry_move_straight(-(BACKUP_DISTANCE), NORMAL_SPEED, sensor_all_back);
-			} else {
-				odometry_move_straight(BACKUP_DISTANCE, NORMAL_SPEED, sensor_all_front);
-			}
-		}
+	while(TACTIC_ONE_POSITION[current_position].callback(0) == 1)
 		_delay_ms(10);
-	}
+
 	next_position = current_position;
 	active_state = TACTIC_ONE;
 
 }
-
-static void wait_while_detection(void) 			{ wait_while_detection_options(0); }	// with no jump back when detected
-static void wait_while_detection_withjump(void) { wait_while_detection_options(1); }	// with jump back when detected
-
 void darkside(void) {
 
 
@@ -74,7 +63,7 @@ void darkside(void) {
 				break;
 			} */
 
-			wait_while_detection_withjump();
+			wait_while_detection();
 			break;
 		case STUCK:			// STUCK
 			_delay_ms(1000);

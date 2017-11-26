@@ -36,8 +36,6 @@
 #include "can.h"
 #include <avr/interrupt.h>
 
-uint8_t data[8];
-
 int main()
 {
 
