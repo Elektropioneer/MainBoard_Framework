@@ -24,4 +24,9 @@
 
 unsigned char actuator_ping(void);
 
+unsigned char actuator_relay_status(unsigned char ID);
+unsigned char actuator_mosfet_status(unsigned char ID);
+void actuator_relay_set(unsigned char ID, unsigned char status);
+void actuator_mosfet_set(unsigned char ID, unsigned char status);
+
 #endif /* SOURCE_EXTERNAL_INC_ACT_H_ */

@@ -107,7 +107,7 @@ unsigned char actuator_mosfet_status(unsigned char ID) { return actuator_get_sta
  * 	Parameters:  unsigned char ID     - the ID of the relay
  * 	  			 unsigned char status -  the status of the relay (ON, OFF)
  */
-void 		  actuator_relay_set(unsigned char ID, unsigned char status)  { actuator_set_status('m', ID, status); }
+void actuator_relay_set(unsigned char ID, unsigned char status)  { actuator_set_status('m', ID, status); }
 
 /*
  * 	Function: 	 void actuator_mosfet_set(unsigned char ID, unsigned char status)
@@ -115,7 +115,9 @@ void 		  actuator_relay_set(unsigned char ID, unsigned char status)  { actuator_
  * 	Parameters:  unsigned char ID     - the ID of the mosfet
  * 	 			 unsigned char status - the status of the mosfet (ON, OFF)
  */
-void 		  actuator_mosfet_set(unsigned char ID, unsigned char status) { actuator_set_status('m', ID, status); }
+void actuator_mosfet_set(unsigned char ID, unsigned char status) { actuator_set_status('m', ID, status); }
+
+// create specific named functions for specific ID mosfet/relay function (example: actuator_sucker(ON, OFF))
 
 
 
