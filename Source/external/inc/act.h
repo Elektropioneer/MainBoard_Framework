@@ -22,11 +22,14 @@
 #define ON					1
 #define OFF					0
 
-unsigned char actuator_ping(void);
+#define BATTERY_MAIN		0
+#define BATTERY_ODOM		1
 
+unsigned char actuator_ping(void);
 unsigned char actuator_relay_status(unsigned char ID);
 unsigned char actuator_mosfet_status(unsigned char ID);
-void actuator_relay_set(unsigned char ID, unsigned char status);
-void actuator_mosfet_set(unsigned char ID, unsigned char status);
+void 		  actuator_relay_set(unsigned char ID, unsigned char status);
+void	 	  actuator_mosfet_set(unsigned char ID, unsigned char status);
+unsigned char actuator_get_voltage(unsigned char type);
 
 #endif /* SOURCE_EXTERNAL_INC_ACT_H_ */

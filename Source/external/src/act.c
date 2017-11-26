@@ -119,6 +119,28 @@ void actuator_mosfet_set(unsigned char ID, unsigned char status) { actuator_set_
 
 // create specific named functions for specific ID mosfet/relay function (example: actuator_sucker(ON, OFF))
 
+/*
+ * 	Function:    unsigned char actuator_get_voltage(unsigned char type)
+ * 	Description: get the voltage of a battery -> type is main battery or odometry battery
+ * 	Parameters:  unsigned char type - the main or odometry battery
+ */
+unsigned char actuator_get_voltage(unsigned char type) {
+
+	unsigned char buffer[8];
+
+	buffer[0] = 'b';					// board
+	buffer[1] = 0;						// nothing
+	buffer[2] = 'b';					// battery
+
+	while(CAN_Write(buffer, DRIVER_LIFT_TX_IDENTIFICATOR))
+		_delay_ms(10);
+
+	CAN_Read(buffer, DRIVER_LIFT_RX_IDENTIFICATOR);
+
+	return buffer[type];				// type -> 0 - main voltage, 1 - odometry voltage
+
+}
+
 
 
 
