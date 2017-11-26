@@ -38,7 +38,85 @@ unsigned char actuator_ping(void) {
 
 	// if the buffer first bit is a 1 than the ping is successfull
 	if(buffer[0] == 1)
-		return 1;
+		return ACT_BOARD_SUCCESS;
 	else
-		return 0;
+		return ACT_BOARD_ERROR;
 }
+
+/*
+ * 	Function:    static void actuator_set_status(unsigned char type, unsigned char ID, unsigned char status)
+ * 	Description: set the status of a type (relay, mosfet) with an ID
+ * 	Parameters:  unsigned char type   - relay or mosfet ('r', 'm')
+ * 				 unsigned char ID     - the ID of the relay or mosfet
+ * 				 unsigned char status - the status we set it to (ON, OFF)
+ */
+static void actuator_set_status(unsigned char type, unsigned char ID, unsigned char status) {
+
+	unsigned char buffer[8];
+
+	buffer[0] = type;				// the type (mosfet or relay - 'm', 'r')
+	buffer[1] = ID;					// the ID of the mosfet/relay
+	buffer[2] = 's';				// set status
+	buffer[3] = status;				// the status
+
+	while(CAN_Write(buffer, DRIVER_LIFT_TX_IDENTIFICATOR))
+		_delay_ms(10);
+
+}
+
+/*
+ * 	Function:    static unsigned char actuator_get_status(unsigned char type_status)
+ * 	Description: get the status of a relay or mosfet
+ * 	Parameters:  unsigned char type_status - the number in the array
+ * 	Explanation: buffer[r1, r2, r3, m1, m2, m3]
+ */
+static unsigned char actuator_get_status(unsigned char type_status) {
+
+	unsigned char buffer[8];
+
+	buffer[0] = 'b';				// board
+	buffer[1] = 0;					// nothing
+	buffer[2] = 's';				// status
+
+	while(CAN_Write(buffer, DRIVER_LIFT_TX_IDENTIFICATOR))
+		_delay_ms(10);
+
+	CAN_Read(buffer, DRIVER_LIFT_RX_IDENTIFICATOR);
+
+	return buffer[type_status];
+
+}
+
+/*
+ * 	Function:    unsigned char actuator_relay_status(unsigned char ID)
+ * 	Description: gets the status of the relay
+ * 	Parameters:  unsigned char ID - the ID of the relay we get status of
+ */
+unsigned char actuator_relay_status(unsigned char ID)  { return actuator_get_status(ID-1); }
+
+/*
+ * 	Function:    unsigned char actuator_mosfet_status(unsigned char ID)
+ * 	Description: gets the status of the mosfet
+ * 	Parameters:  unsigned char ID - the ID of the mosfet we get status of
+ */
+unsigned char actuator_mosfet_status(unsigned char ID) { return actuator_get_status(ID+2); }
+
+/*
+ * 	Function:    void actuator_relay_set(unsigned char ID, unsigned char status)
+ * 	Description: set the status of the relay
+ * 	Parameters:  unsigned char ID     - the ID of the relay
+ * 	  			 unsigned char status -  the status of the relay (ON, OFF)
+ */
+void 		  actuator_relay_set(unsigned char ID, unsigned char status)  { actuator_set_status('m', ID, status); }
+
+/*
+ * 	Function: 	 void actuator_mosfet_set(unsigned char ID, unsigned char status)
+ * 	Description: set the status of the mosfet
+ * 	Parameters:  unsigned char ID     - the ID of the mosfet
+ * 	 			 unsigned char status - the status of the mosfet (ON, OFF)
+ */
+void 		  actuator_mosfet_set(unsigned char ID, unsigned char status) { actuator_set_status('m', ID, status); }
+
+
+
+
