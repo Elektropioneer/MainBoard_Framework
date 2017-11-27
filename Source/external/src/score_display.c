@@ -8,6 +8,11 @@
 
 int current_score = 0;
 
+/*
+ * 	Function:    void update_score(int increment_score_by)
+ * 	Description: update the score display
+ * 	Parameters:  int increment_score_by - the score we will increment by
+ */
 void update_score(int increment_score_by) {
 
 	int new_score = current_score + increment_score_by;		// increment the score
