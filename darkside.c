@@ -48,7 +48,6 @@ static void wait_while_detection() {
 }
 void darkside(void) {
 
-
 	// setting the starting position
 	struct odometry_position startingPosition; startingPosition.x = 0; startingPosition.y = 0; startingPosition.angle = 0;
 

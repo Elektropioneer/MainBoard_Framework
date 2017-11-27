@@ -59,9 +59,6 @@ void ax_init() {
 
 }
 
-// 0 - 1023 -? 0-300
-
-
 /*
  * 	Function:    unsigned char ax_board_ping()
  * 	Description: Pinging AX board

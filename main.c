@@ -35,14 +35,23 @@
 #include "sensors.h"
 #include "can.h"
 #include <avr/interrupt.h>
+#include "ax.h"
 
 int main()
 {
 
 	system_init();
 
-	while(1) {
+	_delay_ms(1000);
 
+	flip_debug_led();
+
+	while(ax_board_ping() != AX_BOARD_SUCCESS)
+		_delay_ms(500);
+
+	while(1){
+		flip_debug_led();
+		_delay_ms(500);
 	}
 
 	return 0;
