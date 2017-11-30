@@ -150,9 +150,9 @@ unsigned char ax_sync(unsigned char angles[3]) {
 	buffer[0] = 'a';
 	buffer[1] = 0;
 	buffer[2] = 's';
-	buffer[3] = angles[0];		// id 4 angle
-	buffer[4] = angles[1];		// id 2 angle
-	buffer[5] = angles[2];		// id 10 angle
+	buffer[3] = (255 / (300 / angles[0]));		// id 4 angle
+	buffer[4] = (255 / (300 / angles[1]));		// id 2 angle
+	buffer[5] = (255 / (300 / angles[2]));		// id 10 angle
 
 	return ax_send(buffer);
 }

@@ -5,20 +5,12 @@
 #include "ax.h"
 #include "usart.h"
 
+/*
+ * 	Function:    static unsigned char display_send(unsigned char buffer[])
+ * 	Description: send the buffer to the display
+ * 	Parameters:  unsigned char buffer[] - the buffer we will send
+ */
 static unsigned char display_send(unsigned char buffer[]) {
-
-	/*
-	 * 		Protocol for actuator
-	 * 		buffer[0] - ID OF TOOL (ax, relay, mosfet)
-	 * 		buffer[1] - THE EXACT ID OF THE TOOL
-	 * 		buffer[2] - THE FUNCTION TO DO (position, move, turn on off)
-	 * 		buffer[3] - value >> 8
-	 * 		buffer[4] - value & 0xFF
-	 * 		buffer[5] - value2 >> 8
-	 * 		buffer[6] - value2 & 0xFF
-	 * 		buffer[7] - 0
-	 *
-	 */
 
 	unsigned int error_counter;
 
@@ -46,28 +38,54 @@ void score_display_init() {
 
 }
 
+/*
+ * 	Function:    unsigned char update_score(unsigned char update_by)
+ * 	Description: Update the score by update_by
+ * 	Parameters:  unsigned char update_by - we will update the score by that alot
+ */
 unsigned char update_score(unsigned char update_by) {
 
 	unsigned char buffer[8]; all_to_zero(buffer);
 
-	buffer[0] = 'd';						// board
-	buffer[1] = 's';						// id 0
-	buffer[2] = 'u';						// ping
+	buffer[0] = 'd';						// display
+	buffer[1] = 's';						// score
+	buffer[2] = 'u';						// update
 	buffer[3] = update_by;					// the value it will be updated by
 
 	return display_send(buffer);
 
 }
 
+/*
+ * 	Function:    unsigned char clear_score()
+ * 	Description: Clear the score to 000
+ */
 unsigned char clear_score() {
 
 	unsigned char buffer[8]; all_to_zero(buffer);
 
-	buffer[0] = 'd';
-	buffer[1] = 's';
-	buffer[3] = 'c';
+	buffer[0] = 'd';					    // display
+	buffer[1] = 's';						// score
+	buffer[2] = 'c';						// clear
 
 	return display_send(buffer);
+
+}
+
+/*
+ * 	Function:    unsigned char flash_score()
+ * 	Description: Flash the display
+ */
+unsigned char flash_score() {
+
+	unsigned char buffer[8]; all_to_zero(buffer);
+
+	buffer[0] = 'd';						// display
+	buffer[1] = 's';						// score
+	buffer[2] = 'f';						// flash
+
+	return display_send(buffer);
+
 
 }
 

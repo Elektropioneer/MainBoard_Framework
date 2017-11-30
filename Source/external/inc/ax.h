@@ -8,6 +8,9 @@
 #ifndef SOURCE_EXTERNAL_INC_AX_H_
 #define SOURCE_EXTERNAL_INC_AX_H_
 
+#include <string.h> /* memset */
+#include <unistd.h> /* close */
+
 #define AX_BOARD_SUCCESS	1
 #define AX_BOARD_ERROR		0
 
