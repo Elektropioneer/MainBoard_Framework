@@ -44,9 +44,9 @@ int main()
 
 	system_init();
 
-	unsigned char data[3] = {150, 150, 150};
-
-	ax_sync(data);
+	update_score(215);
+	_delay_ms(2000);
+	update_score(100);
 
 	return 0;
 

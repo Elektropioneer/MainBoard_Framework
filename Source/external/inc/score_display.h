@@ -5,7 +5,7 @@
 #define DISPLAY_BOARD_ERROR			0
 
 void score_display_init();
-unsigned char update_score(unsigned char update_by);
+unsigned char update_score(int update_by);
 unsigned char clear_score();
 unsigned char flash_score();
 

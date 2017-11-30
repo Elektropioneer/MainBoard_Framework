@@ -158,8 +158,8 @@ void system_init(void) {
 	timer_init(1000);
 	CAN_Init(1);
 	servo_init(PWM_FREQ);
-	ax_init();				// for big robot
-
+	//ax_init();				// for big robot
+	score_display_init();
 
 	_delay_ms(500);
 
