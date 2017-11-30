@@ -45,11 +45,11 @@ int main()
 
 	system_init();
 
-	debug_setup_wait();
-
-	_delay_ms(3000);
-
-	debug_ready();
+	debug_position(400, 400);
+	_delay_ms(2000);
+	debug_position(400, 428);
+		_delay_ms(2000);
+	debug_position(1000, 1500);
 
 
 	return 0;

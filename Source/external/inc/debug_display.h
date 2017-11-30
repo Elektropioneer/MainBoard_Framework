@@ -10,5 +10,6 @@
 
 unsigned char debug_ready();
 unsigned char debug_setup_wait();
+unsigned char debug_position(int16_t x, int16_t y);
 
 #endif /* SOURCE_EXTERNAL_INC_DEBUG_DISPLAY_H_ */
