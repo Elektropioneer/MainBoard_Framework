@@ -44,9 +44,9 @@ int main()
 
 	system_init();
 
-	update_score(215);
+	update_score(200);
 	_delay_ms(2000);
-	update_score(100);
+	update_score(50);
 
 	return 0;
 
