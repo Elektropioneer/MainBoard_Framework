@@ -17,6 +17,7 @@
 #include "ax.h"
 #include "odometry.h"
 
+
 /*
  * 0 PA0 		8  PB0 		16 PC0 		24 PD0 		32 PE0 		40 PF0		48 PG0
  * 1 PA1 		9  PB1 		17 PC1 		25 PD1 		33 PE1 		41 PF1		49 PG1
@@ -157,7 +158,8 @@ void system_init(void) {
 	timer_init(1000);
 	CAN_Init(1);
 	servo_init(PWM_FREQ);
-	ax_init();
+	ax_init();				// for big robot
+
 
 	_delay_ms(500);
 
@@ -165,12 +167,9 @@ void system_init(void) {
 
 	setup_complete = true;
 
-	PORTG = 0x01;
-
 	// waiting for jumper
 	//system_wait_for_jumper();
 
-	PORTG = 0x00;
 
 	system_reset_system_time();															// reset system time
 	system_set_match_started();															// match has started!

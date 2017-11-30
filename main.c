@@ -36,23 +36,17 @@
 #include "can.h"
 #include <avr/interrupt.h>
 #include "ax.h"
+#include "score_display.h"
+
 
 int main()
 {
 
 	system_init();
 
-	_delay_ms(1000);
+	unsigned char data[3] = {150, 150, 150};
 
-	flip_debug_led();
-
-	while(ax_board_ping() != AX_BOARD_SUCCESS)
-		_delay_ms(500);
-
-	while(1){
-		flip_debug_led();
-		_delay_ms(500);
-	}
+	ax_sync(data);
 
 	return 0;
 

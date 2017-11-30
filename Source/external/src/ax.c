@@ -4,10 +4,9 @@
 #include "ax.h"
 #include <string.h>
 
-#define ang_to_num(y) ((y * 1023) / 300)
-#define num_to_ang(y) ((y * 300) / 1023)
+#define ang_to_num(y) ((y * 255) / 300)
+#define num_to_ang(y) ((y * 300) / 255)
 
-#define all_to_zero(buffer) memset(buffer, 0, sizeof buffer);
 
 /*
  * 	Function:    static unsigned char ax_send(unsigned char buffer[])
@@ -76,27 +75,26 @@ unsigned char ax_board_ping(void) {
 }
 
 /*
- * 	Function:    unsigned char ax_move(unsigned char ID, float position, float goal_speed)
+ * 	Function:    unsigned char ax_move(unsigned char ID, int position, int goal_speed)
  * 	Description: Moving ax (of ID) to position (position) with goal_speed (goal_speed)
  * 	Parameters:  unsigned char ID - the id of the ax servo
- * 				 float position   - the position for the servo to go to (0-300)
- * 				 float speed      - the speed for the servo (goal speed)
+ * 				 int position   - the position for the servo to go to (0-300)
+ * 				 int speed      - the speed for the servo (goal speed)
  */
-unsigned char ax_move(unsigned char ID, float position, float goal_speed) {
+unsigned char ax_move(unsigned char ID, unsigned char position, unsigned char speed) {
 
-	// converting 0-300 to 0-1023
-    int16_t angle = ang_to_num(position);
-    int16_t speed = ang_to_num(goal_speed);
+	// converting 0-300 to 0-255
+
+	unsigned char _angle = (255 / (300 / position));
+	unsigned char _speed = (255 / (100 / speed));
 
     unsigned char buffer[8]; all_to_zero(buffer);
 
 	buffer[0] = 'a';							// ax
 	buffer[1] = ID;								// the id of the ax
 	buffer[2] = 'm';							// move
-	buffer[3] = (unsigned char)(angle >> 8);	// sending 16bit value
-	buffer[4] = (unsigned char)(angle & 0xFF);
-	buffer[5] = (unsigned char)(speed >> 8);
-	buffer[6] = (unsigned char)(speed & 0xFF);
+	buffer[3] = _angle;
+	buffer[4] = _speed;
 
 	return ax_send(buffer);
 
@@ -114,8 +112,47 @@ unsigned char ax_led(unsigned char ID, unsigned char status) {
 
 	buffer[0] = 'a';
 	buffer[1] = ID;
-	buffer[3] = 'l';
-	buffer[4] = status;
+	buffer[2] = 'l';
+	buffer[3] = status;
+
+	return ax_send(buffer);
+}
+/*
+ * 	Function:    unsigned char ax_moving(unsigned char ID)
+ * 	Description: returns a 1 if the servo is moving
+ * 	Parameters:  unsigned char ID - the ID of the servo
+ */
+unsigned char ax_moving(unsigned char ID) {
+
+	unsigned char buffer[8]; all_to_zero(buffer);
+
+	buffer[0] = 'a';
+	buffer[1] = ID;
+	buffer[2] = 'M';
+
+	ax_send(buffer);
+
+	return UART1_Read();
+}
+
+/*
+ * 	Function:    unsigned char ax_sync(unsigned char angles[3])
+ * 	Description: Sync write to all servos
+ * 	Parameters:  unsigned char angles[3] - the angles
+ * 					[0] - ID 4 angle
+ * 					[1] - ID 2 angle
+ * 					[2] - ID 10 angle
+ */
+unsigned char ax_sync(unsigned char angles[3]) {
+
+	unsigned char buffer[8]; all_to_zero(buffer);
+
+	buffer[0] = 'a';
+	buffer[1] = 0;
+	buffer[2] = 's';
+	buffer[3] = angles[0];		// id 4 angle
+	buffer[4] = angles[1];		// id 2 angle
+	buffer[5] = angles[2];		// id 10 angle
 
 	return ax_send(buffer);
 }

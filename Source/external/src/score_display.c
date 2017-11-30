@@ -1,31 +1,74 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdlib.h>
-#include "i2c.h"
 #include "score_display.h"
+#include "ax.h"
+#include "usart.h"
 
-#define SCORE_DISPLAY_IDDR 0x00
+static unsigned char display_send(unsigned char buffer[]) {
 
-int current_score = 0;
+	/*
+	 * 		Protocol for actuator
+	 * 		buffer[0] - ID OF TOOL (ax, relay, mosfet)
+	 * 		buffer[1] - THE EXACT ID OF THE TOOL
+	 * 		buffer[2] - THE FUNCTION TO DO (position, move, turn on off)
+	 * 		buffer[3] - value >> 8
+	 * 		buffer[4] - value & 0xFF
+	 * 		buffer[5] - value2 >> 8
+	 * 		buffer[6] - value2 & 0xFF
+	 * 		buffer[7] - 0
+	 *
+	 */
 
-/*
- * 	Function:    void update_score(int increment_score_by)
- * 	Description: update the score display
- * 	Parameters:  int increment_score_by - the score we will increment by
- */
-void update_score(int increment_score_by) {
+	unsigned int error_counter;
 
-	int new_score = current_score + increment_score_by;		// increment the score
+	for(int i=0; i<8; i++) {
+		UART1_Write(buffer[i]);
+	}
 
-	uint8_t _CC = new_score / 10;							// get the first two digits
+	// reading uart while it is NOT success
+	while(UART1_Read() != DISPLAY_BOARD_SUCCESS) {
+		_delay_ms(10);						// delay if not success
+		error_counter++;					// error counter++
 
-	uint8_t S__ = new_score / 100;							// get the first digit
-	uint8_t _S_ = (new_score - (S__ * 100)) / 10;			// get the second digit
-	uint8_t __S = new_score - (_CC * 10);					// get the third digit
+		// if error counter is above 100 -> 10ms*100 -> 1000ms -> 1s waiting
+		if(error_counter > 100)
+			return DISPLAY_BOARD_ERROR;			// return error
+	}
 
-	uint8_t data[3] = {S__, _S_, __S};						// combine them into an array
+	return DISPLAY_BOARD_SUCCESS;				// return success
 
-	i2c_transmit(SCORE_DISPLAY_IDDR, data, 3);				// transmit through i2c
-
-	current_score = new_score;								// update current score
 }
+
+void score_display_init() {
+
+	UART1_Init(UART1_BAUD, UART_ISR_ON);
+
+}
+
+unsigned char update_score(unsigned char update_by) {
+
+	unsigned char buffer[8]; all_to_zero(buffer);
+
+	buffer[0] = 'd';						// board
+	buffer[1] = 's';						// id 0
+	buffer[2] = 'u';						// ping
+	buffer[3] = update_by;					// the value it will be updated by
+
+	return display_send(buffer);
+
+}
+
+unsigned char clear_score() {
+
+	unsigned char buffer[8]; all_to_zero(buffer);
+
+	buffer[0] = 'd';
+	buffer[1] = 's';
+	buffer[3] = 'c';
+
+	return display_send(buffer);
+
+}
+
+
