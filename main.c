@@ -37,6 +37,7 @@
 #include <avr/interrupt.h>
 #include "ax.h"
 #include "score_display.h"
+#include "debug_display.h"
 
 
 int main()
@@ -44,9 +45,12 @@ int main()
 
 	system_init();
 
-	update_score(200);
-	_delay_ms(2000);
-	update_score(50);
+	debug_setup_wait();
+
+	_delay_ms(3000);
+
+	debug_ready();
+
 
 	return 0;
 

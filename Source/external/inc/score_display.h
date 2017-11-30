@@ -9,4 +9,6 @@ unsigned char update_score(int update_by);
 unsigned char clear_score();
 unsigned char flash_score();
 
+unsigned char display_send(unsigned char buffer[]);
+
 #endif /* SOURCE_EXTERNAL_INC_SCORE_DISPLAY_H_ */

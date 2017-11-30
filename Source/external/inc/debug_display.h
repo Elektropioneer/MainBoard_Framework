@@ -8,6 +8,7 @@
 #ifndef SOURCE_EXTERNAL_INC_DEBUG_DISPLAY_H_
 #define SOURCE_EXTERNAL_INC_DEBUG_DISPLAY_H_
 
-
+unsigned char debug_ready();
+unsigned char debug_setup_wait();
 
 #endif /* SOURCE_EXTERNAL_INC_DEBUG_DISPLAY_H_ */

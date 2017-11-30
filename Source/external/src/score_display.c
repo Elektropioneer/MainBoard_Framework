@@ -12,7 +12,7 @@ int current_score = 0;
  * 	Description: send the buffer to the display
  * 	Parameters:  unsigned char buffer[] - the buffer we will send
  */
-static unsigned char display_send(unsigned char buffer[]) {
+unsigned char display_send(unsigned char buffer[]) {
 
 	unsigned char error_counter = 0;
 
