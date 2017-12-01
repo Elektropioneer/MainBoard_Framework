@@ -35,13 +35,15 @@
 #include "sensors.h"
 #include "can.h"
 #include <avr/interrupt.h>
+#include "ax.h"
+#include "score_display.h"
+#include "debug_display.h"
+
 
 int main()
 {
 
 	system_init();
-
-	_delay_ms(3000);
 
 	return 0;
 

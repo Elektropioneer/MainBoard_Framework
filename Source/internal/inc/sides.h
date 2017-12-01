@@ -15,7 +15,7 @@ typedef struct
 	struct odometry_position point;
 	uint8_t					 speed;
 	uint8_t					 direction;
-	char					 (*callback)(uint32_t start_time);
+	uint8_t					 (*callback)(uint32_t start_time);
 } gotoFields;
 
 

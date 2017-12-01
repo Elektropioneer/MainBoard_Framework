@@ -12,7 +12,7 @@
  * 	Function: 	 All front sensors individually
  * 	Description: Returns a 1 when detected
  */
-char sensor_fr() {
+uint8_t sensor_fr() {
 
 	if(gpio_read_pin(SENSOR_FR_PIN) == SENSOR_FR_TRIG) {
 		odometry_stop(HARD_STOP);
@@ -22,7 +22,7 @@ char sensor_fr() {
 	return 0;
 }
 
-char sensor_fl() {
+uint8_t sensor_fl() {
 
 	if(gpio_read_pin(SENSOR_FL_PIN) == SENSOR_FL_TRIG) {
 		odometry_stop(HARD_STOP);
@@ -32,7 +32,7 @@ char sensor_fl() {
 	return 0;
 }
 
-char sensor_fc() {
+uint8_t sensor_fc() {
 	#ifdef BIG_ROBOT
 	if(gpio_read_pin(SENSOR_FC_PIN) == SENSOR_FC_TRIG) {
 		odometry_stop(HARD_STOP);
@@ -49,7 +49,7 @@ char sensor_fc() {
  * 	Function: 	 All back sensors individually
  * 	Description: Returns a 1 when detected
  */
-char sensor_br() {
+uint8_t sensor_br() {
 
 	if(gpio_read_pin(SENSOR_BR_PIN) == SENSOR_BR_TRIG) {
 		odometry_stop(HARD_STOP);
@@ -59,7 +59,7 @@ char sensor_br() {
 	return 0;
 }
 
-char sensor_bl() {
+uint8_t sensor_bl() {
 
 	if(gpio_read_pin(SENSOR_BL_PIN) == SENSOR_BL_TRIG) {
 		odometry_stop(HARD_STOP);
@@ -70,7 +70,7 @@ char sensor_bl() {
 }
 
 
-char sensor_bc() {
+uint8_t sensor_bc() {
 	#ifdef BIG_ROBOT
 	if(gpio_read_pin(SENSOR_BC_PIN) == SENSOR_BC_TRIG) {
 		odometry_stop(HARD_STOP);
@@ -87,7 +87,7 @@ char sensor_bc() {
  * 	Combination functions
  */
 
-char sensor_all_front() {
+uint8_t sensor_all_front() {
 	#ifdef BIG_ROBOT
 		if(sensor_fr() || sensor_fl() || sensor_fc()) {
 			return 1;
@@ -101,7 +101,7 @@ char sensor_all_front() {
 	return 0;
 }
 
-char sensor_all_back() {
+uint8_t sensor_all_back() {
 	#ifdef BIG_ROBOT
 		if(sensor_br() || sensor_bl() || sensor_bc()) {
 			return 1;

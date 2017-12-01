@@ -20,9 +20,9 @@ volatile struct odometry_position position=
 };
 
 /*
- * 	void odometry_set_speed(uint8_t speed)
- *
- * 	Send odometry board the max speed
+ * 	Function:    void odometry_set_speed(uint8_t speed)
+ * 	Description: set the goal speed
+ * 	Parameters:  uint8_t speed - the speed defined in pwm (255)
  */
 void odometry_set_speed(uint8_t speed)
 {
@@ -39,9 +39,8 @@ void odometry_set_speed(uint8_t speed)
 }
 
 /*
- * 	void odometry_query_position(void)
- *
- * 	Get the current position. Update it to position
+ * 	Function:    void odometry_query_position(void)
+ * 	Description: get the position and state
  */
 void odometry_query_position(void)
 {
@@ -59,9 +58,9 @@ void odometry_query_position(void)
 }
 
 /*
- * 	static uint8_t odometry_wait_until_done(uint8_t (*callback)(uint32_t start_time))
- *
- * 	Callback function, execute function while odometry is moving
+ * 	Function:    static uint8_t odometry_wait_until_done(uint8_t (*callback)(uint32_t start_time))
+ * 	Description: repeat callback function while the robot is moving
+ * 	Parameters:  uint8_t (*callback)(uint32_t start_time) - the callback function
  */
 static uint8_t odometry_wait_until_done(uint8_t (*callback)(uint32_t start_time))
 {
@@ -80,9 +79,9 @@ static uint8_t odometry_wait_until_done(uint8_t (*callback)(uint32_t start_time)
 }
 
 /*
- * 	void odometry_stop(int8_t type)
- *
- * 	Send stop to odometry
+ * 	Function:    void odometry_stop(int8_t type)
+ * 	Description: send stop to robot - HARD_STOP or SOFT_STOP
+ * 	Parameters:  int8_t type - HARD or SOFT stop
  */
 void odometry_stop(int8_t type)
 {
@@ -96,13 +95,15 @@ void odometry_stop(int8_t type)
 			_delay_ms(10);
 
 		odometry_query_position();
-	}while(position.state == MOVING || position.state == ROTATING);
+	} while(position.state == MOVING || position.state == ROTATING);
 }
 
 /*
- * 	uint8_t odometry_move_straight(int16_t distance, uint8_t speed, uint8_t (*callback)(uint32_t start_time))
- *
- * 	Send move straight command to odometry
+ * 	Function:    uint8_t odometry_move_straight(int16_t distance, uint8_t speed, uint8_t (*callback)(uint32_t start_time))
+ * 	Description: send the robot to a distance, at a specific speed, while executing callback
+ * 	Parameters:  int16_t distance 						  - the distance in mm (if - it will go backwards)
+ * 				 uint8_t speed    						  - the goal speed
+ * 				 uint8_t (*callback)(uint32_t start_time) - the callback function which will execute
  */
 uint8_t odometry_move_straight(int16_t distance, uint8_t speed, uint8_t (*callback)(uint32_t start_time))
 {
@@ -118,11 +119,14 @@ uint8_t odometry_move_straight(int16_t distance, uint8_t speed, uint8_t (*callba
 }
 
 /*
- * 	uint8_t odometry_move_to_position(struct odometry_position* position, uint8_t speed, uint8_t direction, uint8_t (*callback)(uint32_t start_time))
- *
- * 	Send move to position function to odometry
+ * 	Function:    uint8_t odometry_move_to_position(struct odometry_position* position, uint8_t speed, uint8_t direction, uint8_t (*callback)(uint32_t start_time))
+ * 	Description: send the robot to a specific x,y,angle position, with a specific goal speed, in a direction while executing callback
+ * 	Paramters:   struct odometry_position* position       - the position the robot will go to
+ * 				 uint8_t speed    				          - the goal speed
+ * 				 uint8_t direction					      - the direction, forward or backward
+ * 				 uint8_t (*callback)(uint32_t start_time) - the callback function
  */
-uint8_t odometry_move_to_position(struct odometry_position* position, uint8_t speed, uint8_t direction, char (*callback)(uint32_t start_time))
+uint8_t odometry_move_to_position(struct odometry_position* position, uint8_t speed, uint8_t direction, uint8_t (*callback)(uint32_t start_time))
 {
 	uint8_t buffer[8];
 
@@ -141,6 +145,11 @@ uint8_t odometry_move_to_position(struct odometry_position* position, uint8_t sp
 	return odometry_wait_until_done(callback);
 }
 
+/*
+ * 	Function:    void odometry_set_position(struct odometry_position* new_position)
+ * 	Description: set the robot to a current position
+ * 	Parameters:  struct odometry_position* new_position - the new struct position
+ */
 void odometry_set_position(struct odometry_position* new_position)
 {
 	uint8_t buffer[8];
@@ -162,9 +171,12 @@ void odometry_set_position(struct odometry_position* new_position)
 }
 
 /*
- * 	uint8_t odometry_rotate_for(uint16_t angle,uint8_t speed, uint8_t (*callback)(uint32_t start_time))
+ * 	Function:    uint8_t odometry_rotate_for(uint16_t angle,uint8_t speed, uint8_t (*callback)(uint32_t start_time))
+ * 	Description: tell the robot to rotate for a certain angle at a specific speed while doing a callback
+ * 	Parameters:  uint16_t angle - the angle it will do
+ * 				 uint8_t speed  - the certain speed
+ * 				 uint8_t (*callback)(uint32_t start_time) -  the callback it will execute
  *
- * 	Send rotate for command to odometry board
  */
 uint8_t odometry_rotate_for(uint16_t angle,uint8_t speed, uint8_t (*callback)(uint32_t start_time))
 {
@@ -184,9 +196,11 @@ uint8_t odometry_rotate_for(uint16_t angle,uint8_t speed, uint8_t (*callback)(ui
 }
 
 /*
- * 	uint8_t odometry_set_angle(uint16_t angle, uint8_t speed, uint8_t (*callback)(uint32_t start_time))
- *
- * 	Set angle for odometry
+ * 	Function:    uint8_t odometry_set_angle(uint16_t angle, uint8_t speed, uint8_t (*callback)(uint32_t start_time))
+ * 	Description: set the robot to  specific angle at a specific speed while doing the callback
+ * 	Parameters:  uint16_t angle - the angle we set it to
+ * 				 uint8_t speed  - the goal speed
+ * 				 uint8_t (*callback)(uint32_t start_time) - the callback function it will execute
  */
 uint8_t odometry_set_angle(uint16_t angle, uint8_t speed, uint8_t (*callback)(uint32_t start_time))
 {
@@ -223,6 +237,10 @@ uint8_t odometry_kurva(uint16_t x_pos, uint16_t y_pos, int8_t angle, uint8_t dir
 	return odometry_wait_until_done(callback);
 }
 
+/*
+ * 	Function: void odometry_match_end()
+ * 	Description: match end, where it turns off the pwm
+ */
 void odometry_match_end()
 {
 	uint8_t buffer[8];
