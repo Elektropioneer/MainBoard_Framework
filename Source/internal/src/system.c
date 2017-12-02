@@ -16,6 +16,7 @@
 #include "act.h"
 #include "ax.h"
 #include "odometry.h"
+#include "score_display.h"
 
 
 /*
@@ -157,7 +158,7 @@ void system_init(void) {
 	// initing
 	timer_init(1000);
 	CAN_Init(1);
-	servo_init(PWM_FREQ);
+	servo_init(50);
 	//ax_init();				// for big robot
 	score_display_init();
 

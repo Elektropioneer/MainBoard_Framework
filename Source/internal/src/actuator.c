@@ -20,7 +20,7 @@ uint8_t module_relay_status = 0;
  *	Description: 	servo init
  */
 void servo_init(unsigned int f_pwm) {
-	DDRE |= ((1 << PINE3) | (1 << PINE4) | (1 << PINE5));
+	DDRE |= (1 << PINE3) | (1 << PINE4) | (1 << PINE5);
 	DDRB |= (1 << PINB7);										//OCR0A 8bit
 
 	TCNT3 = 0;

@@ -14,7 +14,7 @@
        __ || __||
       (____(____)
 
- 	 Electropioneer Framework for AT90CAN128 based board, developed by Silard Gal 2017.
+ 	 Electropioneer Framework for AT90CAN128 based board, developed by Silard Gal 2017/2018.
 
  	 https://github.com/Elektropioneer
  	 http://elektropioneer.co.rs/
