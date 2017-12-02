@@ -27,7 +27,7 @@ unsigned char display_send(unsigned char buffer[]) {
 		error_counter++;					// error counter++
 
 		// if error counter is above 100 -> 10ms*100 -> 1000ms -> 1s waiting
-		if(error_counter > 100)
+		if(error_counter > 500)
 			return DISPLAY_BOARD_ERROR;			// return error
 	}
 
